@@ -1,4 +1,3 @@
-// TODO: Connect Firebase and Firestore
 // TODO: MAP OUT WHAT DATA WILL LOOK LIKE
 // TODO: Connect Volley for API Calls
 
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showMessages = findViewById(R.id.show_messages);
 
         signinButton.setOnClickListener(this);
-
     }
 
     @Override
@@ -65,16 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addData(name, email);
 
         if (view.getId() == R.id.signin_button) {
-
-//            String name = signinName.getText().toString().trim();
-//            String email = signinEmail.getText().toString().trim();
-
             showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email);
 
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             intent.putExtra("login_name", name);
             startActivityForResult(intent, REQUEST_CODE);
-             //startActivity(intent);
         }
 
     }
@@ -98,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        // doesn't acctually show on screen; what else should I add to see it worked?
                         Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
                     }
                 })
