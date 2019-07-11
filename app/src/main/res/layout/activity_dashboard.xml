@@ -62,8 +62,8 @@
 
     <Button
         android:id="@+id/log_out_button"
-        android:layout_width="164dp"
-        android:layout_height="45dp"
+        android:layout_width="116dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -74,10 +74,10 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.904"
+        app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintStart_toEndOf="@+id/header_two"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.986" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <TextView
         android:id="@+id/welcome_message"
@@ -120,14 +120,18 @@
         android:id="@+id/view_all_tests"
         android:layout_width="343dp"
         android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="View All Tests"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.01"
-        tools:layout_editor_absoluteX="227dp" />
+        app:layout_constraintBottom_toTopOf="@+id/create_new_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_message" />
 
     <Button
         android:id="@+id/create_new_test"
@@ -157,15 +161,15 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="60dp"
         android:text="Create New Question"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.237"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_new_test"
-        app:layout_constraintVertical_bias="0.094" />
+        app:layout_constraintVertical_bias="0.062" />
 
     <ImageView
         android:id="@+id/logo"
@@ -179,9 +183,10 @@
         android:layout_marginBottom="352dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toEndOf="@+id/create_new_test"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_message"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@mipmap/ic_launcher" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
