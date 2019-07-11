@@ -1,22 +1,25 @@
-// TODO: Connect to Github
-// TODO: Ability to Change Views
 // TODO: Connect Firebase and Firestore
 // TODO: Connect Volley for API Calls
 
 package com.example.testcore;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button signinButton;
     private EditText signinName, signinEmail;
     private TextView signinHeader, signinOAuth, showMessages;
+
+    private final int REQUEST_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String email = signinEmail.getText().toString().trim();
 
             showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email);
+
+            Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+            intent.putExtra("login_name", name);
+            startActivityForResult(intent, REQUEST_CODE);
+             //startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE) {
+            String successMessage = data.getStringExtra("dashboard_callback");
+            Toast.makeText(MainActivity.this, successMessage, Toast.LENGTH_LONG).show();
+        }
     }
 }
