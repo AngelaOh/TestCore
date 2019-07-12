@@ -10,11 +10,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
     private Button logOutButton, backButton, viewAllButton, createTestButton, createQuestionButton;
-    private TextView welcomeMessage;
+    private TextView welcomeMessage, apiText;
+    private String standardsApiKey = BuildConfig.StandardsApiKey;
+
+    // Volley
+    private String waURL = "http://commonstandardsproject.com/api/v1/standard_sets/B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-06?api-key=" + standardsApiKey;
+    RequestQueue queue;
+    String practiceAPIStandard;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +43,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         createTestButton = findViewById(R.id.create_new_test);
         createQuestionButton = findViewById(R.id.create_new_question);
         welcomeMessage = findViewById(R.id.welcome_message);
+        apiText = findViewById(R.id.test_api_text);
 
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
@@ -39,6 +56,44 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 //        Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
 
         welcomeMessage.setText("Welcome, " + userName);
+
+        // Volley API Call - GET Request
+        queue = MySingleton.getInstance(this.getApplicationContext())
+                .getRequestQueue();
+
+        JsonObjectRequest testStandardsObject = new JsonObjectRequest(Request.Method.GET,
+                "https://jsonplaceholder.typicode.com/posts/1", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            practiceAPIStandard = response.getJSONObject("data")
+                                    .getJSONObject("standards")
+                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
+                                    .getString("description");
+
+                            apiText.setText(practiceAPIStandard);
+                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
+
+
+//                            String testObjectString = "";
+//                            testObjectString = response.getJSONObject("title").toString();
+//                            apiText.setText(testObjectString);
+//
+//                            Log.d("API CALL TEST", "onResponse: " + testObjectString);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("CATCH stack trace", "onResponse: " + e.getMessage());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
+            }
+        });
+        queue.add(testStandardsObject);
     }
 
     @Override

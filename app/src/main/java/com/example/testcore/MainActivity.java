@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DocumentReference addUser = database.collection("Angela").document("Angela Info");
     private DocumentReference addContent = database.collection("Angela").document("Angela Info").collection("preps").document("Content Group");
     private DocumentReference addStandards = database.collection("Angela").document("Angela Info").collection("preps").document("Content Group").collection("Standards").document("Statement Notation: 1.2.3");
+
+    // Volley
+//    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,41 +92,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void addData(String name, String email) {
-//        Map<String, Object> data = new HashMap<>();
-//        data.put(KEY_NAME, name);
-//        data.put(KEY_EMAIL, email);
+        Map<String, Object> data = new HashMap<>();
+        data.put(KEY_NAME, name);
+        data.put(KEY_EMAIL, email);
 
-//        firstDocRef.set(data)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        // doesn't acctually show on screen; what else should I add to see it worked?
-//                        Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("ERROR in Main", "onFailure: " + e.toString());
-//                    }
-//                });
-
-        Map<String, Object> dataUser = new HashMap<>();
-        dataUser.put("Name: ", "Angela");
-        dataUser.put("Email: ", "Angela.oh@email.com");
-        addUser.set(dataUser);
-
-        Map<String, Object> dataContent = new HashMap<>();
-        dataContent.put("Grade: ", "6");
-        dataContent.put("Content: ", "Math");
-
-        Map<String, Object> dataStandards = new HashMap<>();
-        dataStandards.put("Statement Notation", "1.2.3");
-        dataStandards.put("Cluster", "Some general grouping of standards");
-        dataStandards.put("Description", "Some standard description goes here");
+        firstDocRef.set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // doesn't acctually show on screen; what else should I add to see it worked?
+                        Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("ERROR in Main", "onFailure: " + e.toString());
+                    }
+                });
 
 
-        addContent.set(dataContent);
-        addStandards.set(dataStandards);
+        //////////////
+//        Map<String, Object> dataUser = new HashMap<>();
+//        dataUser.put("Name: ", "Angela");
+//        dataUser.put("Email: ", "Angela.oh@email.com");
+//        addUser.set(dataUser);
+//
+//        Map<String, Object> dataContent = new HashMap<>();
+//        dataContent.put("Grade: ", "6");
+//        dataContent.put("Content: ", "Math");
+//
+//        Map<String, Object> dataStandards = new HashMap<>();
+//        dataStandards.put("Statement Notation", "1.2.3");
+//        dataStandards.put("Cluster", "Some general grouping of standards");
+//        dataStandards.put("Description", "Some standard description goes here");
+//
+//
+//        addContent.set(dataContent);
+//        addStandards.set(dataStandards);
     }
 }

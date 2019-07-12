@@ -16,10 +16,14 @@ android {
         debug {
             buildConfigField 'String', "ApiKey", Google_ApiKey
             resValue 'string', "api_key", Google_ApiKey
+            buildConfigField 'String', "StandardsApiKey", Standards_ApiKey
+            resValue 'string', "standards_api_key", Standards_ApiKey
         }
         release {
             buildConfigField 'String', "ApiKey", Google_ApiKey
             resValue 'string', "api_key", Google_ApiKey
+            buildConfigField 'String', "StandardsApiKey", Standards_ApiKey
+            resValue 'string', "standards_api_key", Standards_ApiKey
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -36,4 +40,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.android.volley:volley:1.1.1'
 }
