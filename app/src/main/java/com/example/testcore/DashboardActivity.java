@@ -21,7 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.models.Course;
 import com.example.testcore.models.Standard;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -30,6 +32,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
     private Button logOutButton, backButton, getStandardsButton, viewAllButton, createTestButton, createQuestionButton;
@@ -77,6 +81,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        String userName = getIntent().getStringExtra("login_name");
         String userState = getIntent().getStringExtra("login_state");
         String userGrade = getIntent().getStringExtra("login_grade");
         String userContent = getIntent().getStringExtra("login_content");
@@ -96,7 +101,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         } else if (view.getId() == R.id.create_new_question) {
             Toast.makeText(DashboardActivity.this, "create new question button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.call_standards) {
-            makeStandardsCall(userState, userGrade, userContent);
+            makeStandardsCall(userState, userGrade, userContent, userName);
         }
     }
 
@@ -107,7 +112,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         finish();
     }
 
-    public void makeStandardsCall(final String userState, final String userGrade, final String userContent) {
+    public void makeStandardsCall(final String userState, final String userGrade, final String userContent, final String userName) {
 //        String userName = getIntent().getStringExtra("login_name");
 //        String userEmail = getIntent().getStringExtra("login_email");
 //        String userState = getIntent().getStringExtra("login_state");
@@ -199,8 +204,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                             for (int i = 0; i < standardsWrapper.length(); i ++) {
                                 String key = standardsKeys.getString(i);
-                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 3) {
+                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 1) {
                                     Log.d("ALL DESCRIPTIONS", "onResponse: " + standardsWrapper.getJSONObject(key).getString("description"));
+                                    String description = standardsWrapper.getJSONObject(key).getString("description");
+                                    String label = standardsWrapper.getJSONObject(key).getString("listId");
+
+                                    Standard newStandard = new Standard(label,description);
+                                    DocumentReference addStandards = database.collection(userName).document("Angela Preps").collection("Standard Sets").document("Standard for " + userContent);
+                                    Map<String, Object> one_standard = new HashMap<>();
+                                    one_standard.put(label, description);
+                                    addStandards.set(one_standard, SetOptions.merge());
                                 }
                             }
 
