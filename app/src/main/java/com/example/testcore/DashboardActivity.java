@@ -26,12 +26,11 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button logOutButton, backButton, viewAllButton, createTestButton, createQuestionButton;
-    private TextView welcomeMessage, apiText;
+    private Button logOutButton, backButton, getStandardsButton, viewAllButton, createTestButton, createQuestionButton;
+    private TextView welcomeMessage;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
 
     // Volley
-    private String waURL = "https://commonstandardsproject.com/api/v1/standard_sets/B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-06?api-key=" + standardsApiKey;
     RequestQueue queue;
     String practiceAPIStandard;
 
@@ -42,14 +41,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
+        getStandardsButton = findViewById(R.id.call_standards);
         viewAllButton = findViewById(R.id.view_all_tests);
         createTestButton = findViewById(R.id.create_new_test);
         createQuestionButton = findViewById(R.id.create_new_question);
         welcomeMessage = findViewById(R.id.welcome_message);
-        apiText = findViewById(R.id.test_api_text);
 
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
+        getStandardsButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
         createTestButton.setOnClickListener(this);
         createQuestionButton.setOnClickListener(this);
@@ -60,43 +60,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         String userGrade = getIntent().getStringExtra("login_grade");
         String userContent = getIntent().getStringExtra("login_content");
 
-//        Log.d("INFO FROM MAIN", "onCreate: " + userName + userEmail + userState + userGrade + userContent);
-        // Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
-
         welcomeMessage.setText("Welcome, " + userName);
-
-        // Volley API Call - GET Request
-        queue = MySingleton.getInstance(this.getApplicationContext())
-                .getRequestQueue();
-
-        JsonObjectRequest testStandardsObject = new JsonObjectRequest(Request.Method.GET,
-                waURL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        //                            practiceAPIStandard = response.getJSONObject("data")
-//                                    .getJSONObject("standards")
-//                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
-//                                    .getString("description");
-//
-//                            apiText.setText(practiceAPIStandard);
-//                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
-
-                        Log.d("JSON STANDARDS", "onResponse: " + response);
-
-//                            String testObjectString = "";
-//                            testObjectString = response.getJSONObject("title").toString();
-//                            apiText.setText(testObjectString);
-//
-//                            Log.d("API CALL TEST", "onResponse: " + testObjectString);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
-            }
-        });
-        queue.add(testStandardsObject);
     }
 
     @Override
@@ -115,6 +79,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(DashboardActivity.this, "create new test button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.create_new_question) {
             Toast.makeText(DashboardActivity.this, "create new question button clicked", Toast.LENGTH_LONG).show();
+        } else if (view.getId() == R.id.call_standards) {
+            makeStandardsCall();
         }
     }
 
@@ -123,5 +89,49 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         intent.putExtra("dashboard_callback", "Successfully went back");
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public void makeStandardsCall() {
+
+        String userName = getIntent().getStringExtra("login_name");
+        String userEmail = getIntent().getStringExtra("login_email");
+        String userState = getIntent().getStringExtra("login_state");
+        String userGrade = getIntent().getStringExtra("login_grade");
+        String userContent = getIntent().getStringExtra("login_content");
+
+        // TODO: 1. make call to get jurisdiction id
+        // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
+        // TODO: 3. make call to get standards [use: standard set id]
+        // Volley API Call - GET Request
+        queue = MySingleton.getInstance(this.getApplicationContext())
+                .getRequestQueue();
+
+        String jurisdictionURL = "http://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
+        String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/7432D25024594EA9A2092DF45BBA7F6C?api-key=" + standardsApiKey; // get the standards set id
+        String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/7432D25024594EA9A2092DF45BBA7F6C_D1000385_grade-06?api-key=" + standardsApiKey; // get the standards
+
+
+        JsonObjectRequest testStandardsObject = new JsonObjectRequest(Request.Method.GET,
+                waStandardsURL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //                            practiceAPIStandard = response.getJSONObject("data")
+//                                    .getJSONObject("standards")
+//                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
+//                                    .getString("description");
+//
+//                            apiText.setText(practiceAPIStandard);
+//                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
+
+                        Log.d("JSON STANDARDS", "onResponse: " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
+            }
+        });
+        queue.add(testStandardsObject);
     }
 }
