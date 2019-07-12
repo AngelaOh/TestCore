@@ -106,7 +106,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
-        String jurisdictionURL = "http://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
+        String jurisdictionURL = "https://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
         String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/7432D25024594EA9A2092DF45BBA7F6C?api-key=" + standardsApiKey; // get the standards set id
         String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/7432D25024594EA9A2092DF45BBA7F6C_D1000385_grade-06?api-key=" + standardsApiKey; // get the standards
 

@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Document;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,13 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private DocumentReference firstDocRef = database.collection("first_storage").document("user");
-    private DocumentReference addUser = database.collection("Angela").document("Angela Info");
-    private DocumentReference addContent = database.collection("Angela").document("Angela Info").collection("preps").document("Content Group");
-    private DocumentReference addStandards = database.collection("Angela").document("Angela Info").collection("preps").document("Content Group").collection("Standards").document("Statement Notation: 1.2.3");
-
-    // Volley
-    // RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String grade = signinGrade.getText().toString().trim();
         String content = signinContent.getText().toString().trim();
 
-//        addData(name, email);
+        Log.d("SEE CONTENT", "onClick: " + (content instanceof String));
+
+        addData(name, email, state, grade, content);
 
         if (view.getId() == R.id.signin_button) {
-//            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email + "\n Other Info: " + state + grade + content);
+            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email + "\n Other Info: " + state + grade + content);
 
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             intent.putExtra("login_name", name);
@@ -104,44 +101,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void addData(String name, String email) {
-        Map<String, Object> data = new HashMap<>();
-        data.put(KEY_NAME, name);
-        data.put(KEY_EMAIL, email);
+    private void addData(String name, String email, String state, String grade, String content) {
 
-        firstDocRef.set(data)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // doesn't acctually show on screen; what else should I add to see it worked?
-                        Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("ERROR in Main", "onFailure: " + e.toString());
-                    }
-                });
+        DocumentReference addUser = database.collection(name).document(name + "Info");
+        Map<String, Object> general_data = new HashMap<>();
+        general_data.put("NAME", name);
+        general_data.put("EMAIL", email);
+        general_data.put("STATE", state);
+        addUser.set(general_data);
+
+        DocumentReference addContent = database.collection(name).document("Angela Preps");
+        Map<String, Object> prep_data = new HashMap<>();
+        prep_data.put("CONTENT", content);
+        prep_data.put("GRADE", grade);
+        addContent.set(prep_data);
+
+        DocumentReference addStandards = database.collection(name).document("Angela Preps");
 
 
-        //////////////
-//        Map<String, Object> dataUser = new HashMap<>();
-//        dataUser.put("Name: ", "Angela");
-//        dataUser.put("Email: ", "Angela.oh@email.com");
-//        addUser.set(dataUser);
-//
-//        Map<String, Object> dataContent = new HashMap<>();
-//        dataContent.put("Grade: ", "6");
-//        dataContent.put("Content: ", "Math");
-//
-//        Map<String, Object> dataStandards = new HashMap<>();
-//        dataStandards.put("Statement Notation", "1.2.3");
-//        dataStandards.put("Cluster", "Some general grouping of standards");
-//        dataStandards.put("Description", "Some standard description goes here");
-//
-//
-//        addContent.set(dataContent);
-//        addStandards.set(dataStandards);
+//        Map<String, Object> data = new HashMap<>();
+//        data.put(KEY_NAME, name);
+//        data.put(KEY_EMAIL, email);
+
+//        firstDocRef.set(data)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // doesn't acctually show on screen; what else should I add to see it worked?
+//                        Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("ERROR in Main", "onFailure: " + e.toString());
+//                    }
+//                });
+
     }
 }
