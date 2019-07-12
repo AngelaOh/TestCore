@@ -204,7 +204,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                             for (int i = 0; i < standardsWrapper.length(); i ++) {
                                 String key = standardsKeys.getString(i);
-                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 1) {
+                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 3) {
                                     Log.d("ALL DESCRIPTIONS", "onResponse: " + standardsWrapper.getJSONObject(key).getString("description"));
                                     String description = standardsWrapper.getJSONObject(key).getString("description");
                                     String label = standardsWrapper.getJSONObject(key).getString("listId");
@@ -212,7 +212,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                     Standard newStandard = new Standard(label,description);
                                     DocumentReference addStandards = database.collection(userName).document("Angela Preps").collection("Standard Sets").document("Standard for " + userContent);
                                     Map<String, Object> one_standard = new HashMap<>();
-                                    one_standard.put(label, description);
+                                    one_standard.put(label, newStandard);
                                     addStandards.set(one_standard, SetOptions.merge());
                                 }
                             }
