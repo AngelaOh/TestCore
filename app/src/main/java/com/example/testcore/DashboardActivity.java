@@ -27,10 +27,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private String standardsApiKey = BuildConfig.StandardsApiKey;
 
     // Volley
-    private String waURL = "http://commonstandardsproject.com/api/v1/standard_sets/B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-06?api-key=" + standardsApiKey;
+    private String waURL = "https://commonstandardsproject.com/api/v1/standard_sets/B1339AB05F0347E79200FCA63240F3B2_D2513639_grade-06?api-key=" + standardsApiKey;
     RequestQueue queue;
     String practiceAPIStandard;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         String userName = getIntent().getStringExtra("login_name");
         Log.d("USERNAME FROM MAIN", "onCreate: " + userName);
-//        Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
+        // Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
 
         welcomeMessage.setText("Welcome, " + userName);
 
@@ -62,30 +61,25 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 .getRequestQueue();
 
         JsonObjectRequest testStandardsObject = new JsonObjectRequest(Request.Method.GET,
-                "https://jsonplaceholder.typicode.com/posts/1", null,
+                waURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            practiceAPIStandard = response.getJSONObject("data")
-                                    .getJSONObject("standards")
-                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
-                                    .getString("description");
+                        //                            practiceAPIStandard = response.getJSONObject("data")
+//                                    .getJSONObject("standards")
+//                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
+//                                    .getString("description");
+//
+//                            apiText.setText(practiceAPIStandard);
+//                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
 
-                            apiText.setText(practiceAPIStandard);
-                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
-
+                        Log.d("JSON STANDARDS", "onResponse: " + response);
 
 //                            String testObjectString = "";
 //                            testObjectString = response.getJSONObject("title").toString();
 //                            apiText.setText(testObjectString);
 //
 //                            Log.d("API CALL TEST", "onResponse: " + testObjectString);
-                        }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d("CATCH stack trace", "onResponse: " + e.getMessage());
-                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

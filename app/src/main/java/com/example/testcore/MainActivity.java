@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DocumentReference addStandards = database.collection("Angela").document("Angela Info").collection("preps").document("Content Group").collection("Standards").document("Statement Notation: 1.2.3");
 
     // Volley
-//    RequestQueue queue;
+    // RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addData(name, email);
 
         if (view.getId() == R.id.signin_button) {
-            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email);
+//            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email);
 
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             intent.putExtra("login_name", name);
