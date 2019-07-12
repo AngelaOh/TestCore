@@ -19,8 +19,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -29,10 +31,15 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private Button logOutButton, backButton, getStandardsButton, viewAllButton, createTestButton, createQuestionButton;
     private TextView welcomeMessage;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
+    private String jurisdictionID;
+
 
     // Volley
     RequestQueue queue;
     String practiceAPIStandard;
+
+    // Connection to Firestore
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        String userState = getIntent().getStringExtra("login_state");
+
         if (view.getId() == R.id.log_out_button) {
             Toast.makeText(DashboardActivity.this, "log out button clicked", Toast.LENGTH_LONG).show();
         }
@@ -80,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         } else if (view.getId() == R.id.create_new_question) {
             Toast.makeText(DashboardActivity.this, "create new question button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.call_standards) {
-            makeStandardsCall();
+            makeStandardsCall(userState);
         }
     }
 
@@ -91,13 +100,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         finish();
     }
 
-    public void makeStandardsCall() {
-
-        String userName = getIntent().getStringExtra("login_name");
-        String userEmail = getIntent().getStringExtra("login_email");
-        String userState = getIntent().getStringExtra("login_state");
-        String userGrade = getIntent().getStringExtra("login_grade");
-        String userContent = getIntent().getStringExtra("login_content");
+    public void makeStandardsCall(final String userState) {
+//        String userName = getIntent().getStringExtra("login_name");
+//        String userEmail = getIntent().getStringExtra("login_email");
+//        String userState = getIntent().getStringExtra("login_state");
+//        String userGrade = getIntent().getStringExtra("login_grade");
+//        String userContent = getIntent().getStringExtra("login_content");
 
         // TODO: 1. make call to get jurisdiction id
         // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
@@ -106,25 +114,37 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
-        String jurisdictionURL = "https://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
+        final String jurisdictionURL = "https://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
+
         String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/7432D25024594EA9A2092DF45BBA7F6C?api-key=" + standardsApiKey; // get the standards set id
         String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/7432D25024594EA9A2092DF45BBA7F6C_D1000385_grade-06?api-key=" + standardsApiKey; // get the standards
 
-
-        JsonObjectRequest testStandardsObject = new JsonObjectRequest(Request.Method.GET,
-                waStandardsURL, null,
+        // get jurisdiction id
+        JsonObjectRequest jurisdictionObject = new JsonObjectRequest(Request.Method.GET,
+                jurisdictionURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //                            practiceAPIStandard = response.getJSONObject("data")
-//                                    .getJSONObject("standards")
-//                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
-//                                    .getString("description");
-//
-//                            apiText.setText(practiceAPIStandard);
-//                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);
 
-                        Log.d("JSON STANDARDS", "onResponse: " + response);
+                        try {
+
+                            JSONArray jurisdictionArray = response.getJSONArray("data");
+                            // Log.d("CHECK ARRAY", "onResponse: " + jurisdictionArray);
+
+                            for (int i = 0; i < jurisdictionArray.length(); i ++) {
+                                if ( jurisdictionArray.getJSONObject(i).getString("title").equals(userState.trim()) ) {
+                                    // Log.d("CHECK ANOTHER ARRAY", "onResponse: " + jurisdictionArray.getJSONObject(i).getString("title"));
+                                    jurisdictionID = jurisdictionArray.getJSONObject(i).getString("id");
+                                     Log.d("CHECK JURISDICTION ID", "onResponse: " + jurisdictionID);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -132,6 +152,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
             }
         });
-        queue.add(testStandardsObject);
+        queue.add(jurisdictionObject);
+
+
     }
 }
+
+//                            practiceAPIStandard = response.getJSONObject("data")
+//                                    .getJSONObject("standards")
+//                                    .getJSONObject("2A816130DFE80131C06868A86D17958E")
+//                                    .getString("description");
+//
+//                            apiText.setText(practiceAPIStandard);
+//                            Log.d("JSON STANDARDS: ", "onResponse: " + practiceAPIStandard);

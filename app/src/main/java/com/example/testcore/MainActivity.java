@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String grade = signinGrade.getText().toString().trim();
         String content = signinContent.getText().toString().trim();
 
-        Log.d("SEE CONTENT", "onClick: " + (content instanceof String));
+        Log.d("SEE CONTENT", "onClick: " + (name instanceof String));
 
         addData(name, email, state, grade, content);
 
@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("login_grade", grade);
             intent.putExtra("login_content", content);
 
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivity(intent);
+//            startActivityForResult(intent, REQUEST_CODE);
         }
 
     }
