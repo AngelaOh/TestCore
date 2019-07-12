@@ -1,3 +1,7 @@
+// TODO: Parse through user login info and common core data to save the right info into firestore
+// TODO: OAuth using Firebase
+
+
 package com.example.testcore;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +55,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         createQuestionButton.setOnClickListener(this);
 
         String userName = getIntent().getStringExtra("login_name");
-        Log.d("USERNAME FROM MAIN", "onCreate: " + userName);
+        String userEmail = getIntent().getStringExtra("login_email");
+        String userState = getIntent().getStringExtra("login_state");
+        String userGrade = getIntent().getStringExtra("login_grade");
+        String userContent = getIntent().getStringExtra("login_content");
+
+//        Log.d("INFO FROM MAIN", "onCreate: " + userName + userEmail + userState + userGrade + userContent);
         // Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
 
         welcomeMessage.setText("Welcome, " + userName);

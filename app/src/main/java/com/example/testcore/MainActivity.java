@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button signinButton;
-    private EditText signinName, signinEmail;
+    private EditText signinName, signinEmail, signinState, signinGrade, signinContent;
     private TextView signinHeader, signinOAuth, showMessages;
 
     private final int REQUEST_CODE = 123;
@@ -53,12 +53,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signinButton = findViewById(R.id.signin_button);
         signinName = findViewById(R.id.signin_name);
         signinEmail = findViewById(R.id.signin_email);
+        signinState = findViewById(R.id.signin_state);
+        signinGrade = findViewById(R.id.signin_grade);
+        signinContent = findViewById(R.id.signin_content);
+
         signinHeader = findViewById(R.id.signin_header);
         signinOAuth = findViewById(R.id.OAuth_header);
         showMessages = findViewById(R.id.show_messages);
+
+        signinButton = findViewById(R.id.signin_button);
 
         signinButton.setOnClickListener(this);
     }
@@ -68,14 +73,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String name = signinName.getText().toString().trim();
         String email = signinEmail.getText().toString().trim();
+        String state = signinState.getText().toString().trim();
+        String grade = signinGrade.getText().toString().trim();
+        String content = signinContent.getText().toString().trim();
 
-        addData(name, email);
+//        addData(name, email);
 
         if (view.getId() == R.id.signin_button) {
-//            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email);
+//            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email + "\n Other Info: " + state + grade + content);
 
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             intent.putExtra("login_name", name);
+            intent.putExtra("login_email", email);
+            intent.putExtra("login_state", state);
+            intent.putExtra("login_grade", grade);
+            intent.putExtra("login_content", content);
+
             startActivityForResult(intent, REQUEST_CODE);
         }
 
