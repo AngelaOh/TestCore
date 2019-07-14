@@ -202,7 +202,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                     String label = standardsWrapper.getJSONObject(key).getString("listId");
 
                                     Standard newStandard = new Standard(label,description);
-                                    DocumentReference addStandards = database.collection(userName).document("Angela Preps").collection("Standard Sets").document("Standard for " + userContent);
+                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
                                     Map<String, Object> one_standard = new HashMap<>();
                                     one_standard.put(label, newStandard);
                                     addStandards.set(one_standard, SetOptions.merge());

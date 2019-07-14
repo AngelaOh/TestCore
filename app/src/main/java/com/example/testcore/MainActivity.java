@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         general_data.put("STATE", state);
         addUser.set(general_data);
 
-        DocumentReference addContent = database.collection(name).document("Angela Preps");
+        DocumentReference addContent = database.collection(name).document(name + " Preps");
         Map<String, Object> prep_data = new HashMap<>();
         prep_data.put("CONTENT", content);
         prep_data.put("GRADE", grade);
