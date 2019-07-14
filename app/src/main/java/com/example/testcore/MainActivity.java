@@ -1,6 +1,3 @@
-// TODO: MAP OUT WHAT DATA WILL LOOK LIKE
-// TODO: Connect Volley for API Calls
-
 package com.example.testcore;
 
 import androidx.annotation.NonNull;

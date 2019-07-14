@@ -1,6 +1,4 @@
-// TODO: Parse through user login info and common core data to save the right info into firestore
-// TODO: OAuth using Firebase
-
+// TODO: issue with order to volley calls going. need to control order for non-hardcoded url to work
 
 package com.example.testcore;
 
@@ -91,7 +89,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         }
 
         else if (view.getId() == R.id.back_button) {
-//             Toast.makeText(DashboardActivity.this, "back button clicked", Toast.LENGTH_LONG).show();
             Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
             backButtonMethod();
         } else if (view.getId() == R.id.view_all_tests) {
@@ -113,11 +110,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void makeStandardsCall(final String userState, final String userGrade, final String userContent, final String userName) {
-//        String userName = getIntent().getStringExtra("login_name");
-//        String userEmail = getIntent().getStringExtra("login_email");
-//        String userState = getIntent().getStringExtra("login_state");
-//        String userGrade = getIntent().getStringExtra("login_grade");
-//        String userContent = getIntent().getStringExtra("login_content");
 
         // TODO: 1. make call to get jurisdiction id
         // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
