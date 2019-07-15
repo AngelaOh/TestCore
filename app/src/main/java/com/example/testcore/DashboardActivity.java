@@ -1,4 +1,5 @@
 // TODO: issue with order to volley calls going. need to control order for non-hardcoded url to work
+// ---- maybe try doing API calls at different points (on sign in button click, onCreate, on standardsButton click
 
 package com.example.testcore;
 
@@ -204,6 +205,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                     Standard newStandard = new Standard(label,description);
                                     DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
                                     Map<String, Object> one_standard = new HashMap<>();
+
                                     one_standard.put(label, newStandard);
                                     addStandards.set(one_standard, SetOptions.merge());
                                 }
