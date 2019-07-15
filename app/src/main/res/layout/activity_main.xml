@@ -56,20 +56,20 @@
         android:background="#FA824C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_bias="0.16"
         tools:layout_editor_absoluteX="0dp" />
 
 
     <TextView
-        android:id="@+id/signin_header"
-        android:layout_width="363dp"
-        android:layout_height="77dp"
+        android:id="@+id/create_account_header"
+        android:layout_width="373dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="129dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Sign In Here"
+        android:text="Create New Account"
         android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,58 +78,78 @@
         app:layout_constraintTop_toBottomOf="@+id/header_one" />
 
     <EditText
-        android:id="@+id/signin_name"
+        android:id="@+id/create_account_name"
         android:layout_width="364dp"
         android:layout_height="71dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:hint="Enter Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_header" />
+        app:layout_constraintTop_toBottomOf="@+id/create_account_header" />
 
     <EditText
-        android:id="@+id/signin_email"
+        android:id="@+id/create_account_email"
         android:layout_width="364dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="472dp"
-        android:hint="Enter Email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_name"
-        app:layout_constraintVertical_bias="0.029" />
-
-    <EditText
-        android:id="@+id/signin_state"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:hint="Enter Email"
+        app:layout_constraintBottom_toTopOf="@+id/create_account_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_name"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <EditText
+        android:id="@+id/create_account_password"
+        android:layout_width="364dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="552dp"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account_name"
+        app:layout_constraintVertical_bias="0.494" />
+
+    <EditText
+        android:id="@+id/create_account_state"
+        android:layout_width="364dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="248dp"
         android:hint="Enter State"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_email"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintTop_toBottomOf="@+id/create_account_password"
+        app:layout_constraintVertical_bias="0.057" />
 
     <EditText
-        android:id="@+id/signin_grade"
+        android:id="@+id/create_account_grade"
         android:layout_width="364dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -137,17 +157,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="336dp"
         android:hint="Enter Grade Level"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_state"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toBottomOf="@+id/create_account_state"
+        app:layout_constraintVertical_bias="0.032" />
 
     <EditText
-        android:id="@+id/signin_content"
+        android:id="@+id/create_account_content"
         android:layout_width="364dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -155,38 +175,38 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="260dp"
         android:hint="Enter Content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_grade"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toBottomOf="@+id/create_account_grade"
+        app:layout_constraintVertical_bias="0.043" />
 
 
     <TextView
-        android:id="@+id/OAuth_header"
-        android:layout_width="363dp"
-        android:layout_height="68dp"
+        android:id="@+id/signin_header"
+        android:layout_width="356dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Sign In With"
+        android:layout_marginBottom="972dp"
+        android:text="Returning User"
         android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.898"
+        app:layout_constraintHorizontal_bias="0.886"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_one"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/signin_button"
+        android:id="@+id/create_account_button"
         android:layout_width="364dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -194,35 +214,61 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="236dp"
-        android:text="Sign In"
+        android:layout_marginBottom="152dp"
+        android:text="Create Account"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_content"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintTop_toBottomOf="@+id/create_account_content"
+        app:layout_constraintVertical_bias="0.201" />
 
-    <TextView
-        android:id="@+id/show_messages"
-        android:layout_width="822dp"
-        android:layout_height="68dp"
+
+    <EditText
+        android:id="@+id/signin_email"
+        android:layout_width="358dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="924dp"
+        android:ems="10"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.889"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/signin_password"
+        android:layout_width="372dp"
+        android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Messages Here"
-        android:textAlignment="center"
-        android:textSize="20dp"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintHorizontal_bias="0.614"
+        app:layout_constraintStart_toEndOf="@+id/create_account_email"
+        app:layout_constraintTop_toBottomOf="@+id/signin_email"
+        app:layout_constraintVertical_bias="0.022" />
+
+    <Button
+        android:id="@+id/create_account_button"
+        android:layout_width="372dp"
+        android:layout_height="57dp"
+        android:text="Sign In"
+        tools:layout_editor_absoluteX="476dp"
+        tools:layout_editor_absoluteY="485dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

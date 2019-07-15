@@ -1,6 +1,5 @@
 package com.example.testcore;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,23 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Document;
-
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button signinButton;
-    private EditText signinName, signinEmail, signinState, signinGrade, signinContent;
-    private TextView signinHeader, signinOAuth, showMessages;
+    private Button createAccountnButton;
+    private EditText createAccountName, createAccountEmail, createAccountState, createAccountGrade, createAccountContent;
+    private TextView createAccountHeader, signinHeader;
 
     private final int REQUEST_CODE = 123;
 
@@ -45,36 +37,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signinName = findViewById(R.id.signin_name);
-        signinEmail = findViewById(R.id.signin_email);
-        signinState = findViewById(R.id.signin_state);
-        signinGrade = findViewById(R.id.signin_grade);
-        signinContent = findViewById(R.id.signin_content);
+        createAccountName = findViewById(R.id.create_account_name);
+        createAccountEmail = findViewById(R.id.create_account_email);
+        createAccountState = findViewById(R.id.create_account_state);
+        createAccountGrade = findViewById(R.id.create_account_grade);
+        createAccountContent = findViewById(R.id.create_account_content);
 
+        createAccountHeader = findViewById(R.id.create_account_header);
         signinHeader = findViewById(R.id.signin_header);
-        signinOAuth = findViewById(R.id.OAuth_header);
-        showMessages = findViewById(R.id.show_messages);
 
-        signinButton = findViewById(R.id.signin_button);
+        createAccountnButton = findViewById(R.id.create_account_button);
 
-        signinButton.setOnClickListener(this);
+        createAccountnButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
-        String name = signinName.getText().toString().trim();
-        String email = signinEmail.getText().toString().trim();
-        String state = signinState.getText().toString().trim();
-        String grade = signinGrade.getText().toString().trim();
-        String content = signinContent.getText().toString().trim();
+        String name = createAccountName.getText().toString().trim();
+        String email = createAccountEmail.getText().toString().trim();
+        String state = createAccountState.getText().toString().trim();
+        String grade = createAccountGrade.getText().toString().trim();
+        String content = createAccountContent.getText().toString().trim();
 
         Log.d("SEE CONTENT", "onClick: " + (name instanceof String));
 
         addData(name, email, state, grade, content);
 
-        if (view.getId() == R.id.signin_button) {
-            showMessages.setText("Sign In Name: " + name + "\n Sign In Email: " + email + "\n Other Info: " + state + grade + content);
+        if (view.getId() == R.id.create_account_button) {
 
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             intent.putExtra("login_name", name);
@@ -113,28 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prep_data.put("CONTENT", content);
         prep_data.put("GRADE", grade);
         addContent.set(prep_data);
-
-//        DocumentReference addStandards = database.collection(name).document("Angela Preps");
-
-
-//        Map<String, Object> data = new HashMap<>();
-//        data.put(KEY_NAME, name);
-//        data.put(KEY_EMAIL, email);
-
-//        firstDocRef.set(data)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        // doesn't acctually show on screen; what else should I add to see it worked?
-//                        Toast.makeText(MainActivity.this, "Successfully added to Firestore", Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("ERROR in Main", "onFailure: " + e.toString());
-//                    }
-//                });
 
     }
 }
