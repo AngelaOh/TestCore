@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.models.Standard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
@@ -114,7 +115,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                                     Standard newStandard = new Standard(label,description);
 
                                     // need to figure out how to make specific to userId and/or current User
-                                    DocumentReference pathId = database.collection("Courses").document(userContent + ": " + userGrade).collection("Standard Sets").document("Standard for " + userContent);
+                                    DocumentReference pathId = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection(label).document(label + " Information");
 //                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
                                     Map<String, Object> one_standard = new HashMap<>();
 

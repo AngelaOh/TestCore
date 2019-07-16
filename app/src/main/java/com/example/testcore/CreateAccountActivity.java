@@ -235,11 +235,12 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     private void addData(String name, String userId) {
 
+        String currentUserId = currentUser.getUid();
         String state = createAccountState.getText().toString().trim();
         String grade = createAccountGrade.getText().toString().trim();
         String content = createAccountContent.getText().toString().trim();
 
-        DocumentReference addCourse = database.collection("Courses").document(content + ": " + grade);
+        DocumentReference addCourse = database.collection("Standard Sets").document(content + ": " + grade + ": " + currentUserId);
         Map<String, Object> course_data = new HashMap<>();
         course_data.put("username", name);
         course_data.put("userId", userId);
