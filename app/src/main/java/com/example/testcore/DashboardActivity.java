@@ -3,6 +3,7 @@
 
 package com.example.testcore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,27 +19,27 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.testcore.models.Course;
 import com.example.testcore.models.Standard;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.StandardApi;
+
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button logOutButton, backButton, getStandardsButton, viewAllButton, createTestButton, createQuestionButton;
+    private Button logOutButton, backButton, viewCoursesButton, viewAllButton, createTestButton, createQuestionButton;
     private TextView welcomeMessage;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
-    private String jurisdictionID;
+//    private String jurisdictionID;
     private String standardSetID;
 
 
@@ -49,14 +50,32 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
+    // Firebase Auth
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser != null) {
+                    Toast.makeText(DashboardActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // user is not logged in
+                }
+            }
+        };
+
         logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
-        getStandardsButton = findViewById(R.id.call_standards);
+        viewCoursesButton = findViewById(R.id.view_courses);
         viewAllButton = findViewById(R.id.view_all_tests);
         createTestButton = findViewById(R.id.create_new_test);
         createQuestionButton = findViewById(R.id.create_new_question);
@@ -64,26 +83,21 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
-        getStandardsButton.setOnClickListener(this);
+        viewCoursesButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
         createTestButton.setOnClickListener(this);
         createQuestionButton.setOnClickListener(this);
 
-        String userName = getIntent().getStringExtra("login_name");
-        String userEmail = getIntent().getStringExtra("login_email");
-        String userState = getIntent().getStringExtra("login_state");
-        String userGrade = getIntent().getStringExtra("login_grade");
-        String userContent = getIntent().getStringExtra("login_content");
+//        String userName = getIntent().getStringExtra("login_name");
 
-        welcomeMessage.setText("Welcome, " + userName);
+        welcomeMessage.setText("Welcome, " + StandardApi.getInstance().getUsername());
+
+//        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
+//        Log.d("RECEIVED JID", "makeStandardsCall: " + receivedJurisdictionId);
     }
 
     @Override
     public void onClick(View view) {
-        String userName = getIntent().getStringExtra("login_name");
-        String userState = getIntent().getStringExtra("login_state");
-        String userGrade = getIntent().getStringExtra("login_grade");
-        String userContent = getIntent().getStringExtra("login_content");
 
         if (view.getId() == R.id.log_out_button) {
             Toast.makeText(DashboardActivity.this, "log out button clicked", Toast.LENGTH_LONG).show();
@@ -98,8 +112,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(DashboardActivity.this, "create new test button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.create_new_question) {
             Toast.makeText(DashboardActivity.this, "create new question button clicked", Toast.LENGTH_LONG).show();
-        } else if (view.getId() == R.id.call_standards) {
-            makeStandardsCall(userState, userGrade, userContent, userName);
+        } else if (view.getId() == R.id.view_courses) {
+            viewCoursesCall();
         }
     }
 
@@ -110,48 +124,20 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         finish();
     }
 
-    public void makeStandardsCall(final String userState, final String userGrade, final String userContent, final String userName) {
+    public void viewCoursesCall() {
 
         // TODO: 1. make call to get jurisdiction id
         // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
         // TODO: 3. make call to get standards [use: standard set id]
-        // Volley API Call - GET Request
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
-        final String jurisdictionURL = "https://commonstandardsproject.com/api/v1/jurisdictions/?api-key=" + standardsApiKey; // get the jurisdiction id
-        JsonObjectRequest jurisdictionObject = new JsonObjectRequest(Request.Method.GET,
-                jurisdictionURL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
+        final String userGrade = StandardApi.getInstance().getUserGrade();
+        final String userContent = StandardApi.getInstance().getUserContent();
+        final String userName = StandardApi.getInstance().getUsername();
 
-                        try {
-
-                            JSONArray jurisdictionArray = response.getJSONArray("data");
-                            // Log.d("CHECK ARRAY", "onResponse: " + jurisdictionArray);
-
-                            for (int i = 0; i < jurisdictionArray.length(); i ++) {
-                                if ( jurisdictionArray.getJSONObject(i).getString("title").equals(userState.trim()) ) {
-                                    jurisdictionID = jurisdictionArray.getJSONObject(i).getString("id");
-                                     Log.d("CHECK JURISDICTION ID", "onResponse: " + jurisdictionID);
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
-            }
-        });
-        queue.add(jurisdictionObject);
-
-
-        String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/7432D25024594EA9A2092DF45BBA7F6C?api-key=" + standardsApiKey; // get the standards set id
+        String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/" + receivedJurisdictionId + "?api-key=" + standardsApiKey; // get the standards set id
         JsonObjectRequest standardsIDObject = new JsonObjectRequest(Request.Method.GET, standardsSetURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -164,6 +150,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                             for (int i = 0; i < standardSets.length(); i ++) {
                                 if (standardSets.getJSONObject(i).getString("title").equals("Grade " + userGrade) && standardSets.getJSONObject(i).getString("subject").equals(userContent)) {
                                     standardSetID = standardSets.getJSONObject(i).getString("id");
+                                    StandardApi.getInstance().setStandardSetId(standardSetID);
                                     Log.d("STANDARDSET ID", "onResponse: " + standardSetID);
                                 }
                             }
@@ -181,50 +168,59 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         });
         queue.add(standardsIDObject);
 
-
-        String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/7432D25024594EA9A2092DF45BBA7F6C_D1000385_grade-06?api-key=" + standardsApiKey; // get the standards
-        JsonObjectRequest finalStandardsObject = new JsonObjectRequest(Request.Method.GET, waStandardsURL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject dataWrapper = response.getJSONObject("data");
-                            JSONObject standardsWrapper = dataWrapper.getJSONObject("standards");
-                            JSONArray standardsKeys = standardsWrapper.names();
-
-                            Log.d("STANDARDS WRAPPER", "onResponse: " + standardsWrapper);
-                            Log.d("STANDARDS WRAPPER KEYS", "onResponse: " + standardsKeys);
-
-                            for (int i = 0; i < standardsWrapper.length(); i ++) {
-                                String key = standardsKeys.getString(i);
-                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 3) {
-                                    Log.d("ALL DESCRIPTIONS", "onResponse: " + standardsWrapper.getJSONObject(key).getString("description"));
-                                    String description = standardsWrapper.getJSONObject(key).getString("description");
-                                    String label = standardsWrapper.getJSONObject(key).getString("listId");
-
-                                    Standard newStandard = new Standard(label,description);
-                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
-                                    Map<String, Object> one_standard = new HashMap<>();
-
-                                    one_standard.put(label, newStandard);
-                                    addStandards.set(one_standard, SetOptions.merge());
-                                }
-                            }
+        Intent intent = new Intent(DashboardActivity.this, ViewStandardsActivity.class);
+        startActivity(intent);
 
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        queue.add(finalStandardsObject);
+//        String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/"+ standardSetID + "?api-key=" + standardsApiKey; // get the standards
+//        JsonObjectRequest finalStandardsObject = new JsonObjectRequest(Request.Method.GET, waStandardsURL, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            JSONObject dataWrapper = response.getJSONObject("data");
+//                            JSONObject standardsWrapper = dataWrapper.getJSONObject("standards");
+//                            JSONArray standardsKeys = standardsWrapper.names();
+//
+//                            Log.d("STANDARDS WRAPPER", "onResponse: " + standardsWrapper);
+//                            Log.d("STANDARDS WRAPPER KEYS", "onResponse: " + standardsKeys);
+//
+//                            for (int i = 0; i < standardsWrapper.length(); i ++) {
+//                                String key = standardsKeys.getString(i);
+//                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 3) {
+//                                    Log.d("ALL DESCRIPTIONS", "onResponse: " + standardsWrapper.getJSONObject(key).getString("description"));
+//
+//                                    String description = standardsWrapper.getJSONObject(key).getString("description");
+//                                    String label = standardsWrapper.getJSONObject(key).getString("listId");
+//
+//                                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//                                    assert currentUser != null;
+//                                    String currentUserId = currentUser.getUid();
+//
+//                                    Standard newStandard = new Standard(label,description);
+//                                    DocumentReference pathId = database.collection("Courses").document(userContent + ": " + userGrade).collection("Standard Sets").document("Standard for " + userContent);
+////                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
+//                                    Map<String, Object> one_standard = new HashMap<>();
+//
+//                                    one_standard.put(label, newStandard);
+//                                    pathId.set(one_standard, SetOptions.merge());
+//                                }
+//                            }
+//
+//
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//        queue.add(finalStandardsObject);
     }
 
         // method to check if course is missing any standards not covered in tests
