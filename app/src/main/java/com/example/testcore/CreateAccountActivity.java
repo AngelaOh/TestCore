@@ -148,6 +148,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                               Map<String, String> userObj = new HashMap<>();
                               userObj.put("userId", currentUserId);
                               userObj.put("username", name);
+                              userObj.put("content", createAccountContent.getText().toString().trim());
+                              userObj.put("grade", createAccountGrade.getText().toString().trim());
+                              userObj.put("jurisdictionId", jurisdictionID);
 //                              Log.d("MOVE TO DASH", "onComplete: " + currentUserId);
 
                               // add Course data to Firestore

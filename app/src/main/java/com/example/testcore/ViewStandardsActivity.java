@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,10 +16,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.models.Standard;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -33,6 +37,7 @@ import util.StandardApi;
 
 public class ViewStandardsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button getStandardsButton;
+    private TextView standardsView;
 
     // Volley
     private String standardsApiKey = BuildConfig.StandardsApiKey;
@@ -66,6 +71,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
             }
         };
 
+        standardsView = findViewById(R.id.standards_view);
         getStandardsButton = findViewById(R.id.get_standards_button);
         getStandardsButton.setOnClickListener(this);
     }
@@ -74,6 +80,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         if (view.getId() == R.id.get_standards_button) {
             getStandards();
+            displayStandards();
         }
 
     }
@@ -114,11 +121,13 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
 
                                     Standard newStandard = new Standard(label,description);
 
+                                    DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
                                     DocumentReference pathId = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection(label).document(label + " Information");
                                     Map<String, Object> one_standard = new HashMap<>();
 
                                     one_standard.put(label, newStandard);
                                     pathId.set(one_standard, SetOptions.merge());
+                                    pathIdTwo.set(one_standard, SetOptions.merge());
                                 }
                             }
 
@@ -134,5 +143,38 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
             }
         });
         queue.add(finalStandardsObject);
+    }
+
+    private void displayStandards() {
+        // get standards from firestore
+        final String userContent = StandardApi.getInstance().getUserContent();
+        final String userGrade = StandardApi.getInstance().getUserGrade();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        assert currentUser != null;
+        String currentUserId = currentUser.getUid();
+
+        DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
+        pathIdTwo.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+
+                            Log.d("Document Snapshop", "onSuccess: " + documentSnapshot.getString("1.2.3"));
+//                            String description = documentSnapshot.getString("description");
+//                            String label = documentSnapshot.getString("label");
+
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
     }
 }

@@ -88,12 +88,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         createTestButton.setOnClickListener(this);
         createQuestionButton.setOnClickListener(this);
 
-//        String userName = getIntent().getStringExtra("login_name");
-
         welcomeMessage.setText(StandardApi.getInstance().getUsername());
 
-//        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
-//        Log.d("RECEIVED JID", "makeStandardsCall: " + receivedJurisdictionId);
     }
 
     @Override
