@@ -70,69 +70,6 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-//        queue = MySingleton.getInstance(this.getApplicationContext())
-//                .getRequestQueue();
-//        String standardSetID = StandardApi.getInstance().getStandardSetId();
-//        final String userContent = StandardApi.getInstance().getUserContent();
-//        final String userGrade = StandardApi.getInstance().getUserGrade();
-//
-//
-//
-//        String waStandardsURL = "https://api.commonstandardsproject.com/api/v1/standard_sets/"+ standardSetID + "?api-key=" + standardsApiKey; // get the standards
-//        JsonObjectRequest finalStandardsObject = new JsonObjectRequest(Request.Method.GET, waStandardsURL, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONObject dataWrapper = response.getJSONObject("data");
-//                            JSONObject standardsWrapper = dataWrapper.getJSONObject("standards");
-//                            JSONArray standardsKeys = standardsWrapper.names();
-//
-//                            Log.d("STANDARDS WRAPPER", "onResponse: " + standardsWrapper);
-//                            Log.d("STANDARDS WRAPPER KEYS", "onResponse: " + standardsKeys);
-//
-//                            for (int i = 0; i < standardsWrapper.length(); i ++) {
-//                                String key = standardsKeys.getString(i);
-//                                if (standardsWrapper.getJSONObject(key).getInt("depth") == 3) {
-//                                    Log.d("ALL DESCRIPTIONS", "onResponse: " + standardsWrapper.getJSONObject(key).getString("description"));
-//
-//                                    String description = standardsWrapper.getJSONObject(key).getString("description");
-//                                    String label = standardsWrapper.getJSONObject(key).getString("listId");
-//
-//                                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//                                    assert currentUser != null;
-//                                    String currentUserId = currentUser.getUid();
-//
-//                                    Standard newStandard = new Standard(label,description);
-//
-//                                    // need to figure out how to make specific to userId and/or current User
-//                                    DocumentReference pathId = database.collection("Courses").document(userContent + ": " + userGrade).collection("Standard Sets").document("Standard for " + userContent);
-////                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
-//                                    Map<String, Object> one_standard = new HashMap<>();
-//
-//                                    one_standard.put(label, newStandard);
-//                                    pathId.set(one_standard, SetOptions.merge());
-//                                }
-//                            }
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        queue.add(finalStandardsObject);
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.get_standards_button) {
             getStandards();
