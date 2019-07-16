@@ -180,7 +180,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                                                                   StandardApi standardApi = StandardApi.getInstance(); //global API
                                                                   standardApi.setUserId(currentUserId);
-                                                                  standardApi.setUsername(name);
+                                                                  standardApi.setUsername(userName);
                                                                   standardApi.setUserContent(userContent);
                                                                   standardApi.setUserGrade(userGrade);
                                                                   standardApi.setJurisdictionId(jurisdictionID);

@@ -114,9 +114,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
 
                                     Standard newStandard = new Standard(label,description);
 
-                                    // need to figure out how to make specific to userId and/or current User
                                     DocumentReference pathId = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection(label).document(label + " Information");
-//                                    DocumentReference addStandards = database.collection(userName).document(userName + " Preps").collection("Standard Sets").document("Standard for " + userContent);
                                     Map<String, Object> one_standard = new HashMap<>();
 
                                     one_standard.put(label, newStandard);

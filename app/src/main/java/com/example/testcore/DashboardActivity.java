@@ -66,7 +66,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 currentUser = firebaseAuth.getCurrentUser();
                 if (currentUser != null) {
-                    Toast.makeText(DashboardActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DashboardActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_LONG).show();
                 } else {
                     // user is not logged in
                 }
@@ -90,7 +90,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 //        String userName = getIntent().getStringExtra("login_name");
 
-        welcomeMessage.setText("Welcome, " + StandardApi.getInstance().getUsername());
+        welcomeMessage.setText(StandardApi.getInstance().getUsername());
 
 //        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
 //        Log.d("RECEIVED JID", "makeStandardsCall: " + receivedJurisdictionId);
