@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0E1C36"
     tools:context=".ViewStandardsActivity">
 
     <Button
@@ -11,7 +12,9 @@
         android:layout_width="172dp"
         android:layout_height="93dp"
         android:layout_marginStart="168dp"
+        android:background="@android:color/transparent"
         android:text="Get Standards"
+        android:textColor="#FAFFFD"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,7 +27,9 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="55dp"
+        android:background="@android:color/transparent"
         android:text="Display Standards"
+        android:textColor="#FAFFFD"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +46,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="120dp"
+        android:background="#FAFFFD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.214"
