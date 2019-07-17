@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.squareup.picasso.Picasso;
@@ -36,6 +37,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import util.StandardApi;
 
@@ -167,18 +170,13 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                         if (documentSnapshot != null && documentSnapshot.exists()) {
 
                             Map<String, Object> data = documentSnapshot.getData();
-                            Log.d("Document Snapshot", "all data " + data);
-                            Object one_standard = data.get("4.1.1");
-                            Log.d("Document Snapshot", "one standard " + one_standard);
-
-
-//                            ArrayList<String> all_standards = new ArrayList<>();
-//                            for (Map.Entry<String, Object> standard : data.entrySet() ) {
-//
-//                            }
+                            Set<String> keys = data.keySet();
+                            Object[] key_array = keys.toArray();
+                            for (int i = 0; i < key_array.length; i += 1) {
+                                Object standard = data.get(key_array[i]);
+                                Log.d("KEY'S VALUE ", "onSuccess: " + standard);
+                            }
                              standardsView.setText(data.toString());
-
-
                         }
                     }
                 })
