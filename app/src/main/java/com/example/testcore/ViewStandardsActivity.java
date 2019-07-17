@@ -2,6 +2,8 @@ package com.example.testcore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.testcore.adapter.RecyclerViewAdapter;
 import com.example.testcore.models.Standard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,7 +47,12 @@ import util.StandardApi;
 
 public class ViewStandardsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button getStandardsButton;
-    private TextView standardsView;
+    private Button displayStandardsButton;
+    public ArrayList<Standard> standards_array_check = new ArrayList<>();
+    // private TextView standardsView; // don't need this anymore
+
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
 
     // Volley
     private String standardsApiKey = BuildConfig.StandardsApiKey;
@@ -65,6 +73,12 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_standards);
 
+        //standardsView = findViewById(R.id.standards_view);
+        getStandardsButton = findViewById(R.id.get_standards_button);
+        getStandardsButton.setOnClickListener(this);
+        displayStandardsButton = findViewById(R.id.display_standards_button);
+        displayStandardsButton.setOnClickListener(this);
+
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -78,9 +92,10 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
             }
         };
 
-        standardsView = findViewById(R.id.standards_view);
-        getStandardsButton = findViewById(R.id.get_standards_button);
-        getStandardsButton.setOnClickListener(this);
+        recyclerView = findViewById(R.id.standard_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
@@ -88,6 +103,13 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         if (view.getId() == R.id.get_standards_button) {
             getStandards();
             displayStandards();
+
+//            Standard random = new Standard("label", "description");
+//            standards_array_check.add(random);
+//            Log.d("sample check", "onClick: " + standards_array_check);
+
+        } else if (view.getId() == R.id.display_standards_button) {
+            implementRecyclerView();
         }
 
     }
@@ -158,9 +180,11 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         final String userContent = StandardApi.getInstance().getUserContent();
         final String userGrade = StandardApi.getInstance().getUserGrade();
 
+
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         assert currentUser != null;
         String currentUserId = currentUser.getUid();
+        Log.d("CURRENT USER CHECK", "displayStandards: " + currentUserId);
 
         DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
         pathIdTwo.get()
@@ -172,21 +196,42 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                             Map<String, Object> data = documentSnapshot.getData();
                             Set<String> keys = data.keySet();
                             Object[] key_array = keys.toArray();
+//                            Standard[] standards_array = new Standard[keys.size()];
                             for (int i = 0; i < key_array.length; i += 1) {
                                 Object standard = data.get(key_array[i]);
                                 Log.d("KEY'S VALUE ", "onSuccess: " + standard);
+
+                                Standard newStandard = new Standard(key_array[i].toString(), standard.toString());
+                                newStandard.setLabel(key_array[i].toString());
+                                newStandard.setDescription(standard.toString());
+                                Log.d("check object", "onSuccess: " + newStandard.getLabel());
+
+                                standards_array_check.add(newStandard);
+
                             }
-                             standardsView.setText(data.toString());
+//                             standardsView.setText(data.toString());
+                            Log.d("get standards", "onSuccess: standards_array " + standards_array_check);
+                            Toast.makeText(ViewStandardsActivity.this, "successfully retrieved standards", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.d("Standards Retrieval", "onSuccess: Document snapshot is empty!");
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Log.d("Standards Retrieval", "onSuccess: Failed to retrieve standards!");
                     }
                 });
 
 
+    }
+
+    public void implementRecyclerView() {
+        // set up adapter
+        recyclerViewAdapter = new RecyclerViewAdapter(ViewStandardsActivity.this, standards_array_check);
+        Log.d("STANDARDS ARRAY", "implementRecyclerView: " + standards_array_check);
+
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 }

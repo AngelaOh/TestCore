@@ -73,6 +73,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         };
 
+
         logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_courses);
@@ -121,6 +122,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 .getRequestQueue();
 
         String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
+//        Log.d("JURISDICTION ID RETURNER", "viewCoursesCall: " + receivedJurisdictionId);
+
         final String userGrade = StandardApi.getInstance().getUserGrade();
         final String userContent = StandardApi.getInstance().getUserContent();
         final String userName = StandardApi.getInstance().getUsername();

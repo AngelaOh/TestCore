@@ -8,33 +8,43 @@
 
     <Button
         android:id="@+id/get_standards_button"
-        android:layout_width="441dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="172dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="168dp"
         android:text="Get Standards"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/standards_view"
-        android:layout_width="707dp"
-        android:layout_height="829dp"
+    <Button
+        android:id="@+id/display_standards_button"
+        android:layout_width="199dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="55dp"
+        android:text="Display Standards"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toEndOf="@+id/get_standards_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/standard_recycler_view"
+        android:layout_width="794dp"
+        android:layout_height="932dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Your Standards will appear here"
+        android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_standards_button"
-        app:layout_constraintVertical_bias="0.353" />
+        app:layout_constraintTop_toBottomOf="@+id/get_standards_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
