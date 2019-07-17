@@ -35,9 +35,6 @@ import javax.annotation.Nullable;
 import util.StandardApi;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-//    private Button createAccountnButton;
-//    private EditText createAccountName, createAccountEmail, createAccountState, createAccountGrade, createAccountContent;
-//    private TextView createAccountHeader;
     private TextView signinHeader;
     private Button createAccountButton, signinButton;
     private EditText emailAddress, password;

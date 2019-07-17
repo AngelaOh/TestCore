@@ -36,7 +36,7 @@ import java.util.Map;
 import util.StandardApi;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button logOutButton, backButton, viewCoursesButton, viewAllButton, createTestButton, createQuestionButton;
+    private Button logOutButton, backButton, viewCoursesButton, viewAllButton;
     private TextView welcomeMessage;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
 //    private String jurisdictionID;
@@ -77,16 +77,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_courses);
         viewAllButton = findViewById(R.id.view_all_tests);
-        createTestButton = findViewById(R.id.create_new_test);
-        createQuestionButton = findViewById(R.id.create_new_question);
         welcomeMessage = findViewById(R.id.welcome_message);
 
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         viewCoursesButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
-        createTestButton.setOnClickListener(this);
-        createQuestionButton.setOnClickListener(this);
 
         welcomeMessage.setText(StandardApi.getInstance().getUsername());
 
@@ -104,10 +100,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             backButtonMethod();
         } else if (view.getId() == R.id.view_all_tests) {
             Toast.makeText(DashboardActivity.this, "view all button clicked", Toast.LENGTH_LONG).show();
-        } else if (view.getId() == R.id.create_new_test) {
-            Toast.makeText(DashboardActivity.this, "create new test button clicked", Toast.LENGTH_LONG).show();
-        } else if (view.getId() == R.id.create_new_question) {
-            Toast.makeText(DashboardActivity.this, "create new question button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.view_courses) {
             viewCoursesCall();
         }

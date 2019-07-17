@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -165,13 +167,16 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                         if (documentSnapshot != null && documentSnapshot.exists()) {
 
                             Map<String, Object> data = documentSnapshot.getData();
-
-                            Log.d("Document Snapshot", "all data " + data.getClass());
-
+                            Log.d("Document Snapshot", "all data " + data);
                             Object one_standard = data.get("4.1.1");
                             Log.d("Document Snapshot", "one standard " + one_standard);
 
-                            standardsView.setText(one_standard.toString().trim());
+
+//                            ArrayList<String> all_standards = new ArrayList<>();
+//                            for (Map.Entry<String, Object> standard : data.entrySet() ) {
+//
+//                            }
+                             standardsView.setText(data.toString());
 
 
                         }

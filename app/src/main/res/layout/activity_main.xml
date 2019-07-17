@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0E1C36"
     tools:context=".MainActivity">
 
     <TextView
@@ -17,6 +18,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="TestCore | "
+        android:textColor="#FAFFFD"
         android:textAlignment="center"
         android:textSize="50dp"
         android:textStyle="bold"
@@ -38,6 +40,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Test making made easy"
+        android:textColor="#FAFFFD"
         android:textAlignment="center"
         android:textSize="40dp"
         android:textStyle="bold"
@@ -49,7 +52,7 @@
         app:layout_constraintVertical_bias="0.086" />
 
     <View
-        android:id="@+id/horizontal_line"
+        android:id="@+id/horizontal_line_one"
         android:layout_width="wrap_content"
         android:layout_height="10dp"
         android:layout_marginBottom="8dp"
@@ -65,13 +68,12 @@
         android:layout_width="510dp"
         android:layout_height="133dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="812dp"
         android:text="Make test-making easy with TestCore! Organize your test questions by standards with just a few clicks!"
         android:textAlignment="center"
+        android:textColor="#FAFFFD"
         android:textSize="25sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,54 +83,50 @@
 
     <ImageView
         android:id="@+id/banner_image"
-        android:layout_width="524dp"
-        android:layout_height="262dp"
+        android:layout_width="291dp"
+        android:layout_height="287dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/gradefaster"
+        android:src="@drawable/owl_teaching"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signin_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintVertical_bias="0.135" />
 
     <TextView
         android:id="@+id/signin_header"
         android:layout_width="356dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="81dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="492dp"
         android:text="Or Sign In"
         android:textAlignment="center"
+        android:textColor="#FAFFFD"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner_image"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <EditText
         android:id="@+id/signin_email"
-        android:layout_width="358dp"
-        android:layout_height="53dp"
+        android:layout_width="362dp"
+        android:layout_height="54dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
+        android:textColor="#FAFFFD"
+        android:textColorHint="#FAFFFD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signin_header" />
 
@@ -142,6 +140,8 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Enter Password"
+        android:textColor="#FAFFFD"
+        android:textColorHint="#FAFFFD"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,10 +158,10 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="212dp"
-        android:background="#0E1C36"
+        android:background="#3C91E6"
+        android:text="Sign In"
         android:textColor="#FAFFFD"
         android:textSize="20sp"
-        android:text="Sign In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.886"
@@ -174,19 +174,16 @@
         android:layout_width="207dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#0E1C36"
+        android:layout_marginBottom="640dp"
+        android:background="#3C91E6"
         android:text="Create Account"
         android:textColor="#FAFFFD"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner_image"
-        app:layout_constraintVertical_bias="0.359" />
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
