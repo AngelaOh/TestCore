@@ -25,10 +25,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -119,13 +121,14 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                                     assert currentUser != null;
                                     String currentUserId = currentUser.getUid();
 
-                                    Standard newStandard = new Standard(label,description);
+//                                    Standard newStandard = new Standard(label,description);
 
                                     DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
                                     DocumentReference pathId = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection(label).document(label + " Information");
-                                    Map<String, Object> one_standard = new HashMap<>();
 
-                                    one_standard.put(label, newStandard);
+                                    Map<String, Object> one_standard = new HashMap<>();
+                                    one_standard.put(label, description);
+
                                     pathId.set(one_standard, SetOptions.merge());
                                     pathIdTwo.set(one_standard, SetOptions.merge());
                                 }
@@ -159,11 +162,17 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
 
-                            Log.d("Document Snapshop", "onSuccess: " + documentSnapshot.getString("1.2.3"));
-//                            String description = documentSnapshot.getString("description");
-//                            String label = documentSnapshot.getString("label");
+                            Map<String, Object> data = documentSnapshot.getData();
+
+                            Log.d("Document Snapshot", "all data " + data.getClass());
+
+                            Object one_standard = data.get("4.1.1");
+                            Log.d("Document Snapshot", "one standard " + one_standard);
+
+                            standardsView.setText(one_standard.toString().trim());
+
 
                         }
                     }
