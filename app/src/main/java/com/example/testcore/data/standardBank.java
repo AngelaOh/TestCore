@@ -8,8 +8,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.BuildConfig;
-import com.example.testcore.ViewStandardsActivity;
-import com.example.testcore.controller.MySingleton;
 import com.example.testcore.models.Standard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

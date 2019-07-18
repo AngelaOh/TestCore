@@ -19,7 +19,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.testcore.controller.MySingleton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +48,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private String documentId;
 
 
+    // TODO: 1. make call to get jurisdiction id
+    // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
+    // TODO: 3. make call to get standards [use: standard set id]
     // Volley
     RequestQueue queue;
     String practiceAPIStandard;
@@ -151,13 +153,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     public void viewCoursesCall() {
 
-        // TODO: 1. make call to get jurisdiction id
-        // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
-        // TODO: 3. make call to get standards [use: standard set id]
-        queue = MySingleton.getInstance(this.getApplicationContext())
-                .getRequestQueue();
-
-//        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
+        //        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
 ////        Log.d("JURISDICTION ID RETURNER", "viewCoursesCall: " + receivedJurisdictionId);
 //
 //        final String userGrade = StandardApi.getInstance().getUserGrade();
@@ -200,7 +196,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        Log.d("check queue", "viewCoursesCall: " + standardsIDObject);
+        Log.d("check queue", "viewCoursesCall: " + queue);
         queue.add(standardsIDObject);
 
 //        Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);

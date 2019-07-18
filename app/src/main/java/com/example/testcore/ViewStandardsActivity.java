@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.adapter.RecyclerViewAdapter;
-import com.example.testcore.controller.MySingleton;
 import com.example.testcore.data.standardBank;
 import com.example.testcore.models.Standard;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,8 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import util.StandardApi;
 
 public class ViewStandardsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button getStandardsButton;

@@ -1,4 +1,4 @@
-package com.example.testcore.controller;
+package com.example.testcore;
 
 import android.content.Context;
 import android.graphics.Bitmap;

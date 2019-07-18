@@ -19,7 +19,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.testcore.controller.MySingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,8 +38,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import util.StandardApi;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
     private Button createAccountButton;
