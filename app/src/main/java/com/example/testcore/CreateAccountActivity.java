@@ -165,23 +165,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                                                                   String name = task.getResult()
                                                                           .getString("name");
                                                                   String userName = createAccountName.getText().toString().trim();
-//                                                                  String userContent = createAccountContent.getText().toString().trim();
-//                                                                  String userGrade = createAccountGrade.getText().toString().trim();
-
-//                                                                  StandardApi standardApi = StandardApi.getInstance(); //global API
-//                                                                  standardApi.setUserId(currentUserId);
-//                                                                  standardApi.setUsername(userName);
-//                                                                  standardApi.setUserContent(userContent);
-//                                                                  standardApi.setUserGrade(userGrade);
-//                                                                  standardApi.setJurisdictionId(jurisdictionID);
-
-//                                                                  Log.d("STANDARDAPI JID", "onComplete: " + standardApi.getJurisdictionId());
 
                                                                   Intent intent = new Intent(CreateAccountActivity.this,
                                                                           DashboardActivity.class);
-//                                                                  intent.putExtra("username", userName);
-//                                                                  intent.putExtra("userId", currentUserId);
-//                                                                  intent.putExtra("jurisdiction_id", jurisdictionID);
                                                                   startActivity(intent);
                                                                   Log.d("MOVE TO DASH", "onComplete: " + currentUserId);
                                                                   Log.d("SENT JURISDICTIONID", "onComplete: " + jurisdictionID);

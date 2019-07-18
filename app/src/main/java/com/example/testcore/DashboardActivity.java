@@ -122,7 +122,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         viewCoursesButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
 
-        welcomeMessage.setText(StandardApi.getInstance().getUsername());
+//        welcomeMessage.setText(StandardApi.getInstance().getUsername());
 
     }
 
@@ -152,13 +152,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void viewCoursesCall() {
-
-        //        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
-////        Log.d("JURISDICTION ID RETURNER", "viewCoursesCall: " + receivedJurisdictionId);
-//
-//        final String userGrade = StandardApi.getInstance().getUserGrade();
-//        final String userContent = StandardApi.getInstance().getUserContent();
-//        final String userName = StandardApi.getInstance().getUsername();
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
@@ -183,6 +176,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                                     database.collection("Users").document(documentId).set(standardObj, SetOptions.merge());
                                     Log.d("STANDARDSET ID", "onResponse: " + standardSetID);
+
+                                    Log.d("Sending Extra Standard", "viewCoursesCall: " + standardSetID);
+                                    Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
+                                    intent.putExtra("standard_set_id", standardSetID);
+                                    startActivity(intent);
                                 }
                             }
 
@@ -201,9 +199,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         Log.d("check queue", "viewCoursesCall: " + queue);
         queue.add(standardsIDObject);
 
+//        Log.d("Sending Extra Standard", "viewCoursesCall: " + standardSetID);
 //        Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
+//        intent.putExtra("standard_set_id", standardSetID);
 //        startActivity(intent);
-        startActivity(new Intent(DashboardActivity.this, ViewStandardsActivity.class));
+//        startActivity(new Intent(DashboardActivity.this, ViewStandardsActivity.class));
 
     }
 
