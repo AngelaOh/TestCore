@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.testcore.controller.MySingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,7 +35,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,9 +97,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         String name = createAccountName.getText().toString().trim();
         String email = createAccountEmail.getText().toString().trim();
         String password = createAccountPassword.getText().toString().trim();
-        String state = createAccountState.getText().toString().trim();
-        String grade = createAccountGrade.getText().toString().trim();
-        String content = createAccountContent.getText().toString().trim();
 
         if (view.getId() == R.id.create_account_button) {
 
@@ -148,21 +144,15 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                               Map<String, String> userObj = new HashMap<>();
                               userObj.put("userId", currentUserId);
                               userObj.put("username", name);
+                              userObj.put("state", createAccountState.getText().toString().trim());
                               userObj.put("content", createAccountContent.getText().toString().trim());
                               userObj.put("grade", createAccountGrade.getText().toString().trim());
                               userObj.put("jurisdictionId", jurisdictionID);
-//                              Log.d("MOVE TO DASH", "onComplete: " + currentUserId);
 
                               // add Course data to Firestore
                               addData(name, currentUserId);
 
-                              // api call to get jurisdiction ID, pass to Dashboard Activity through intent
-//                              getJurisdictionId();
-//                              String something;
-//                              something = getJurisdictionId();
-//                              Log.d("SEND JURISDICTION ID", "onComplete: " + something);
-
-                              // save to Firestore
+                              // add User data to Firestore
                               collectionReference.add(userObj)
                                       .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                           @Override
@@ -178,23 +168,23 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                                                                   String name = task.getResult()
                                                                           .getString("name");
                                                                   String userName = createAccountName.getText().toString().trim();
-                                                                  String userContent = createAccountContent.getText().toString().trim();
-                                                                  String userGrade = createAccountGrade.getText().toString().trim();
+//                                                                  String userContent = createAccountContent.getText().toString().trim();
+//                                                                  String userGrade = createAccountGrade.getText().toString().trim();
 
-                                                                  StandardApi standardApi = StandardApi.getInstance(); //global API
-                                                                  standardApi.setUserId(currentUserId);
-                                                                  standardApi.setUsername(userName);
-                                                                  standardApi.setUserContent(userContent);
-                                                                  standardApi.setUserGrade(userGrade);
-                                                                  standardApi.setJurisdictionId(jurisdictionID);
+//                                                                  StandardApi standardApi = StandardApi.getInstance(); //global API
+//                                                                  standardApi.setUserId(currentUserId);
+//                                                                  standardApi.setUsername(userName);
+//                                                                  standardApi.setUserContent(userContent);
+//                                                                  standardApi.setUserGrade(userGrade);
+//                                                                  standardApi.setJurisdictionId(jurisdictionID);
 
-                                                                  Log.d("STANDARDAPI JID", "onComplete: " + standardApi.getJurisdictionId());
+//                                                                  Log.d("STANDARDAPI JID", "onComplete: " + standardApi.getJurisdictionId());
 
                                                                   Intent intent = new Intent(CreateAccountActivity.this,
                                                                           DashboardActivity.class);
-                                                                  intent.putExtra("username", userName);
-                                                                  intent.putExtra("userId", currentUserId);
-                                                                  intent.putExtra("jurisdiction_id", jurisdictionID);
+//                                                                  intent.putExtra("username", userName);
+//                                                                  intent.putExtra("userId", currentUserId);
+//                                                                  intent.putExtra("jurisdiction_id", jurisdictionID);
                                                                   startActivity(intent);
                                                                   Log.d("MOVE TO DASH", "onComplete: " + currentUserId);
                                                                   Log.d("SENT JURISDICTIONID", "onComplete: " + jurisdictionID);
@@ -288,6 +278,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 Log.d("API Error", "onErrorResponse: HERE IS API ERROR" + error.getMessage());
             }
         });
+
+        Log.d("Check jurisdiction call", "getJurisdictionId: " + jurisdictionObject);
         queue.add(jurisdictionObject);
 
         return jurisdictionID;

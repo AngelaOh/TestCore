@@ -100,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                 // progressbar set invisible
 
                                                 for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                                                    StandardApi standardApi = StandardApi.getInstance();
-                                                    standardApi.setUsername(snapshot.getString("username"));
-                                                    standardApi.setUserId(currentUserId);
-                                                    standardApi.setUserGrade(snapshot.getString("grade"));
-                                                    standardApi.setUserContent(snapshot.getString("content"));
-                                                    standardApi.setJurisdictionId(snapshot.getString("jurisdictionId"));
+//                                                    StandardApi standardApi = StandardApi.getInstance();
+//                                                    standardApi.setUsername(snapshot.getString("username"));
+//                                                    standardApi.setUserId(currentUserId);
+//                                                    standardApi.setUserGrade(snapshot.getString("grade"));
+//                                                    standardApi.setUserContent(snapshot.getString("content"));
+//                                                    standardApi.setJurisdictionId(snapshot.getString("jurisdictionId"));
 
                                                     // Go to Dashboard Activity
                                                     startActivity(new Intent(MainActivity.this, DashboardActivity.class));
@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
         } else {
             // progress bar set invisible
-
             Toast.makeText(MainActivity.this, "Please enter email and password", Toast.LENGTH_LONG).show();
         }
     }

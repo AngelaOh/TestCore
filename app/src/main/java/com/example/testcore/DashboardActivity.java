@@ -19,11 +19,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.testcore.models.Standard;
+import com.example.testcore.controller.MySingleton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import org.json.JSONArray;
@@ -39,8 +41,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private Button logOutButton, backButton, viewCoursesButton, viewAllButton;
     private TextView welcomeMessage;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
-//    private String jurisdictionID;
+    private String jurisdictionID;
     private String standardSetID;
+    private String userGrade;
+    private String userContent;
+    private String userState;
+    private String documentId;
 
 
     // Volley
@@ -67,11 +73,40 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 currentUser = firebaseAuth.getCurrentUser();
                 if (currentUser != null) {
                     Toast.makeText(DashboardActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_LONG).show();
+                    Log.d("Logged in", "onAuthStateChanged: " + currentUser.getUid());
+
                 } else {
-                    // user is not logged in
+                    Log.d("Not Logged in", "onAuthStateChanged: " + currentUser);
                 }
             }
         };
+
+        currentUser = firebaseAuth.getCurrentUser();
+
+        // Set jurisdictionId from db
+        // get the path to user
+        // .get()
+        // store info in juridiction ID
+        database.collection("Users").whereEqualTo("userId", currentUser.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                    jurisdictionID = queryDocumentSnapshots.getDocuments().get(0).getString("jurisdictionId");
+                    userState = queryDocumentSnapshots.getDocuments().get(0).getString("state");
+                    userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+                    userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+                    documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
+                    Log.d("DOCUMENT SNAP", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0).getId());
+
+                }
+            }
+        }). addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Jurisdiction fail", "onFailure: " + e.getMessage());
+            }
+        });
 
 
         logOutButton = findViewById(R.id.log_out_button);
@@ -103,6 +138,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(DashboardActivity.this, "view all button clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.view_courses) {
             viewCoursesCall();
+
         }
     }
 
@@ -121,14 +157,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
-        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
-//        Log.d("JURISDICTION ID RETURNER", "viewCoursesCall: " + receivedJurisdictionId);
+//        String receivedJurisdictionId = StandardApi.getInstance().getJurisdictionId();
+////        Log.d("JURISDICTION ID RETURNER", "viewCoursesCall: " + receivedJurisdictionId);
+//
+//        final String userGrade = StandardApi.getInstance().getUserGrade();
+//        final String userContent = StandardApi.getInstance().getUserContent();
+//        final String userName = StandardApi.getInstance().getUsername();
 
-        final String userGrade = StandardApi.getInstance().getUserGrade();
-        final String userContent = StandardApi.getInstance().getUserContent();
-        final String userName = StandardApi.getInstance().getUsername();
+        String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/" + jurisdictionID + "?api-key=" + standardsApiKey; // get the standards set id
 
-        String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/" + receivedJurisdictionId + "?api-key=" + standardsApiKey; // get the standards set id
+        Log.d("URL CHECK", "viewCoursesCall: " + standardsSetURL);
         JsonObjectRequest standardsIDObject = new JsonObjectRequest(Request.Method.GET, standardsSetURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -141,7 +179,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                             for (int i = 0; i < standardSets.length(); i ++) {
                                 if (standardSets.getJSONObject(i).getString("title").equals("Grade " + userGrade) && standardSets.getJSONObject(i).getString("subject").equals(userContent)) {
                                     standardSetID = standardSets.getJSONObject(i).getString("id");
-                                    StandardApi.getInstance().setStandardSetId(standardSetID);
+
+                                    Map<String, String> standardObj = new HashMap<>();
+                                    standardObj.put("standardSetId", standardSetID);
+
+                                    database.collection("Users").document(documentId).set(standardObj, SetOptions.merge());
                                     Log.d("STANDARDSET ID", "onResponse: " + standardSetID);
                                 }
                             }
@@ -154,13 +196,16 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("Volley Error", "onErrorResponse: " + error.getMessage());
             }
         });
+
+        Log.d("check queue", "viewCoursesCall: " + standardsIDObject);
         queue.add(standardsIDObject);
 
-        Intent intent = new Intent(DashboardActivity.this, ViewStandardsActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
+//        startActivity(intent);
+        startActivity(new Intent(DashboardActivity.this, ViewStandardsActivity.class));
 
     }
 
