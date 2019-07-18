@@ -159,6 +159,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 //        final String userGrade = StandardApi.getInstance().getUserGrade();
 //        final String userContent = StandardApi.getInstance().getUserContent();
 //        final String userName = StandardApi.getInstance().getUsername();
+        queue = MySingleton.getInstance(this.getApplicationContext())
+                .getRequestQueue();
 
         String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/" + jurisdictionID + "?api-key=" + standardsApiKey; // get the standards set id
 

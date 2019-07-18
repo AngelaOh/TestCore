@@ -117,7 +117,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        new standardBank().getStandards();
+//        new standardBank().getStandards();
 
     }
 
