@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -48,23 +49,14 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 public class ViewStandardsActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button getStandardsButton;
     private Button displayStandardsButton;
-    public ArrayList<Standard> standards_array_check = new ArrayList<>();
+    private TextView contentInfo;
     private String userContent;
     private String userGrade;
     private String standardSetID;
-    private String documentId;
-
-    // private TextView standardsView; // don't need this anymore
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-
-    // Volley
-    private String standardsApiKey = BuildConfig.StandardsApiKey;
-    RequestQueue queue;
-    String practiceAPIStandard;
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -74,12 +66,13 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_standards);
 
+
+        // Instantiate Current User
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -92,16 +85,22 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                 }
             }
         };
-
         currentUser = firebaseAuth.getCurrentUser();
+        contentInfo = findViewById(R.id.content_info);
 
+
+        // Get userGrade and userContent Info for API/Firestore Retrieval
         database.collection("Users").whereEqualTo("userId", currentUser.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                     userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+                    Log.d("user grade gonna pass", "onSuccess: " + userGrade);
                     userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+
+                    String courseInfoString = "Grade: " + userGrade + "\n" + "Content: " + userContent;
+                    contentInfo.setText(courseInfoString);
                 }
             }
         }). addOnFailureListener(new OnFailureListener() {
@@ -115,12 +114,10 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         standardSetID = bundle.get("standard_set_id").toString();
         Log.d("FROM INTENT", "onCreate: " + standardSetID);
 
-        //standardsView = findViewById(R.id.standards_view);
-        getStandardsButton = findViewById(R.id.get_standards_button);
-        getStandardsButton.setOnClickListener(this);
+
+        // Instantiate view widgets
         displayStandardsButton = findViewById(R.id.display_standards_button);
         displayStandardsButton.setOnClickListener(this);
-
 
         recyclerView = findViewById(R.id.standard_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -132,9 +129,6 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                 Log.d("List in Activity", "StandardArrayList: " + (standardArrayList));
 
                 for (Standard oneStandard : standardArrayList) {
-                    firebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                    assert currentUser != null;
                     String currentUserId = currentUser.getUid();
 
                     DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
@@ -146,8 +140,6 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
                     pathId.set(one_standard, SetOptions.merge());
                     pathIdTwo.set(one_standard, SetOptions.merge());
                 }
-                // loop through array of standardlist
-                // save each standard into firestore as strings
             }
         });
 
@@ -155,15 +147,9 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.get_standards_button) {
-//            getStandards();
-//            displayStandards();
-
-        } else if (view.getId() == R.id.display_standards_button) {
+        if (view.getId() == R.id.display_standards_button) {
                 displayStandards();
-//            implementRecyclerView();
         }
-
     }
 
     private void displayStandards() {
@@ -171,9 +157,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         assert currentUser != null;
         String currentUserId = currentUser.getUid();
-        Log.d("CURRENT USER CHECK", "displayStandards: " + currentUserId);
 
-//        Log.d("Check user info display", "displayStandards: " + userContent + userGrade + currentUserId);
         new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Standard> firestoreArrayList) {
@@ -185,10 +169,8 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     }
 
     public void implementRecyclerView(ArrayList<Standard> standards_array_check) {
-        // set up adapter
         recyclerViewAdapter = new RecyclerViewAdapter(ViewStandardsActivity.this, standards_array_check);
         Log.d("STANDARDS ARRAY", "implementRecyclerView: " + standards_array_check);
-
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 }

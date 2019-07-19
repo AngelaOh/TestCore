@@ -39,9 +39,13 @@ import util.StandardApi;
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
     private Button logOutButton, backButton, viewCoursesButton, viewAllButton;
     private TextView welcomeMessage;
+    private TextView stateCard;
+    private TextView gradeCard;
+    private TextView contentCard;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
     private String jurisdictionID;
     private String standardSetID;
+    private String userName;
     private String userGrade;
     private String userContent;
     private String userState;
@@ -84,6 +88,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         };
 
         currentUser = firebaseAuth.getCurrentUser();
+        Log.d("check email", "onCreate: " + currentUser.getEmail());
 
         // Set jurisdictionId from db
         // get the path to user
@@ -94,13 +99,25 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
-                    jurisdictionID = queryDocumentSnapshots.getDocuments().get(0).getString("jurisdictionId");
-                    userState = queryDocumentSnapshots.getDocuments().get(0).getString("state");
-                    userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
-                    userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
-                    documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
-                    Log.d("DOCUMENT SNAP", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0).getId());
+                    userName = queryDocumentSnapshots.getDocuments().get(0).getString("username");
+                    String welcomeText = "Welcome, " + userName;
+                    welcomeMessage.setText(welcomeText);
 
+                    userState = queryDocumentSnapshots.getDocuments().get(0).getString("state");
+                    String userText = "State: " + userState;
+                    stateCard.setText(userText);
+
+                    userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+                    String gradeText = "Grade: " + userGrade;
+                    gradeCard.setText(gradeText);
+
+                    userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+                    String contentText = "Content: " + userContent;
+                    contentCard.setText(contentText);
+
+                    jurisdictionID = queryDocumentSnapshots.getDocuments().get(0).getString("jurisdictionId");
+                    documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
+                    // Log.d("DOCUMENT SNAP", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0).getId());
                 }
             }
         }). addOnFailureListener(new OnFailureListener() {
@@ -116,13 +133,24 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         viewCoursesButton = findViewById(R.id.view_courses);
         viewAllButton = findViewById(R.id.view_all_tests);
         welcomeMessage = findViewById(R.id.welcome_message);
+        stateCard = findViewById(R.id.show_state_text);
+        gradeCard = findViewById(R.id.show_grade_text);
+        contentCard = findViewById(R.id.show_content_text);
 
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         viewCoursesButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
 
+//        Log.d("Display User state", "onCreate: " + userState);
 //        welcomeMessage.setText(StandardApi.getInstance().getUsername());
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("Display User state", "onCreate: " + userState);
 
     }
 

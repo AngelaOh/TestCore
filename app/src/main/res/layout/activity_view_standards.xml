@@ -4,52 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0E1C36"
+    android:background="#D2AB99"
     tools:context=".ViewStandardsActivity">
 
     <Button
-        android:id="@+id/get_standards_button"
-        android:layout_width="172dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="168dp"
-        android:background="@android:color/transparent"
-        android:text="Get Standards"
-        android:textColor="#FAFFFD"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/display_standards_button"
-        android:layout_width="199dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="55dp"
-        android:background="@android:color/transparent"
+        android:background="#BDBEA9"
+        android:padding="5dp"
         android:text="Display Standards"
         android:textColor="#FAFFFD"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintStart_toEndOf="@+id/get_standards_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.936" />
+
+    <TextView
+        android:id="@+id/content_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="58dp"
+        android:fontFamily="@font/amatica_sc"
+        android:text="Content Info goes here"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toEndOf="@+id/display_standards_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/standard_recycler_view"
-        android:layout_width="794dp"
-        android:layout_height="932dp"
+        android:layout_width="793dp"
+        android:layout_height="841dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/view__current_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:background="#BDBEA9"
+        android:text="View Current Test"
+        android:textColor="#FAFFFD"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_standards_button" />
+        app:layout_constraintTop_toBottomOf="@id/standard_recycler_view" />
+
+    <TextView
+        android:id="@+id/question_count_text"
+        android:layout_width="478dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/amatica_sc"
+        android:textStyle="bold"
+        android:text="Test is currently empty"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toEndOf="@+id/view__current_test"
+        app:layout_constraintTop_toBottomOf="@+id/standard_recycler_view"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

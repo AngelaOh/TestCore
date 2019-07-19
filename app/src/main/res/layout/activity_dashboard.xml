@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0E1C36"
+    android:background="#D2AB99"
     tools:context=".DashboardActivity">
 
 
@@ -13,14 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/unica_one"
         android:text="TestCore | "
-        android:textColor="#FAFFFD"
         android:textAlignment="center"
+        android:textColor="#FAFFFD"
         android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,14 +34,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/unica_one"
         android:text="Test making made easy"
-        android:textColor="#FAFFFD"
         android:textAlignment="center"
+        android:textColor="#FAFFFD"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="10dp"
         android:layout_marginBottom="8dp"
-        android:background="#FA824C"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -68,14 +66,12 @@
         android:layout_width="116dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="72dp"
+        android:background="#BDBEA9"
         android:text="Log Out"
         android:textColor="#FAFFFD"
-        android:background="#3C91E6"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,17 +97,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/horizontal_line"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="#BDBEA9"
         android:text="Back"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,30 +121,30 @@
         android:layout_width="344dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="92dp"
-        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/unica_one"
         android:text="Create tests or questions by viewing courses below!"
         android:textAlignment="center"
-        android:textColor="#FAFFFD"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/view_courses"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.993"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintBottom_toTopOf="@id/view_courses"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_message" />
 
     <Button
         android:id="@+id/view_courses"
         android:layout_width="336dp"
-        android:layout_height="59dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:background="#3C91E6"
-        android:text="View Courses"
+        android:padding="5dp"
+        android:background="#BDBEA9"
+        android:text="View Courses/Make Test"
         android:textColor="#FAFFFD"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,60 +154,90 @@
 
     <!--Create a button for each course -->
 
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="307dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="65dp"
-        android:text="OR"
-        android:textAlignment="center"
-        android:textColor="#FAFFFD"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/view_all_tests"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.818"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_courses"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/view_all_tests"
         android:layout_width="325dp"
         android:layout_height="54dp"
         android:layout_marginStart="480dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="284dp"
-        android:background="#3C91E6"
+        android:layout_marginBottom="368dp"
+        android:background="#BDBEA9"
         android:text="View All Tests"
         android:textColor="#FAFFFD"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/or"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="222dp"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="352dp"
+        android:layout_marginBottom="216dp"
         android:src="@drawable/owl_teaching"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.215" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="352dp"
+        android:layout_height="254dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="11dp"
+        app:layout_constraintEnd_toStartOf="@+id/view_courses"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_message">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/user_info_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Information"
+                android:textAlignment="center"
+                android:textSize="25sp" />
 
+            <TextView
+                android:id="@+id/show_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_info_header"
+                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/show_grade_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/show_state_text"
+                android:layout_margin="5dp"
+                android:text=""
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/show_content_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/show_grade_text"
+                android:layout_margin="5dp"
+                android:text=""
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

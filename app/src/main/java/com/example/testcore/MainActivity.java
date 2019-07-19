@@ -92,27 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             assert user != null;
                             final String currentUserId = user.getUid();
 
-                            database.collection("Users").whereEqualTo("userId", currentUserId)
-                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                                            if (!queryDocumentSnapshots.isEmpty()) {
-                                                // progressbar set invisible
+                            startActivity(new Intent(MainActivity.this, DashboardActivity.class));
 
-                                                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-//                                                    StandardApi standardApi = StandardApi.getInstance();
-//                                                    standardApi.setUsername(snapshot.getString("username"));
-//                                                    standardApi.setUserId(currentUserId);
-//                                                    standardApi.setUserGrade(snapshot.getString("grade"));
-//                                                    standardApi.setUserContent(snapshot.getString("content"));
-//                                                    standardApi.setJurisdictionId(snapshot.getString("jurisdictionId"));
-
-                                                    // Go to Dashboard Activity
-                                                    startActivity(new Intent(MainActivity.this, DashboardActivity.class));
-                                                }
-                                            }
-                                        }
-                                    });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
