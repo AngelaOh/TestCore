@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -115,6 +116,15 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         Log.d("FROM INTENT", "onCreate: " + standardSetID);
 
 
+        // Create a new test in Firestore
+        CollectionReference testCollection = database.collection("Tests");
+        Map<String, Object> testObj = new HashMap<>();
+        testObj.put("Questions", new ArrayList<>());
+        testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+        testObj.put("Test Title", "Some Test Title");
+        testCollection.add(testObj);
+
+
         // Instantiate view widgets
         displayStandardsButton = findViewById(R.id.display_standards_button);
         displayStandardsButton.setOnClickListener(this);
@@ -123,6 +133,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // make standards set api call && save standard set into firestore
         new standardBank(standardSetID).getStandards(new AnswerListAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Standard> standardArrayList) {
@@ -161,7 +172,6 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
         new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Standard> firestoreArrayList) {
-                Log.d("ASYNC CHECK", "processFinished: " + firestoreArrayList);
                 implementRecyclerView(firestoreArrayList);
             }
         });

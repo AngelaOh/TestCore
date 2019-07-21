@@ -34,8 +34,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import util.StandardApi;
-
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
     private Button logOutButton, backButton, viewCoursesButton, viewAllButton;
     private TextView welcomeMessage;
@@ -130,7 +128,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
-        viewCoursesButton = findViewById(R.id.view_courses);
+        viewCoursesButton = findViewById(R.id.view_create_tests);
         viewAllButton = findViewById(R.id.view_all_tests);
         welcomeMessage = findViewById(R.id.welcome_message);
         stateCard = findViewById(R.id.show_state_text);
@@ -142,17 +140,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         viewCoursesButton.setOnClickListener(this);
         viewAllButton.setOnClickListener(this);
 
-//        Log.d("Display User state", "onCreate: " + userState);
-//        welcomeMessage.setText(StandardApi.getInstance().getUsername());
-
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("Display User state", "onCreate: " + userState);
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -166,9 +155,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             backButtonMethod();
         } else if (view.getId() == R.id.view_all_tests) {
             Toast.makeText(DashboardActivity.this, "view all button clicked", Toast.LENGTH_LONG).show();
-        } else if (view.getId() == R.id.view_courses) {
+        } else if (view.getId() == R.id.view_create_tests) {
             viewCoursesCall();
-
         }
     }
 
@@ -180,12 +168,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void viewCoursesCall() {
+          // Make API Call to get Standard Set ID
         queue = MySingleton.getInstance(this.getApplicationContext())
                 .getRequestQueue();
 
         String standardsSetURL = "https://api.commonstandardsproject.com/api/v1/jurisdictions/" + jurisdictionID + "?api-key=" + standardsApiKey; // get the standards set id
-
-        Log.d("URL CHECK", "viewCoursesCall: " + standardsSetURL);
         JsonObjectRequest standardsIDObject = new JsonObjectRequest(Request.Method.GET, standardsSetURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -198,14 +185,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                             for (int i = 0; i < standardSets.length(); i ++) {
                                 if (standardSets.getJSONObject(i).getString("title").equals("Grade " + userGrade) && standardSets.getJSONObject(i).getString("subject").equals(userContent)) {
                                     standardSetID = standardSets.getJSONObject(i).getString("id");
-
                                     Map<String, String> standardObj = new HashMap<>();
                                     standardObj.put("standardSetId", standardSetID);
-
                                     database.collection("Users").document(documentId).set(standardObj, SetOptions.merge());
-                                    Log.d("STANDARDSET ID", "onResponse: " + standardSetID);
 
-                                    Log.d("Sending Extra Standard", "viewCoursesCall: " + standardSetID);
+                                    // Send to View Standards Activity
                                     Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
                                     intent.putExtra("standard_set_id", standardSetID);
                                     startActivity(intent);
@@ -226,12 +210,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         Log.d("check queue", "viewCoursesCall: " + queue);
         queue.add(standardsIDObject);
-
-//        Log.d("Sending Extra Standard", "viewCoursesCall: " + standardSetID);
-//        Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
-//        intent.putExtra("standard_set_id", standardSetID);
-//        startActivity(intent);
-//        startActivity(new Intent(DashboardActivity.this, ViewStandardsActivity.class));
 
     }
 

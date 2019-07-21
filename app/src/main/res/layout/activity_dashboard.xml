@@ -132,19 +132,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.993"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/view_courses"
+        app:layout_constraintBottom_toTopOf="@id/view_create_tests"
         app:layout_constraintTop_toBottomOf="@+id/welcome_message" />
 
     <Button
-        android:id="@+id/view_courses"
+        android:id="@+id/view_create_tests"
         android:layout_width="336dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:padding="5dp"
         android:background="#BDBEA9"
-        android:text="View Courses/Make Test"
+        android:padding="5dp"
+        android:text="View/Create Tests"
         android:textColor="#FAFFFD"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +193,7 @@
         android:layout_marginTop="52dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="11dp"
-        app:layout_constraintEnd_toStartOf="@+id/view_courses"
+        app:layout_constraintEnd_toStartOf="@+id/view_create_tests"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_message">
