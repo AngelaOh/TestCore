@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D2AB99"
-    tools:context=".ViewStandardsActivity">
+    tools:context=".ViewEditTestsActivity">
 
     <Button
         android:id="@+id/display_standards_button"

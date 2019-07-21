@@ -87,6 +87,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         currentUser = firebaseAuth.getCurrentUser();
         Log.d("check email", "onCreate: " + currentUser.getEmail());
+        Log.d("check uid", "onCreate: " + currentUser.getUid());
 
         // Set jurisdictionId from db
         // get the path to user
@@ -190,7 +191,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                     database.collection("Users").document(documentId).set(standardObj, SetOptions.merge());
 
                                     // Send to View Standards Activity
-                                    Intent intent = new Intent(getApplicationContext(), ViewStandardsActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), ViewEditTestsActivity.class);
                                     intent.putExtra("standard_set_id", standardSetID);
                                     startActivity(intent);
                                 }

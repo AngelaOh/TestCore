@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcore.CreateTestActivity;
 import com.example.testcore.R;
-import com.example.testcore.ViewStandardsActivity;
+import com.example.testcore.ViewEditTestsActivity;
 import com.example.testcore.models.Standard;
 
 import org.w3c.dom.Text;

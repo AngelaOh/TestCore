@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
     }
 
     @Override
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.start_create_account) {
             Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
             startActivity(intent);
-        } else {
+        } else if (view.getId() == R.id.signin_button) {
             loginEmailPasswordUser(emailAddress.getText().toString().trim(),
                     password.getText().toString().trim());
         }
@@ -85,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loginEmailPasswordUser(String email, String pwd) {
 
         // progress bar visible
+        Log.d("Check email login", "onCreate: " + email);
+        Log.d("Check password login", "onCreate: " + pwd);
+
+
 
         // Sign In
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pwd)) {

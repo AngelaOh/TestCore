@@ -13,43 +13,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.testcore.adapter.RecyclerViewAdapter;
 import com.example.testcore.data.AnswerListAsyncResponse;
 import com.example.testcore.data.FirestoreAsyncResponse;
 import com.example.testcore.data.standardBank;
 import com.example.testcore.data.standardFirestoreBank;
 import com.example.testcore.models.Standard;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 
-public class ViewStandardsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ViewEditTestsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button displayStandardsButton;
     private TextView contentInfo;
     private String userContent;
@@ -70,7 +54,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_standards);
+        setContentView(R.layout.activity_view_edit_tests);
 
 
         // Instantiate Current User
@@ -80,7 +64,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 currentUser = firebaseAuth.getCurrentUser();
                 if (currentUser != null) {
-                    Toast.makeText(ViewStandardsActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewEditTestsActivity.this, "Hi, " + currentUser.getDisplayName(), Toast.LENGTH_SHORT).show();
                 } else {
                     // user is not logged in
                 }
@@ -179,7 +163,7 @@ public class ViewStandardsActivity extends AppCompatActivity implements View.OnC
     }
 
     public void implementRecyclerView(ArrayList<Standard> standards_array_check) {
-        recyclerViewAdapter = new RecyclerViewAdapter(ViewStandardsActivity.this, standards_array_check);
+        recyclerViewAdapter = new RecyclerViewAdapter(ViewEditTestsActivity.this, standards_array_check);
         Log.d("STANDARDS ARRAY", "implementRecyclerView: " + standards_array_check);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
