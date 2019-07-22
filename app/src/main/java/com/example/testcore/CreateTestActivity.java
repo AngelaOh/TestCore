@@ -63,11 +63,13 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
         assert currentUser != null;
         String currentUserId = currentUser.getUid();
 
+
         Intent getInfo =  getIntent();
-        Bundle bundle = getInfo.getExtras();
-        userGrade = bundle.get("user_grade").toString();
-        userContent = bundle.get("user_content").toString();
-        testId = bundle.get("test_id").toString();
+            Bundle bundle = getInfo.getExtras();
+            userGrade = bundle.get("user_grade").toString();
+            userContent = bundle.get("user_content").toString();
+            testId = bundle.get("test_id").toString();
+
 
         new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
             @Override

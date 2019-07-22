@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
-//    private DocumentReference questionPath = database.collection("Questions").document(standardLabel);
 
     // Firebase Auth
     private FirebaseAuth firebaseAuth;
@@ -101,7 +101,34 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                     }
                 });
 
-        Intent intent = new Intent(CreateQuestionActivity.this, CreateTestActivity.class);
-        startActivity(intent);
+
+        // get content, grade, and testId from firebase and send to next activity
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+        String currentUserId = currentUser.getUid();
+
+        database.collection("Users").whereEqualTo("userId", currentUserId).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+                        String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+
+                        Intent intent = new Intent(CreateQuestionActivity.this, CreateTestActivity.class);
+                        intent.putExtra("test_id", testId);
+                        intent.putExtra("user_grade", userGrade);
+                        intent.putExtra("user_content", userContent);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
     }
 }
