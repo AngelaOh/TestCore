@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button logOutButton, backButton, viewCoursesButton, viewAllButton;
+    private Button logOutButton, backButton, viewCoursesButton, viewStandardCoverageButton;
     private TextView welcomeMessage;
     private TextView stateCard;
     private TextView gradeCard;
@@ -130,7 +130,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_create_tests);
-        viewAllButton = findViewById(R.id.view_all_tests);
+        viewStandardCoverageButton = findViewById(R.id.view_standards_coverage_button);
         welcomeMessage = findViewById(R.id.welcome_message);
         stateCard = findViewById(R.id.show_state_text);
         gradeCard = findViewById(R.id.show_grade_text);
@@ -139,7 +139,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         viewCoursesButton.setOnClickListener(this);
-        viewAllButton.setOnClickListener(this);
+        viewStandardCoverageButton.setOnClickListener(this);
 
     }
 
@@ -154,8 +154,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         else if (view.getId() == R.id.back_button) {
             Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
             backButtonMethod();
-        } else if (view.getId() == R.id.view_all_tests) {
-            Toast.makeText(DashboardActivity.this, "view all button clicked", Toast.LENGTH_LONG).show();
+        } else if (view.getId() == R.id.view_standards_coverage_button) {
+            Toast.makeText(DashboardActivity.this, "View Standards Button Clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.view_create_tests) {
             viewCoursesCall();
         }

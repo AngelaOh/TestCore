@@ -155,14 +155,14 @@
     <!--Create a button for each course -->
 
     <Button
-        android:id="@+id/view_all_tests"
+        android:id="@+id/view_standards_coverage_button"
         android:layout_width="325dp"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="480dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="368dp"
         android:background="#BDBEA9"
-        android:text="View All Tests"
+        android:text="View Standard Coverage"
         android:textColor="#FAFFFD"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,9 +188,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="352dp"
-        android:layout_height="254dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:cardElevation="11dp"
         app:layout_constraintEnd_toStartOf="@+id/view_create_tests"
@@ -200,21 +198,21 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
 
-            <TextView
-                android:id="@+id/user_info_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Your Information"
-                android:textAlignment="center"
-                android:textSize="25sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/user_info_header"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Your Information"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="25sp" />-->
 
             <TextView
                 android:id="@+id/show_state_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_info_header"
                 android:layout_margin="5dp"
                 android:layout_marginTop="10dp"
                 android:text=""
