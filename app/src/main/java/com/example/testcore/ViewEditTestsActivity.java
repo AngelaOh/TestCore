@@ -14,11 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testcore.adapter.RecyclerViewAdapter;
+import com.example.testcore.adapter.RecyclerViewAdapterTest;
 import com.example.testcore.data.AnswerListAsyncResponse;
 import com.example.testcore.data.FirestoreAsyncResponse;
+import com.example.testcore.data.TestFirestoreAsyncResponse;
 import com.example.testcore.data.standardBank;
 import com.example.testcore.data.standardFirestoreBank;
+import com.example.testcore.data.testFirestoreBank;
 import com.example.testcore.models.Standard;
+import com.example.testcore.models.Test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +46,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
     private String standardSetID;
 
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter recyclerViewAdapter;
+    private RecyclerViewAdapterTest recyclerViewAdapterTest;
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -102,6 +106,19 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         userContent = bundle.get("user_content").toString();
         Log.d("FROM INTENT", "onCreate: " + standardSetID);
 
+        recyclerView = findViewById(R.id.test_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Get List of Tests from Firebase and implement Recycler View
+         new testFirestoreBank().getFirestoretests(new TestFirestoreAsyncResponse() {
+             @Override
+             public void processFinished(ArrayList<Test> firestoreArrayList) {
+                 Log.d("Tests in Activity", "processFinished: " + firestoreArrayList);
+                 implementRecyclerView(firestoreArrayList);
+             }
+         });
+
 
         // Instantiate view widgets
         displayStandardsButton = findViewById(R.id.display_standards_button);
@@ -109,9 +126,6 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         createTestButton = findViewById(R.id.create_test_button);
         createTestButton.setOnClickListener(this);
 
-        recyclerView = findViewById(R.id.standard_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // make standards set api call && save standard set into firestore
         new standardBank(standardSetID).getStandards(new AnswerListAsyncResponse() {
@@ -139,7 +153,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.display_standards_button) {
-                displayStandards();
+//                displayStandards();
         } else if (view.getId() == R.id.create_test_button) {
             createTest();
         }
@@ -162,24 +176,24 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private void displayStandards() {
+//    private void displayStandards() {
+//
+//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//        assert currentUser != null;
+//        String currentUserId = currentUser.getUid();
+//
+//        new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
+//            @Override
+//            public void processFinished(ArrayList<Standard> firestoreArrayList) {
+//                implementRecyclerView(firestoreArrayList);
+//            }
+//        });
+//
+//    }
 
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        assert currentUser != null;
-        String currentUserId = currentUser.getUid();
-
-        new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
-            @Override
-            public void processFinished(ArrayList<Standard> firestoreArrayList) {
-                implementRecyclerView(firestoreArrayList);
-            }
-        });
-
-    }
-
-    public void implementRecyclerView(ArrayList<Standard> standards_array_check) {
-        recyclerViewAdapter = new RecyclerViewAdapter(ViewEditTestsActivity.this, standards_array_check);
-        Log.d("STANDARDS ARRAY", "implementRecyclerView: " + standards_array_check);
-        recyclerView.setAdapter(recyclerViewAdapter);
+    public void implementRecyclerView(ArrayList<Test> tests_array) {
+        recyclerViewAdapterTest = new RecyclerViewAdapterTest(ViewEditTestsActivity.this, tests_array);
+        Log.d("STANDARDS ARRAY", "implementRecyclerView: " + tests_array);
+        recyclerView.setAdapter(recyclerViewAdapterTest);
     }
 }

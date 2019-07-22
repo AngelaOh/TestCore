@@ -6,6 +6,8 @@ public class Test {
     private String title;
     private ArrayList<Question> questions;
 
+    public Test() { }
+
     public Test(String title, ArrayList<Question> questions) {
         this.title = title;
         this.questions = questions;

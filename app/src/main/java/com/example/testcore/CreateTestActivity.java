@@ -51,9 +51,6 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_test);
 
-        titleSubmitButton = findViewById(R.id.title_submit_button);
-        testTitle = findViewById(R.id.test_title);
-
         recyclerView = findViewById(R.id.standard_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,6 +72,8 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
+        titleSubmitButton = findViewById(R.id.title_submit_button);
+        testTitle = findViewById(R.id.test_title);
         titleSubmitButton.setOnClickListener(this);
     }
 
@@ -122,23 +121,6 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
 
                         }
                     });
-
-//            Map<String, String> titleUpdateObj = new HashMap<>();
-//            titleUpdateObj.put("Test Title", titleForFirebase);
-            Log.d("Check New Title", "onSuccess: " + titleForFirebase);
-//            database.collection("Tests").document(titleChangeId).update("Test Title", titleForFirebase)
-//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.d("Title Updated", "onSuccess: " + aVoid.toString());
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d("Title Did Not Update", "onFailure: " + e.getMessage());
-//                        }
-//                    });
         }
 
     }
