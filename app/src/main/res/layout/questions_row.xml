@@ -29,9 +29,14 @@
 
             <TextView
                 android:id="@+id/question_text_bank"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:padding="8dp"
                 android:text="Question Text: "
                 android:textSize="15sp"
@@ -39,13 +44,13 @@
 
             <ImageButton
                 android:id="@+id/add_question_bank"
-                android:layout_width="wrap_content"
+                android:layout_width="54dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
                 android:padding="8dp"
-                android:src="@drawable/circleplusicon"
-                android:background="@android:color/transparent"/>
+                android:paddingLeft="20dp"
+                android:src="@drawable/circleplusicon" />
 
         </RelativeLayout>
 
