@@ -116,7 +116,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-         new testFirestoreBank().getFirestoretests(new TestFirestoreAsyncResponse() {
+         new testFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoretests(new TestFirestoreAsyncResponse() {
              @Override
              public void processFinished(ArrayList<Test> firestoreArrayList) {
                  Log.d("Tests in Activity", "processFinished: " + firestoreArrayList);

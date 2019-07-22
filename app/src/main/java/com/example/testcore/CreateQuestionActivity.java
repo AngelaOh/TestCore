@@ -2,6 +2,8 @@ package com.example.testcore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +14,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testcore.adapter.RecyclerViewAdapter;
+import com.example.testcore.adapter.RecyclerViewAdapterQuestion;
+import com.example.testcore.data.QuestionFirestoreAsyncResponse;
+import com.example.testcore.data.questionFirestoreBank;
 import com.example.testcore.models.Question;
+import com.example.testcore.models.Standard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,10 +29,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateQuestionActivity extends AppCompatActivity implements View.OnClickListener {
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapterQuestion recyclerViewAdapter;
+
     private TextView showStandard;
     private ImageButton addQuestion;
     private EditText questionText, answerChoiceA, answerChoiceB, answerChoiceC, answerChoiceD;
@@ -65,6 +76,21 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         answerChoiceB = findViewById(R.id.answer_choice_b);
         answerChoiceC = findViewById(R.id.answer_choice_c);
         answerChoiceD = findViewById(R.id.answer_choice_d);
+
+        recyclerView = findViewById(R.id.question_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //TODO: get questions based on standard
+        //TODO: implement recycler view here?
+
+        new questionFirestoreBank(standardLabel).getFirestorequestions(new QuestionFirestoreAsyncResponse() {
+            @Override
+            public void processFinished(ArrayList<Question> firestoreArrayList) {
+                implementRecyclerView(firestoreArrayList);
+            }
+        });
+
     }
 
     @Override
@@ -72,6 +98,12 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         if (view.getId() == R.id.add_question_button) {
             addQuestionDatabase();
         }
+    }
+
+    public void implementRecyclerView(ArrayList<Question> questions_array) {
+        recyclerViewAdapter = new RecyclerViewAdapterQuestion(CreateQuestionActivity.this, questions_array, testId);
+        Log.d("QUESTIONS ARRAY", "implementRecyclerView: " + questions_array);
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private void addQuestionDatabase() {
@@ -128,7 +160,5 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
 
                     }
                 });
-
-
     }
 }

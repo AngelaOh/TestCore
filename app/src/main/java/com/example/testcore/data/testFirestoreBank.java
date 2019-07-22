@@ -22,18 +22,29 @@ import java.util.Set;
 public class testFirestoreBank {
 
     ArrayList<Test> firestoreArrayList = new ArrayList<>();
+    private String userContent;
+    private String userGrade;
+    private String currentUserId;
+
+    public testFirestoreBank(String userContent, String userGrade, String currentUserId) {
+        this.userContent = userContent;
+        this.userGrade = userGrade;
+        this.currentUserId = currentUserId;
+    }
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
+
+    // userContent, userGrade, userId
     public List<Test> getFirestoretests(final TestFirestoreAsyncResponse callBack) {
         CollectionReference pathIdTwo = database.collection("Tests");
-        pathIdTwo.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+        pathIdTwo.whereEqualTo("Course Id", userContent + ": " + userGrade + ": " + currentUserId).get()
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i ++) {
+                    for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i ++) {
                             Log.d("Tests from Firestore", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0));
                             String testTitle = queryDocumentSnapshots.getDocuments().get(i).getString("Test Title");
                             Object numOfQuestions = queryDocumentSnapshots.getDocuments().get(i).get("Questions"); // Eventually want to be able to also display number of questions
@@ -48,14 +59,17 @@ public class testFirestoreBank {
                         }
                         Log.d("Array of Tests", "getFirestoretests: " + firestoreArrayList);
                         if (null != callBack) callBack.processFinished(firestoreArrayList);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                    }
-                });
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+
+                }
+            });
+
 
         return firestoreArrayList;
     }
