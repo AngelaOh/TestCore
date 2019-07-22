@@ -1,3 +1,5 @@
+// TODO: figure out way for test title to replace the edit text field once sumbitted
+
 package com.example.testcore;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     private Button titleSubmitButton;
     private EditText testTitle;
     private String titleChangeId;
+    private String testId;
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -64,6 +67,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
         Bundle bundle = getInfo.getExtras();
         userGrade = bundle.get("user_grade").toString();
         userContent = bundle.get("user_content").toString();
+        testId = bundle.get("test_id").toString();
 
         new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
             @Override
@@ -78,7 +82,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void implementRecyclerView(ArrayList<Standard> standards_array_check) {
-        recyclerViewAdapter = new RecyclerViewAdapter(CreateTestActivity.this, standards_array_check);
+        recyclerViewAdapter = new RecyclerViewAdapter(CreateTestActivity.this, standards_array_check, testId);
         Log.d("STANDARDS ARRAY", "implementRecyclerView: " + standards_array_check);
         recyclerView.setAdapter(recyclerViewAdapter);
     }

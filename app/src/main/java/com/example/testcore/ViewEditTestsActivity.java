@@ -164,13 +164,20 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         testObj.put("Questions", new ArrayList<>());
         testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
         testObj.put("Test Title", "Some Test Title");
-        testCollection.add(testObj);
+        testCollection.add(testObj)
+            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    // go to Create Test Activity
+                    Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
+                    intent.putExtra("user_content", userContent);
+                    intent.putExtra("user_grade", userGrade);
+                    intent.putExtra("test_id", documentReference.getId());
 
-        // go to Create Test Activity
-        Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
-        intent.putExtra("user_content", userContent);
-        intent.putExtra("user_grade", userGrade);
-        startActivity(intent);
+                    startActivity(intent);
+                }
+            });
+
 
     }
 

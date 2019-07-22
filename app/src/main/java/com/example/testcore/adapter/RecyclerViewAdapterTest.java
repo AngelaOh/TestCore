@@ -27,7 +27,6 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
     public RecyclerViewAdapterTest(Context context, ArrayList<Test> testList) {
         this.context = context;
         this.testList = testList;
-
     }
 
 
@@ -46,7 +45,6 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
         Test test = testList.get(position);
 
         holder.title.setText(test.getTitle());
-//        holder.description.setText(test.getDescription());
     }
 
     @Override
@@ -56,9 +54,6 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
-//        public TextView description;
-//        public ImageView iconButton;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,8 +61,6 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
             itemView.setOnClickListener(this);
 
             title = itemView.findViewById(R.id.test_title);
-//            description = itemView.findViewById(R.id.description);
-//            iconButton = itemView.findViewById(R.id.imageView);
         }
 
         @Override
@@ -77,8 +70,8 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
             Test test = testList.get(position);
 
             Intent intent = new Intent(context, CreateQuestionActivity.class);
-            intent.putExtra("label", test.getTitle());
-//            intent.putExtra("description", standard.getDescription());
+            intent.putExtra("title", test.getTitle());
+            intent.putExtra("test_id", test.getTestId());
 
             context.startActivity(intent);
         }

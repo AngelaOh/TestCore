@@ -68,7 +68,7 @@
                 android:textAlignment="center" />
 
             <ImageButton
-                android:id="@+id/plus_icon_button"
+                android:id="@+id/add_question_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/create_question_title"
@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/create_question_title"
-                android:layout_toEndOf="@id/plus_icon_button"
+                android:layout_toEndOf="@id/add_question_button"
                 android:hint="Question Text" />
 
             <EditText
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/question_text"
-                android:layout_toEndOf="@id/plus_icon_button"
+                android:layout_toEndOf="@id/add_question_button"
                 android:hint="Answer Choice Text" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/answer_choice_a"
-                android:layout_toEndOf="@id/plus_icon_button"
+                android:layout_toEndOf="@id/add_question_button"
                 android:hint="Answer Choice Text" />
 
             <EditText
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/answer_choice_b"
-                android:layout_toEndOf="@id/plus_icon_button"
+                android:layout_toEndOf="@id/add_question_button"
                 android:hint="Answer Choice Text" />
 
             <EditText
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/answer_choice_c"
-                android:layout_toEndOf="@id/plus_icon_button"
+                android:layout_toEndOf="@id/add_question_button"
                 android:hint="Answer Choice Text" />
 
         </RelativeLayout>

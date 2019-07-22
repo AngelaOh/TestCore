@@ -37,9 +37,11 @@ public class testFirestoreBank {
                             Log.d("Tests from Firestore", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0));
                             String testTitle = queryDocumentSnapshots.getDocuments().get(i).getString("Test Title");
                             Object numOfQuestions = queryDocumentSnapshots.getDocuments().get(i).get("Questions"); // Eventually want to be able to also display number of questions
+                            String testId = queryDocumentSnapshots.getDocuments().get(i).getId();
 
                             Test firestoreTest = new Test();
                             firestoreTest.setTitle(testTitle);
+                            firestoreTest.setTestId(testId);
                             Log.d("View One Test", "onSuccess: " + firestoreTest.getTitle());
 
                             firestoreArrayList.add(firestoreTest);

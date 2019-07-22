@@ -5,12 +5,21 @@ import java.util.ArrayList;
 public class Test {
     private String title;
     private ArrayList<Question> questions;
+    private String testId;
 
     public Test() { }
 
     public Test(String title, ArrayList<Question> questions) {
         this.title = title;
         this.questions = questions;
+    }
+
+    public String getTestId() {
+        return testId;
+    }
+
+    public void setTestId(String testId) {
+        this.testId = testId;
     }
 
     public String getTitle() {

@@ -4,13 +4,50 @@ package com.example.testcore.models;
 
 public class Question {
     private String questionText;
-    private String answerText;
+    private String answerChoiceA, answerChoiceB, answerChoiceC, answerChoiceD;
     private String standardLabel;
 
-    public Question(String questionText, String answerText, String standardLabel) {
+    public Question() {}
+
+    public Question(String questionText, String answerChoiceA, String answerChoiceB, String answerChoiceC, String answerChoiceD, String standardLabel) {
         this.questionText = questionText;
-        this.answerText = answerText;
+        this.answerChoiceA = answerChoiceA;
+        this.answerChoiceB = answerChoiceB;
+        this.answerChoiceC = answerChoiceC;
+        this.answerChoiceD = answerChoiceD;
         this.standardLabel = standardLabel;
+    }
+
+    public String getAnswerChoiceA() {
+        return answerChoiceA;
+    }
+
+    public void setAnswerChoiceA(String answerChoiceA) {
+        this.answerChoiceA = answerChoiceA;
+    }
+
+    public String getAnswerChoiceB() {
+        return answerChoiceB;
+    }
+
+    public void setAnswerChoiceB(String answerChoiceB) {
+        this.answerChoiceB = answerChoiceB;
+    }
+
+    public String getAnswerChoiceC() {
+        return answerChoiceC;
+    }
+
+    public void setAnswerChoiceC(String answerChoiceC) {
+        this.answerChoiceC = answerChoiceC;
+    }
+
+    public String getAnswerChoiceD() {
+        return answerChoiceD;
+    }
+
+    public void setAnswerChoiceD(String answerChoiceD) {
+        this.answerChoiceD = answerChoiceD;
     }
 
     public String getStandardLabel() {
@@ -29,11 +66,4 @@ public class Question {
         this.questionText = questionText;
     }
 
-    public String getAnswerText() {
-        return answerText;
-    }
-
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
-    }
 }

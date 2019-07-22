@@ -26,11 +26,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private final Context context;
     private final ArrayList<Standard> standardList;
+    private final String testId;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Standard> standardList) {
+    public RecyclerViewAdapter(Context context, ArrayList<Standard> standardList, String testId) {
         this.context = context;
         this.standardList = standardList;
-
+        this.testId = testId;
     }
 
     @NonNull
@@ -81,6 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Intent intent = new Intent(context, CreateQuestionActivity.class);
             intent.putExtra("label", standard.getLabel());
             intent.putExtra("description", standard.getDescription());
+            intent.putExtra("test_id", testId);
 
             context.startActivity(intent);
         }
