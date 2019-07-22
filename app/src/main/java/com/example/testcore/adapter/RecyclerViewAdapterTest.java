@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcore.CreateQuestionActivity;
+import com.example.testcore.EditExistingTestActivity;
 import com.example.testcore.R;
 import com.example.testcore.models.Standard;
 import com.example.testcore.models.Test;
@@ -69,7 +70,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
             int position = getAdapterPosition();
             Test test = testList.get(position);
 
-            Intent intent = new Intent(context, CreateQuestionActivity.class);
+            Intent intent = new Intent(context, EditExistingTestActivity.class);
             intent.putExtra("title", test.getTitle());
             intent.putExtra("test_id", test.getTestId());
 

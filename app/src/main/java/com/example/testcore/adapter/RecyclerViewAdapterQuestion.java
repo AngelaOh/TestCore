@@ -45,6 +45,7 @@ public class RecyclerViewAdapterQuestion extends RecyclerView.Adapter<RecyclerVi
         Question question = questionList.get(position);
 
         holder.questionText.setText(question.getQuestionText());
+        holder.questionLabel.setText(question.getStandardLabel());
     }
 
     @Override
@@ -54,6 +55,7 @@ public class RecyclerViewAdapterQuestion extends RecyclerView.Adapter<RecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView questionText;
+        public TextView questionLabel;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +63,7 @@ public class RecyclerViewAdapterQuestion extends RecyclerView.Adapter<RecyclerVi
             itemView.setOnClickListener(this);
 
             questionText = itemView.findViewById(R.id.question_text_bank);
+            questionLabel = itemView.findViewById(R.id.standard_label_bank);
         }
 
         @Override

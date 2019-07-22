@@ -1,6 +1,3 @@
-// TODO: issue with order to volley calls going. need to control order for non-hardcoded url to work
-// ---- maybe try doing API calls at different points (on sign in button click, onCreate, on standardsButton click
-
 package com.example.testcore;
 
 import androidx.annotation.NonNull;
@@ -49,10 +46,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private String userState;
     private String documentId;
 
-
-    // TODO: 1. make call to get jurisdiction id
-    // TODO: 2. make call to get standard sets id [use: jurisdiction id, content, grade]
-    // TODO: 3. make call to get standards [use: standard set id]
     // Volley
     RequestQueue queue;
     String practiceAPIStandard;

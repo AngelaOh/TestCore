@@ -7,7 +7,7 @@
     tools:context=".CreateTestActivity">
 
     <EditText
-        android:id="@+id/test_title"
+        android:id="@+id/existing_test_title"
         android:layout_width="324dp"
         android:layout_height="51dp"
         android:layout_marginStart="116dp"

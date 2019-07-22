@@ -1,5 +1,5 @@
-// TODO: figure out way for test title to replace the edit text field once sumbitted
-
+// TODO: Add View to See Current Test; Bottom of Screen Recycler View
+// TODO: figure out way to replace test title input once submitted
 package com.example.testcore;
 
 import androidx.annotation.NonNull;

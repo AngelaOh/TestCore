@@ -81,9 +81,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //TODO: get questions based on standard
-        //TODO: implement recycler view here?
-
         new questionFirestoreBank(standardLabel).getFirestorequestions(new QuestionFirestoreAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Question> firestoreArrayList) {

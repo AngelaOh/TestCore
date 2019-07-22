@@ -49,8 +49,15 @@
                 android:layout_alignParentEnd="true"
                 android:background="@android:color/transparent"
                 android:padding="8dp"
-                android:paddingLeft="20dp"
                 android:src="@drawable/circleplusicon" />
+
+            <TextView
+                android:id="@+id/standard_label_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_question_bank"
+                android:layout_alignParentEnd="true"
+                android:text="Label" />
 
         </RelativeLayout>
 
