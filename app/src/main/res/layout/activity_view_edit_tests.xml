@@ -7,48 +7,47 @@
     android:background="#D2AB99"
     tools:context=".ViewEditTestsActivity">
 
-    <Button
-        android:id="@+id/display_standards_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="55dp"
-        android:background="#BDBEA9"
-        android:padding="5dp"
-        android:text="Display Standards"
-        android:textColor="#FAFFFD"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
-
-    <Button
+    <ImageButton
         android:id="@+id/create_test_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:background="#BDBEA9"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@android:color/transparent"
         android:padding="5dp"
+        android:src="@drawable/circleplusicon"
         android:text="Create Test"
         android:textColor="#FAFFFD"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/display_standards_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintBottom_toTopOf="@+id/test_recycler_view"
+        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/view_edit_textview"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/view_edit_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="34dp"
+        android:text="or View/Edit Tests Below"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/test_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toEndOf="@+id/create_test_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/content_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="58dp"
@@ -58,58 +57,20 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.612"
-        app:layout_constraintStart_toEndOf="@+id/display_standards_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.953" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/test_recycler_view"
-        android:layout_width="793dp"
-        android:layout_height="841dp"
+        android:layout_width="788dp"
+        android:layout_height="671dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="284dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/view__current_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="36dp"
-        android:background="#BDBEA9"
-        android:text="View Current Test"
-        android:textColor="#FAFFFD"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/standard_recycler_view" />
-
-    <TextView
-        android:id="@+id/question_count_text"
-        android:layout_width="478dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/amatica_sc"
-        android:textStyle="bold"
-        android:text="Test is currently empty"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toEndOf="@+id/view__current_test"
-        app:layout_constraintTop_toBottomOf="@+id/standard_recycler_view"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

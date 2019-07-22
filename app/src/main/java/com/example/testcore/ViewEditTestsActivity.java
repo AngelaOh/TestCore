@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ import java.util.Map;
 
 public class ViewEditTestsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button displayStandardsButton;
-    private Button createTestButton;
+    private ImageButton createTestButton;
     private TextView contentInfo;
     private String userContent;
     private String userGrade;
@@ -61,6 +62,9 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_edit_tests);
 
+        // Instantiate view widgets
+        createTestButton = findViewById(R.id.create_test_button);
+        createTestButton.setOnClickListener(this);
 
         // Instantiate Current User
         firebaseAuth = FirebaseAuth.getInstance();
@@ -106,11 +110,12 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         userContent = bundle.get("user_content").toString();
         Log.d("FROM INTENT", "onCreate: " + standardSetID);
 
+
+        // Get List of Tests from Firebase and implement Recycler View
         recyclerView = findViewById(R.id.test_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Get List of Tests from Firebase and implement Recycler View
          new testFirestoreBank().getFirestoretests(new TestFirestoreAsyncResponse() {
              @Override
              public void processFinished(ArrayList<Test> firestoreArrayList) {
@@ -119,15 +124,10 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
              }
          });
 
-
-        // Instantiate view widgets
-        displayStandardsButton = findViewById(R.id.display_standards_button);
-        displayStandardsButton.setOnClickListener(this);
-        createTestButton = findViewById(R.id.create_test_button);
-        createTestButton.setOnClickListener(this);
-
-
         // make standards set api call && save standard set into firestore
+//        String currentUserId = currentUser.getUid();
+//        DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
+
         new standardBank(standardSetID).getStandards(new AnswerListAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Standard> standardArrayList) {
@@ -152,9 +152,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.display_standards_button) {
-//                displayStandards();
-        } else if (view.getId() == R.id.create_test_button) {
+        if (view.getId() == R.id.create_test_button) {
             createTest();
         }
     }
