@@ -4,6 +4,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateQuestionActivity">
+    android:background="#D2AB99"
+    tools:context=".CreateTestActivity">
+
+    <TextView
+        android:id="@+id/standard_info_text"
+        android:layout_width="843dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Standard Info Goes Here"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="859dp"
+        android:layout_height="538dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/standard_info_text"
+        app:layout_constraintVertical_bias="0.472"
+        android:background="#FFFFF0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:background="#FFFFF0"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/create_question_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Question"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/plus_icon_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/create_question_title"
+                android:src="@drawable/plus_icon" />
+
+            <EditText
+                android:id="@+id/question_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/create_question_title"
+                android:layout_toEndOf="@id/plus_icon_button"
+                android:hint="Question Text" />
+
+            <EditText
+                android:id="@+id/answer_choice_a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/question_text"
+                android:layout_toEndOf="@id/plus_icon_button"
+                android:hint="Answer Choice Text" />
+
+            <EditText
+                android:id="@+id/answer_choice_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/answer_choice_a"
+                android:layout_toEndOf="@id/plus_icon_button"
+                android:hint="Answer Choice Text" />
+
+            <EditText
+                android:id="@+id/answer_choice_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/answer_choice_b"
+                android:layout_toEndOf="@id/plus_icon_button"
+                android:hint="Answer Choice Text" />
+
+            <EditText
+                android:id="@+id/answer_choice_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/answer_choice_c"
+                android:layout_toEndOf="@id/plus_icon_button"
+                android:hint="Answer Choice Text" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

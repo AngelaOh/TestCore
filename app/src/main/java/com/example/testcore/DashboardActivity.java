@@ -193,6 +193,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                     // Send to View Standards Activity
                                     Intent intent = new Intent(getApplicationContext(), ViewEditTestsActivity.class);
                                     intent.putExtra("standard_set_id", standardSetID);
+                                    intent.putExtra("user_grade", userGrade);
+                                    intent.putExtra("user_content", userContent);
                                     startActivity(intent);
                                 }
                             }

@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testcore.CreateTestActivity;
+import com.example.testcore.CreateQuestionActivity;
+import com.example.testcore.CreateQuestionActivity;
 import com.example.testcore.R;
 import com.example.testcore.ViewEditTestsActivity;
 import com.example.testcore.models.Standard;
@@ -77,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int position = getAdapterPosition();
             Standard standard = standardList.get(position);
 
-            Intent intent = new Intent(context, CreateTestActivity.class);
+            Intent intent = new Intent(context, CreateQuestionActivity.class);
             intent.putExtra("label", standard.getLabel());
             intent.putExtra("description", standard.getDescription());
 

@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class ViewEditTestsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button displayStandardsButton;
+    private Button createTestButton;
     private TextView contentInfo;
     private String userContent;
     private String userGrade;
@@ -97,21 +98,16 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         Intent getInfo =  getIntent();
         Bundle bundle = getInfo.getExtras();
         standardSetID = bundle.get("standard_set_id").toString();
+        userGrade = bundle.get("user_grade").toString();
+        userContent = bundle.get("user_content").toString();
         Log.d("FROM INTENT", "onCreate: " + standardSetID);
-
-
-        // Create a new test in Firestore
-        CollectionReference testCollection = database.collection("Tests");
-        Map<String, Object> testObj = new HashMap<>();
-        testObj.put("Questions", new ArrayList<>());
-        testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
-        testObj.put("Test Title", "Some Test Title");
-        testCollection.add(testObj);
 
 
         // Instantiate view widgets
         displayStandardsButton = findViewById(R.id.display_standards_button);
         displayStandardsButton.setOnClickListener(this);
+        createTestButton = findViewById(R.id.create_test_button);
+        createTestButton.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.standard_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -144,7 +140,26 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         if (view.getId() == R.id.display_standards_button) {
                 displayStandards();
+        } else if (view.getId() == R.id.create_test_button) {
+            createTest();
         }
+    }
+
+    private void createTest() {
+        // Create a new test in Firestore
+        CollectionReference testCollection = database.collection("Tests");
+        Map<String, Object> testObj = new HashMap<>();
+        testObj.put("Questions", new ArrayList<>());
+        testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+        testObj.put("Test Title", "Some Test Title");
+        testCollection.add(testObj);
+
+        // go to Create Test Activity
+        Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
+        intent.putExtra("user_content", userContent);
+        intent.putExtra("user_grade", userGrade);
+        startActivity(intent);
+
     }
 
     private void displayStandards() {

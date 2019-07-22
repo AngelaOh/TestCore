@@ -24,6 +24,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.936" />
 
+    <Button
+        android:id="@+id/create_test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:background="#BDBEA9"
+        android:padding="5dp"
+        android:text="Create Test"
+        android:textColor="#FAFFFD"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/display_standards_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/content_info"
         android:layout_width="wrap_content"
