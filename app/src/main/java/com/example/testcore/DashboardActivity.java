@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -28,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -138,22 +144,62 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 
     @Override
-    public void onClick(View view) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fragment_test, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        if (view.getId() == R.id.log_out_button) {
-            if (currentUser != null && firebaseAuth != null) {
-                firebaseAuth.signOut();
-                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
-            }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.new_test:
+                // go to new test
+                CollectionReference testCollection = database.collection("Tests");
+                Map<String, Object> testObj = new HashMap<>();
+                testObj.put("Questions", new ArrayList<>());
+                testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+                testObj.put("Test Title", "Some Test Title");
+                testCollection.add(testObj)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                // go to Create Test Activity
+                                Intent intent = new Intent(DashboardActivity.this, CreateTestActivity.class);
+                                intent.putExtra("user_content", userContent);
+                                intent.putExtra("user_grade", userGrade);
+                                intent.putExtra("test_id", documentReference.getId());
+
+                                startActivity(intent);
+                            }
+                        });
+                break;
+            case R.id.sign_out:
+                logOutUser();
+                break;
+            case R.id.dashboard:
+                // Return to Dashboard if in another activity
+                break;
         }
+        return super.onOptionsItemSelected(item);
+    }
 
-        else if (view.getId() == R.id.back_button) {
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.back_button) {
             Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
             backButtonMethod();
         } else if (view.getId() == R.id.view_standards_coverage_button) {
             Toast.makeText(DashboardActivity.this, "View Standards Button Clicked", Toast.LENGTH_LONG).show();
         } else if (view.getId() == R.id.view_create_tests) {
             viewCoursesCall();
+        }
+    }
+
+    private void logOutUser() {
+        if (currentUser != null && firebaseAuth != null) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(DashboardActivity.this, MainActivity.class));
         }
     }
 
