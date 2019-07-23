@@ -12,65 +12,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="TestCore | "
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="50dp"
         android:textStyle="bold"
+        android:fontFamily="@font/unica_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <TextView
         android:id="@+id/header_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Test making made easy"
         android:textAlignment="center"
         android:textColor="@android:color/black"
+        android:fontFamily="@font/unica_one"
+
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toEndOf="@+id/header_one"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <View
         android:id="@+id/horizontal_line_one"
         android:layout_width="wrap_content"
         android:layout_height="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginBottom="129dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/welcome_message"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/welcome_message"
-        android:layout_width="510dp"
-        android:layout_height="133dp"
+        android:layout_width="620dp"
+        android:layout_height="188dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="190dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="752dp"
+        android:layout_marginBottom="8dp"
         android:text="Make test-making easy with TestCore! Organize your test questions by standards with just a few clicks!"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -79,22 +79,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_line" />
+        app:layout_constraintTop_toBottomOf="@+id/signin_button"
+        app:layout_constraintVertical_bias="0.617" />
 
     <ImageView
         android:id="@+id/banner_image"
         android:layout_width="291dp"
         android:layout_height="287dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="536dp"
         android:src="@drawable/owl_teaching"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signin_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/signin_header"
@@ -102,14 +101,14 @@
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="492dp"
-        android:text="Or Sign In"
+        android:layout_marginBottom="772dp"
+        android:text="Sign In"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -175,14 +174,14 @@
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="640dp"
+        android:layout_marginBottom="356dp"
         android:background="#BDBEA9"
         android:text="Create Account"
         android:textColor="#FAFFFD"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintHorizontal_bias="0.784"
         app:layout_constraintStart_toStartOf="parent" />
 
 

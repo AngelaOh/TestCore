@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -55,6 +57,8 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
 
 
         showStandard = findViewById(R.id.standard_info_text);
@@ -88,6 +92,59 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_question_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.return_to_dashboard:
+                startActivity(new Intent(CreateQuestionActivity.this, DashboardActivity.class));
+                break;
+
+            case R.id.sign_out:
+                logOutUser();
+                break;
+
+            case R.id.view_tests:
+                database.collection("Users").whereEqualTo("userId", currentUser.getUid()).get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                String standardSetId = queryDocumentSnapshots.getDocuments().get(0).getString("standardSetId");
+                                String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+                                String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+
+
+                                Intent intent = new Intent(CreateQuestionActivity.this, ViewEditTestsActivity.class);
+                                intent.putExtra("standard_set_id", standardSetId);
+                                intent.putExtra("user_grade", userGrade);
+                                intent.putExtra("user_content", userContent);
+                                startActivity(intent);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOutUser() {
+        if (currentUser != null && firebaseAuth != null) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(CreateQuestionActivity.this, MainActivity.class));
+        }
     }
 
     @Override

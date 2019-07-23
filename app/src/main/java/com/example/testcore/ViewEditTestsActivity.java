@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -124,10 +126,6 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
              }
          });
 
-        // make standards set api call && save standard set into firestore
-//        String currentUserId = currentUser.getUid();
-//        DocumentReference pathIdTwo = database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUserId).collection("Standards").document("All Standards");
-
         new standardBank(standardSetID).getStandards(new AnswerListAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Standard> standardArrayList) {
@@ -148,6 +146,55 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_tests_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.new_test:
+                // go to new test
+                CollectionReference testCollection = database.collection("Tests");
+                Map<String, Object> testObj = new HashMap<>();
+                testObj.put("Questions", new ArrayList<>());
+                testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+                testObj.put("Test Title", "Some Test Title");
+                testCollection.add(testObj)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                // go to Create Test Activity
+                                Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
+                                intent.putExtra("user_content", userContent);
+                                intent.putExtra("user_grade", userGrade);
+                                intent.putExtra("test_id", documentReference.getId());
+
+                                startActivity(intent);
+                            }
+                        });
+                break;
+            case R.id.return_to_dashboard:
+                startActivity(new Intent(ViewEditTestsActivity.this, DashboardActivity.class));
+                break;
+
+            case R.id.sign_out:
+                logOutUser();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOutUser() {
+        if (currentUser != null && firebaseAuth != null) {
+            firebaseAuth.signOut();
+            startActivity(new Intent(ViewEditTestsActivity.this, MainActivity.class));
+        }
     }
 
     @Override

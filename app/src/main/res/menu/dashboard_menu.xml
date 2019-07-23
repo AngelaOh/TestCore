@@ -9,11 +9,6 @@
         app:showAsAction="ifRoom|withText"/>
 
     <item
-        android:id="@+id/dashboard"
-        android:title="Dashboard"
-        app:showAsAction="ifRoom|withText"/>
-
-    <item
         android:id="@+id/sign_out"
         android:title="Log Out"
         app:showAsAction="ifRoom|withText"/>

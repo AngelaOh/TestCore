@@ -51,7 +51,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="58dp"
-        android:fontFamily="@font/amatica_sc"
+        android:fontFamily="@font/unica_one"
         android:text="Content Info goes here"
         android:textColor="@android:color/black"
         android:textSize="30sp"

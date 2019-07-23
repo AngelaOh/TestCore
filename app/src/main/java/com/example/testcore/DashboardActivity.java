@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button logOutButton, backButton, viewCoursesButton, viewStandardCoverageButton;
+    private Button  backButton, viewCoursesButton, viewStandardCoverageButton;
     private TextView welcomeMessage;
     private TextView stateCard;
     private TextView gradeCard;
@@ -126,7 +125,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         });
 
 
-        logOutButton = findViewById(R.id.log_out_button);
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_create_tests);
         viewStandardCoverageButton = findViewById(R.id.view_standards_coverage_button);
@@ -135,7 +133,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         gradeCard = findViewById(R.id.show_grade_text);
         contentCard = findViewById(R.id.show_content_text);
 
-        logOutButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
         viewCoursesButton.setOnClickListener(this);
         viewStandardCoverageButton.setOnClickListener(this);
@@ -145,7 +142,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.fragment_test, menu);
+        getMenuInflater().inflate(R.menu.dashboard_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -176,9 +173,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.sign_out:
                 logOutUser();
-                break;
-            case R.id.dashboard:
-                // Return to Dashboard if in another activity
                 break;
         }
         return super.onOptionsItemSelected(item);
