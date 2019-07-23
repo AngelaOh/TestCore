@@ -141,7 +141,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
 
         if (view.getId() == R.id.log_out_button) {
-            Toast.makeText(DashboardActivity.this, "log out button clicked", Toast.LENGTH_LONG).show();
+            if (currentUser != null && firebaseAuth != null) {
+                firebaseAuth.signOut();
+                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+            }
         }
 
         else if (view.getId() == R.id.back_button) {

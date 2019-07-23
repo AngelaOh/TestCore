@@ -86,9 +86,6 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
 
             int position = getAdapterPosition();
             Question question = questionList.get(position);
-
-            int deleteItemPosition = RecyclerViewAdapterTestQuestions.this.getItemViewType(-1);
-
             Log.d("view??", "onClick: " + view.getId());
 
             if (view.getId() == R.id.one_test_edit) {
@@ -130,14 +127,6 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
                 refresh.putExtra("test_id", testId);
                 context.startActivity(refresh);
             }
-
-
-//
-//
-//            Intent intent = new Intent(context, EditExistingTestActivity.class);
-//
-//
-//            context.startActivity(intent);
         }
     }
 }
