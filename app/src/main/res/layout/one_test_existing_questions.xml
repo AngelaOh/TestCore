@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
 
         android:background="#FFFFF0"
@@ -29,24 +30,24 @@
 
             <TextView
                 android:id="@+id/one_test_question_bank"
-                android:layout_width="match_parent"
+                android:layout_width="514dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="5dp"
                 android:padding="8dp"
                 android:text="Question Text: "
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/add_question_bank"
+                android:id="@+id/delete_question_bank"
                 android:layout_width="54dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/one_test_question_bank"
                 android:background="@android:color/transparent"
                 android:padding="8dp"
                 android:src="@drawable/circleminusicon" />
@@ -55,17 +56,17 @@
                 android:id="@+id/one_test_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/add_question_bank"
+                android:layout_toRightOf="@+id/delete_question_bank"
                 android:background="@android:color/transparent"
-                android:layout_alignParentEnd="true"
                 android:text="Edit" />
 
             <TextView
                 android:id="@+id/one_test_standard_label_bank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/one_test_edit"
-                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/one_test_edit"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Label" />
 
         </RelativeLayout>

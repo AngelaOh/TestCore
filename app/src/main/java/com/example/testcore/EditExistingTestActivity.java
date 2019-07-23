@@ -47,7 +47,7 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_edit_existing_test);
 
         Bundle bundle = getIntent().getExtras();
-        String incomingTitle = bundle.getString("title");
+        final String incomingTitle = bundle.getString("title");
         incomingTestId = bundle.getString("test_id");
 
         questionCount = findViewById(R.id.question_count_text);
@@ -64,15 +64,16 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
             @Override
             public void processFinished(ArrayList<Question> firestoreArrayList) {
                 Log.d("Existing test q's", "processFinished: " + firestoreArrayList);
-                implementRecyclerView(firestoreArrayList, incomingTestId);
+                implementRecyclerView(firestoreArrayList, incomingTestId, incomingTitle);
             }
         });
 
     }
 
-    public void implementRecyclerView(ArrayList<Question> questions_array, String testId) {
-        recyclerViewAdapter = new RecyclerViewAdapterTestQuestions(EditExistingTestActivity.this, questions_array, testId);
+    public void implementRecyclerView(ArrayList<Question> questions_array, String testId, String testTitle) {
+        recyclerViewAdapter = new RecyclerViewAdapterTestQuestions(EditExistingTestActivity.this, questions_array, testId, testTitle);
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
