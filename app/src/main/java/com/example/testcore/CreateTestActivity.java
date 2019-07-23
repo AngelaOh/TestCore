@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.testcore.adapter.RecyclerViewAdapter;
 import com.example.testcore.data.FirestoreAsyncResponse;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -92,33 +94,14 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.title_submit_button) {
-            String newTitle;
             final String titleForFirebase = testTitle.getText().toString().trim();
             String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
-            database.collection("Tests").whereEqualTo("Course Id", userContent + ": " + userGrade + ": " + currentUserId)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            database.collection("Tests").document(testId).update("Test Title", titleForFirebase)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            titleChangeId = queryDocumentSnapshots.getDocuments().get(0).getId();
-                            Log.d("Check Course Id", "onSuccess: " + titleChangeId);
-
-
-                            database.collection("Tests").document(titleChangeId).update("Test Title", titleForFirebase)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("Title Updated", "onSuccess: " + aVoid);
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d("Title Did Not Update", "onFailure: " + e.getMessage());
-                                        }
-                                    });
-
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(CreateTestActivity.this, "Title Added Successfully", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -127,6 +110,39 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
 
                         }
                     });
+
+
+//            database.collection("Tests").whereEqualTo("Course Id", userContent + ": " + userGrade + ": " + currentUserId)
+//                    .get()
+//                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            titleChangeId = queryDocumentSnapshots.getDocuments().get(0).getId();
+//                            Log.d("Check Course Id", "onSuccess: " + titleChangeId);
+//
+//
+//                            database.collection("Tests").document(titleChangeId).update("Test Title", titleForFirebase)
+//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void aVoid) {
+//                                            Log.d("Title Updated", "onSuccess: " + aVoid);
+//                                        }
+//                                    })
+//                                    .addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            Log.d("Title Did Not Update", "onFailure: " + e.getMessage());
+//                                        }
+//                                    });
+//
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//
+//                        }
+//                    });
         }
 
     }

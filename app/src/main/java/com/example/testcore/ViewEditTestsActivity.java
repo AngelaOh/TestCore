@@ -198,7 +198,6 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
     public void implementRecyclerView(ArrayList<Test> tests_array) {
         recyclerViewAdapterTest = new RecyclerViewAdapterTest(ViewEditTestsActivity.this, tests_array);
-        Log.d("STANDARDS ARRAY", "implementRecyclerView: " + tests_array);
         recyclerView.setAdapter(recyclerViewAdapterTest);
     }
 }
