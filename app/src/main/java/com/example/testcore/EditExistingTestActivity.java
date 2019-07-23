@@ -1,5 +1,6 @@
 package com.example.testcore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +21,16 @@ import com.example.testcore.data.QuestionFirestoreAsyncResponse;
 import com.example.testcore.data.questionFirestoreExistingTest;
 import com.example.testcore.models.Question;
 import com.example.testcore.models.Test;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class EditExistingTestActivity extends AppCompatActivity implements View.OnClickListener {
+    // Connection to Firestore
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     private TextView questionCount;
     private TextView testTitle;
@@ -32,6 +39,8 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
     private RecyclerView recyclerView;
     private RecyclerViewAdapterTestQuestions recyclerViewAdapter;
 
+    private String incomingTestId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +48,7 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
 
         Bundle bundle = getIntent().getExtras();
         String incomingTitle = bundle.getString("title");
-        final String incomingTestId = bundle.getString("test_id");
+        incomingTestId = bundle.getString("test_id");
 
         questionCount = findViewById(R.id.question_count_text);
         testTitle = findViewById(R.id.existing_test_title);
@@ -70,9 +79,46 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
     public void onClick(View view) {
 
         if (view.getId() == R.id.one_test_add_question_button) {
-            Intent intent = new Intent(EditExistingTestActivity.this, CreateQuestionActivity.class);
-//            intent.putExtra("label", )
-            startActivity(intent);
+
+            // user grade, user content, test id
+            database.collection("Tests").document(incomingTestId).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            String courseId = documentSnapshot.getString("Course Id");
+                            Log.d("check course id", "onSuccess: " + courseId);
+
+                            database.collection("Standard Sets").document(courseId).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            String userContent = documentSnapshot.getString("content");
+                                            String userGrade = documentSnapshot.getString("grade");
+
+                                            Intent intent = new Intent(EditExistingTestActivity.this, CreateTestActivity.class);
+                                            intent.putExtra("user_grade", userGrade);
+                                            intent.putExtra("user_content", userContent);
+                                            intent.putExtra("test_id", incomingTestId);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
+
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
         }
 
     }

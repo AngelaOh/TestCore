@@ -107,42 +107,9 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
+                            Log.d("Edit Test Title", "onFailure: " + e.getMessage());
                         }
                     });
-
-
-//            database.collection("Tests").whereEqualTo("Course Id", userContent + ": " + userGrade + ": " + currentUserId)
-//                    .get()
-//                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                            titleChangeId = queryDocumentSnapshots.getDocuments().get(0).getId();
-//                            Log.d("Check Course Id", "onSuccess: " + titleChangeId);
-//
-//
-//                            database.collection("Tests").document(titleChangeId).update("Test Title", titleForFirebase)
-//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                        @Override
-//                                        public void onSuccess(Void aVoid) {
-//                                            Log.d("Title Updated", "onSuccess: " + aVoid);
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Log.d("Title Did Not Update", "onFailure: " + e.getMessage());
-//                                        }
-//                                    });
-//
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//
-//                        }
-//                    });
         }
 
     }
