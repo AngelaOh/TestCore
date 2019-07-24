@@ -45,6 +45,9 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
     private EditText questionText, answerChoiceA, answerChoiceB, answerChoiceC, answerChoiceD;
     private String standardLabel;
     private String testId;
+    private String userContent;
+    private String userGrade;
+    private String testTitle;
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -53,10 +56,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
-
-    private String userContent;
-    private String userGrade;
-    private String testTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +117,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.view_test:
-                // find user content and user grade
-                // find test title
 
                 database.collection("Users").document(currentUser.getUid()).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -136,7 +133,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                                                 testTitle = documentSnapshot.getString("Test Title");
 
                                                 Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
-
                                                 intent.putExtra("test_id", testId);
                                                 intent.putExtra("title", testTitle);
                                                 startActivity(intent);
@@ -156,34 +152,6 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
 
                             }
                         });
-
-//                userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid()
-//                database.collection("Tests").whereEqualTo("Course Id", ).get()
-//                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-////                                String standardSetId = queryDocumentSnapshots.getDocuments().get(0).getString("standardSetId");
-////                                String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
-////                                String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
-//
-//
-//
-//                                // title, test_id
-//                                Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
-////                                intent.putExtra("standard_set_id", standardSetId);
-////                                intent.putExtra("user_grade", userGrade);
-////                                intent.putExtra("user_content", userContent);
-//                                intent.putExtra("test_id", testId);
-//                                intent.putExtra("title", )
-//                                startActivity(intent);
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//
-//                            }
-//                        });
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -225,7 +193,14 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CreateQuestionActivity.this, "Question has been added successfully", Toast.LENGTH_SHORT).show();
+                        firebaseAuth = FirebaseAuth.getInstance();
+                        currentUser = firebaseAuth.getCurrentUser();
+                        String currentUserId = currentUser.getUid();
+
+                        Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
+                        intent.putExtra("test_id", testId);
+                        intent.putExtra("title", testTitle);
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -237,36 +212,5 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                 });
 
 
-        // get content, grade, and testId from firebase and send to next activity
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-        String currentUserId = currentUser.getUid();
-
-        Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
-        intent.putExtra("test_id", testId);
-        intent.putExtra("title", testTitle);
-        startActivity(intent);
-
-//        database.collection("Users").whereEqualTo("userId", currentUserId).get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
-//                        String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
-//
-//                        Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
-//                        intent.putExtra("test_id", testId);
-//                        intent.putExtra("user_grade", userGrade);
-//                        intent.putExtra("user_content", userContent);
-//                        startActivity(intent);
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//
-//                    }
-//                });
     }
 }

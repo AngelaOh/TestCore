@@ -35,10 +35,19 @@ public class questionFirestoreBank {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                       for (int i = 0; i < queryDocumentSnapshots.size(); i ++) {
                           String questionText = queryDocumentSnapshots.getDocuments().get(i).getString("Question Text");
+                          String choiceA = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice A");
+                          String choiceB = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice B");
+                          String choiceC = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice C");
+                          String choiceD = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice D");
+
 
                           Question question = new Question();
                           question.setStandardLabel(standardLabel);
                           question.setQuestionText(questionText);
+                          question.setAnswerChoiceA(choiceA);
+                          question.setAnswerChoiceB(choiceB);
+                          question.setAnswerChoiceC(choiceB);
+                          question.setAnswerChoiceD(choiceB);
 
                           firestoreArrayList.add(question);
 

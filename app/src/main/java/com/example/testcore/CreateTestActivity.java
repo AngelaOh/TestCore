@@ -131,6 +131,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+
         switch (item.getItemId()) {
             case R.id.return_to_dashboard:
                 startActivity(new Intent(CreateTestActivity.this, DashboardActivity.class));
@@ -144,7 +145,12 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void logOutUser() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
         if (currentUser != null && firebaseAuth != null) {
+            Log.d("HIIIIII", "logOutUser: ");
+
             firebaseAuth.signOut();
             startActivity(new Intent(CreateTestActivity.this, MainActivity.class));
         }
@@ -178,7 +184,6 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
                 titleSubmitButton.setVisibility(View.INVISIBLE);
                 titleAfterSubmit.setText(titleForFirebase);
                 recyclerView.setVisibility(View.VISIBLE);
-
         }
     }
 }

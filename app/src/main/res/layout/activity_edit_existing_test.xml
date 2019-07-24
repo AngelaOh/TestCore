@@ -16,6 +16,10 @@
         android:layout_marginTop="84dp"
         android:layout_marginEnd="8dp"
         android:text="Test Title Goes Here"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:fontFamily="@font/unica_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

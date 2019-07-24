@@ -228,20 +228,6 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
     }
 
-//    private void displayStandards() {
-//
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        assert currentUser != null;
-//        String currentUserId = currentUser.getUid();
-//
-//        new standardFirestoreBank(userContent, userGrade, currentUserId).getFirestoreStandards(new FirestoreAsyncResponse() {
-//            @Override
-//            public void processFinished(ArrayList<Standard> firestoreArrayList) {
-//                implementRecyclerView(firestoreArrayList);
-//            }
-//        });
-//
-//    }
 
     public void implementRecyclerView(ArrayList<Test> tests_array, String userGrade, String userContent, String standardSetId) {
         recyclerViewAdapterTest = new RecyclerViewAdapterTest(ViewEditTestsActivity.this, tests_array, userGrade, userContent, standardSetId);

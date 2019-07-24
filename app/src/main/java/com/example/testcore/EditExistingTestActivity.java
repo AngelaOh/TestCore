@@ -81,7 +81,6 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
         new questionFirestoreExistingTest(incomingTestId).getFirestorequestions(new QuestionFirestoreAsyncResponse() {
             @Override
             public void processFinished(ArrayList<Question> firestoreArrayList) {
-                Log.d("Existing test q's", "processFinished: " + firestoreArrayList);
                 implementRecyclerView(firestoreArrayList, incomingTestId, incomingTitle);
             }
         });
@@ -92,6 +91,10 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
         recyclerViewAdapter = new RecyclerViewAdapterTestQuestions(EditExistingTestActivity.this, questions_array, testId, testTitle);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
+        int itemCountNumber = recyclerViewAdapter.getItemCount();
+        String itemCountPhrase = "Question Count: " + itemCountNumber;
+
+        questionCount.setText(itemCountPhrase);
     }
 
     @Override
@@ -142,6 +145,7 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
     private void logOutUser() {
         if (currentUser != null && firebaseAuth != null) {
             firebaseAuth.signOut();
+            Log.d("HIIIIIII", "logOutUser: " );
             startActivity(new Intent(EditExistingTestActivity.this, MainActivity.class));
         }
     }
