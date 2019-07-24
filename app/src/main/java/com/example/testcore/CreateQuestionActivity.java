@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -52,6 +53,10 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
+
+    private String userContent;
+    private String userGrade;
+    private String testTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,21 +117,37 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                 logOutUser();
                 break;
 
-            case R.id.view_tests:
-                database.collection("Users").whereEqualTo("userId", currentUser.getUid()).get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            case R.id.view_test:
+                // find user content and user grade
+                // find test title
+
+                database.collection("Users").document(currentUser.getUid()).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                String standardSetId = queryDocumentSnapshots.getDocuments().get(0).getString("standardSetId");
-                                String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
-                                String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                userContent = documentSnapshot.getString("content");
+                                userGrade = documentSnapshot.getString("grade");
 
 
-                                Intent intent = new Intent(CreateQuestionActivity.this, ViewEditTestsActivity.class);
-                                intent.putExtra("standard_set_id", standardSetId);
-                                intent.putExtra("user_grade", userGrade);
-                                intent.putExtra("user_content", userContent);
-                                startActivity(intent);
+                                database.collection("Tests").document(userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid()).get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                testTitle = documentSnapshot.getString("Test Title");
+
+                                                Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
+
+                                                intent.putExtra("test_id", testId);
+                                                intent.putExtra("title", testTitle);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -135,6 +156,34 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
 
                             }
                         });
+
+//                userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid()
+//                database.collection("Tests").whereEqualTo("Course Id", ).get()
+//                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+////                                String standardSetId = queryDocumentSnapshots.getDocuments().get(0).getString("standardSetId");
+////                                String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+////                                String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+//
+//
+//
+//                                // title, test_id
+//                                Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
+////                                intent.putExtra("standard_set_id", standardSetId);
+////                                intent.putExtra("user_grade", userGrade);
+////                                intent.putExtra("user_content", userContent);
+//                                intent.putExtra("test_id", testId);
+//                                intent.putExtra("title", )
+//                                startActivity(intent);
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//
+//                            }
+//                        });
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -194,25 +243,30 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         currentUser = firebaseAuth.getCurrentUser();
         String currentUserId = currentUser.getUid();
 
-        database.collection("Users").whereEqualTo("userId", currentUserId).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
-                        String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+        Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
+        intent.putExtra("test_id", testId);
+        intent.putExtra("title", testTitle);
+        startActivity(intent);
 
-                        Intent intent = new Intent(CreateQuestionActivity.this, CreateTestActivity.class);
-                        intent.putExtra("test_id", testId);
-                        intent.putExtra("user_grade", userGrade);
-                        intent.putExtra("user_content", userContent);
-                        startActivity(intent);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
+//        database.collection("Users").whereEqualTo("userId", currentUserId).get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        String userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+//                        String userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+//
+//                        Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
+//                        intent.putExtra("test_id", testId);
+//                        intent.putExtra("user_grade", userGrade);
+//                        intent.putExtra("user_content", userContent);
+//                        startActivity(intent);
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
     }
 }

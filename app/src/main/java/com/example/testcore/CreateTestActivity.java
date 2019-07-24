@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testcore.adapter.RecyclerViewAdapter;
@@ -43,6 +44,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     private String userContent;
     private Button titleSubmitButton;
     private EditText testTitle;
+    private TextView titleAfterSubmit;
     private String titleChangeId;
     private String testId;
 
@@ -63,6 +65,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
         recyclerView = findViewById(R.id.standard_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setVisibility(View.INVISIBLE);
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -86,7 +89,31 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
 
         titleSubmitButton = findViewById(R.id.title_submit_button);
         testTitle = findViewById(R.id.test_title);
+        titleAfterSubmit = findViewById(R.id.test_title_after_submit);
         titleSubmitButton.setOnClickListener(this);
+
+        database.collection("Tests").document(testId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String firebaseTitle = documentSnapshot.getString("Test Title");
+                        if (firebaseTitle == null) {
+                            testTitle.setVisibility(View.VISIBLE);
+                            titleSubmitButton.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.INVISIBLE);
+                        } else {
+
+                            testTitle.setVisibility(View.INVISIBLE);
+                            titleSubmitButton.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
     }
 
     public void implementRecyclerView(ArrayList<Standard> standards_array_check) {
@@ -127,12 +154,14 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         if (view.getId() == R.id.title_submit_button) {
             final String titleForFirebase = testTitle.getText().toString().trim();
+//            final String titleFROMTFirebae;
             String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
             database.collection("Tests").document(testId).update("Test Title", titleForFirebase)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+
                             Toast.makeText(CreateTestActivity.this, "Title Added Successfully", Toast.LENGTH_SHORT).show();
                         }
                     })
@@ -142,7 +171,14 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
                             Log.d("Edit Test Title", "onFailure: " + e.getMessage());
                         }
                     });
-        }
 
+            // get rid of title input and replace with actual title
+
+                testTitle.setVisibility(View.INVISIBLE);
+                titleSubmitButton.setVisibility(View.INVISIBLE);
+                titleAfterSubmit.setText(titleForFirebase);
+                recyclerView.setVisibility(View.VISIBLE);
+
+        }
     }
 }

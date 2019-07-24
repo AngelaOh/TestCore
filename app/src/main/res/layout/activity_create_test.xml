@@ -7,34 +7,50 @@
     android:background="@drawable/gradient_one"
     tools:context=".CreateTestActivity">
 
-    <EditText
-        android:id="@+id/test_title"
-        android:layout_width="324dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginBottom="175dp"
-        android:hint="Title Your Test"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/view_standard_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/title_submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/test_title_after_submit"
+        android:layout_width="613dp"
+        android:layout_height="76dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Submit Title"
-        android:textSize="25sp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="35sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/view_standard_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toEndOf="@+id/test_title"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <EditText
+                android:id="@+id/test_title"
+                android:layout_width="324dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginTop="88dp"
+                android:layout_marginBottom="175dp"
+                android:hint="Title Your Test"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/title_submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="88dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toRightOf="@+id/test_title"
+                android:text="Submit Title"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/standard_recycler_view"
@@ -57,11 +73,13 @@
         android:layout_marginBottom="8dp"
         android:text="Choose Standard"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/standard_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

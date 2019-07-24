@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/view_tests"
-        android:title="View Test"
+        android:title="View Tests"
         app:showAsAction="ifRoom|withText"/>
 
     <item

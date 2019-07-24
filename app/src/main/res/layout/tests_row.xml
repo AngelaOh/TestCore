@@ -9,18 +9,21 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/tests_row_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
+
+        app:cardCornerRadius="12dp"
+        app:cardElevation="11dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:layout_width="901dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="7dp"
             android:padding="4dp">
@@ -30,19 +33,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_margin="15dp"
                 android:text="Test Title: "
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/question_one"
+                android:id="@+id/test_creation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/test_title"
+                android:text="Date Created"
+                android:layout_margin="15dp"
                 android:padding="8dp"
-                android:text="Question One: "
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textSize="10sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_below="@id/test_title"/>
+
+            <ImageButton
+                android:id="@+id/delete_test_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="54dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="50dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/circleminusicon" />
 
         </RelativeLayout>
 

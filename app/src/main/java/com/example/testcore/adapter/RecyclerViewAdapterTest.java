@@ -2,10 +2,13 @@ package com.example.testcore.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,19 +18,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testcore.CreateQuestionActivity;
 import com.example.testcore.EditExistingTestActivity;
 import com.example.testcore.R;
+import com.example.testcore.ViewEditTestsActivity;
 import com.example.testcore.models.Standard;
 import com.example.testcore.models.Test;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAdapterTest.ViewHolder>{
+    // Connection to Firestore
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     private final Context context;
     private final ArrayList<Test> testList;
+    private final String userGrade;
+    private final String userContent;
+    private final String standardSetId;
 
-    public RecyclerViewAdapterTest(Context context, ArrayList<Test> testList) {
+//    userGrade, userContent, standardSetId
+    public RecyclerViewAdapterTest(Context context, ArrayList<Test> testList, String userGrade, String userContent, String standardSetId) {
         this.context = context;
         this.testList = testList;
+        this.userGrade = userGrade;
+        this.userContent = userContent;
+        this.standardSetId = standardSetId;
     }
 
 
@@ -55,6 +71,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
+        public ImageButton deleteTest;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,19 +79,44 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
             itemView.setOnClickListener(this);
 
             title = itemView.findViewById(R.id.test_title);
+            deleteTest = itemView.findViewById(R.id.delete_test_button);
+            deleteTest.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View view) {
-
             int position = getAdapterPosition();
             Test test = testList.get(position);
 
-            Intent intent = new Intent(context, EditExistingTestActivity.class);
-            intent.putExtra("title", test.getTitle());
-            intent.putExtra("test_id", test.getTestId());
+            if (view.getId() == view.findViewById(R.id.delete_test_button).getId()) {
 
-            context.startActivity(intent);
+                Log.d("DELETE", "onClick: ACCESSING DELETE TEST BUTTON");
+                database.collection("Tests").document(test.getTestId()).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Intent refresh = new Intent(context, ViewEditTestsActivity.class);
+                                refresh.putExtra("user_grade", userGrade);
+                                refresh.putExtra("user_content", userContent);
+                                refresh.putExtra("standard_set_id", standardSetId);
+                                context.startActivity(refresh);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+            } else {
+
+                Intent intent = new Intent(context, EditExistingTestActivity.class);
+                intent.putExtra("title", test.getTitle());
+                intent.putExtra("test_id", test.getTestId());
+
+                context.startActivity(intent);
+            }
         }
     }
 }

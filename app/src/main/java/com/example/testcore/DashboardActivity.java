@@ -91,6 +91,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         // get the path to user
         // .get()
         // store info in juridiction ID
+        Log.d("User??", "onCreate: " + currentUser.getUid());
         database.collection("Users").whereEqualTo("userId", currentUser.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -113,6 +114,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     contentCard.setText(contentText);
 
                     jurisdictionID = queryDocumentSnapshots.getDocuments().get(0).getString("jurisdictionId");
+
+//                    Log.d("jurisdicition id", "onCreate: " + jurisdictionID);
+
                     documentId = queryDocumentSnapshots.getDocuments().get(0).getId();
                     // Log.d("DOCUMENT SNAP", "onSuccess: " + queryDocumentSnapshots.getDocuments().get(0).getId());
                 }
@@ -124,6 +128,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+        Log.d("jurisdicition id", "onCreate: " + jurisdictionID);
 
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_create_tests);
@@ -156,7 +161,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 Map<String, Object> testObj = new HashMap<>();
                 testObj.put("Questions", new ArrayList<>());
                 testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
-                testObj.put("Test Title", "Some Test Title");
+//                testObj.put("Test Title", "Some Test Title");
                 testCollection.add(testObj)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

@@ -122,7 +122,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
              @Override
              public void processFinished(ArrayList<Test> firestoreArrayList) {
                  Log.d("Tests in Activity", "processFinished: " + firestoreArrayList);
-                 implementRecyclerView(firestoreArrayList);
+                 implementRecyclerView(firestoreArrayList, userGrade, userContent, standardSetID);
              }
          });
 
@@ -164,7 +164,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
                 Map<String, Object> testObj = new HashMap<>();
                 testObj.put("Questions", new ArrayList<>());
                 testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
-                testObj.put("Test Title", "Some Test Title");
+//                testObj.put("Test Title", "Some Test Title");
                 testCollection.add(testObj)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
@@ -210,7 +210,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         Map<String, Object> testObj = new HashMap<>();
         testObj.put("Questions", new ArrayList<>());
         testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
-        testObj.put("Test Title", "Some Test Title");
+//        testObj.put("Test Title", "");
         testCollection.add(testObj)
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
@@ -243,8 +243,9 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 //
 //    }
 
-    public void implementRecyclerView(ArrayList<Test> tests_array) {
-        recyclerViewAdapterTest = new RecyclerViewAdapterTest(ViewEditTestsActivity.this, tests_array);
+    public void implementRecyclerView(ArrayList<Test> tests_array, String userGrade, String userContent, String standardSetId) {
+        recyclerViewAdapterTest = new RecyclerViewAdapterTest(ViewEditTestsActivity.this, tests_array, userGrade, userContent, standardSetId);
         recyclerView.setAdapter(recyclerViewAdapterTest);
+        recyclerViewAdapterTest.notifyDataSetChanged();
     }
 }
