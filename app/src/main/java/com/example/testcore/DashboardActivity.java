@@ -189,7 +189,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
             backButtonMethod();
         } else if (view.getId() == R.id.view_standards_coverage_button) {
-            Toast.makeText(DashboardActivity.this, "View Standards Button Clicked", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(DashboardActivity.this, StandardCoverageActivity.class));
+
         } else if (view.getId() == R.id.view_create_tests) {
             viewCoursesCall();
         }

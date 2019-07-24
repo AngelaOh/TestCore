@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/amaranth</item>
         <item>@font/amatica_sc</item>
         <item>@font/cutive_mono</item>
+        <item>@font/paprika</item>
         <item>@font/unica_one</item>
     </array>
 </resources>
