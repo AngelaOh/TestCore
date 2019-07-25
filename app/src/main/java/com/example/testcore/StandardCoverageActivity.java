@@ -58,7 +58,6 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
     private RecyclerView recyclerView;
     private RecyclerViewAdapterStandardCoverage recyclerViewAdapter;
 
-    private HashMap<String, Object> standardsCoverageHash = new HashMap<>();
     private String standardSetId;
     private String userGrade;
     private String userContent;
@@ -119,9 +118,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
 
                         final HashMap<String, Integer> countQuestionStandard = new HashMap<>();
                         for (int i = 0; i < eachStandardsList.size(); i ++) {
-//                            Log.d("hashmap", "processFinished: " + countQuestionStandard);
                             Integer count = countQuestionStandard.get(eachStandardsList.get(i));
-//                            Log.d("count", "processFinished: " + count);
                             countQuestionStandard.put(eachStandardsList.get(i), (count == null ) ? 1 : count + 1);
                         }
 
@@ -138,10 +135,6 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
             }
         });
 
-
-
-        // number of questions per standard in recycler view
-
     }
 
     public void implementRecyclerView(ArrayList<Standard> standardsArray, HashMap<String, Integer> questionCount) {
@@ -152,7 +145,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.create_question_menu, menu);
+        getMenuInflater().inflate(R.menu.standard_coverage_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -169,7 +162,11 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                 break;
 
             case R.id.view_all_tests:
-
+                Intent intent = new Intent(StandardCoverageActivity.this, ViewEditTestsActivity.class);
+                intent.putExtra("standard_set_id", standardSetId);
+                intent.putExtra("user_grade", userGrade);
+                intent.putExtra("user_content", userContent);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

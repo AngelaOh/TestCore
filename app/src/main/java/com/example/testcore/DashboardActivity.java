@@ -272,15 +272,8 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
         Log.d("check queue", "viewCoursesCall: " + queue);
         queue.add(standardsIDObject);
-
     }
 
-        // method to check if course is missing any standards not covered in tests
-//    public ArrayList<Standard> checkStandards(Course course) {
-//        for (test : course.getTests()) {
-//            // check for standards
-//        }
-//    }
 }
 
 

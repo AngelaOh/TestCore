@@ -76,11 +76,19 @@
                 android:textSize="15sp"
                 android:text="Question Count" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:src="@drawable/common_google_signin_btn_icon_light_focused"/>-->
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/chart"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/common_google_signin_btn_icon_light_focused"/>
+                tools:layout_editor_absoluteX="593dp"
+                tools:layout_editor_absoluteY="169dp" />
 
         </RelativeLayout>
 
