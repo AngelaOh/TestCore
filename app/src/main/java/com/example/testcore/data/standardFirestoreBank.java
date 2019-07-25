@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class standardFirestoreBank {
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    public standardFirestoreBank(String userContent, String userGrade, String currentUserId) {
+    public standardFirestoreBank( String userContent, String userGrade, String currentUserId) {
         this.userContent = userContent;
         this.userGrade = userGrade;
         this.currentUserId = currentUserId;

@@ -91,7 +91,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         // get the path to user
         // .get()
         // store info in juridiction ID
-        Log.d("User??", "onCreate: " + currentUser.getUid());
+//        Log.d("User??", "onCreate: " + currentUser.getUid());
         database.collection("Users").whereEqualTo("userId", currentUser.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -128,7 +128,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        Log.d("jurisdicition id", "onCreate: " + jurisdictionID);
+//        Log.d("jurisdicition id", "onCreate: " + jurisdictionID);
 
         backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_create_tests);
@@ -186,11 +186,28 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.back_button) {
-            Log.d("checking back button", "onClick: IN BACK BUTTON CLICK LISTENER");
             backButtonMethod();
         } else if (view.getId() == R.id.view_standards_coverage_button) {
-            startActivity(new Intent(DashboardActivity.this, StandardCoverageActivity.class));
 
+            database.collection("Users").whereEqualTo("userId", currentUser.getUid()).get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            String standardSetId = queryDocumentSnapshots.getDocuments().get(0).getString("standardSetId");
+
+                            Intent intent = new Intent(DashboardActivity.this, StandardCoverageActivity.class);
+                            intent.putExtra("user_content", userContent);
+                            intent.putExtra("user_grade", userGrade);
+                            intent.putExtra("user_standard_set_id", standardSetId);
+                            startActivity(intent);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
         } else if (view.getId() == R.id.view_create_tests) {
             viewCoursesCall();
         }
