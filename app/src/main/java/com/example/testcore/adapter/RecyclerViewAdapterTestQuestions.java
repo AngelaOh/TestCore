@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcore.EditExistingTestActivity;
+import com.example.testcore.EditQuestionActivity;
 import com.example.testcore.R;
 import com.example.testcore.models.Question;
 import com.example.testcore.models.Test;
@@ -79,6 +80,7 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
             questionText = itemView.findViewById(R.id.one_test_question_bank);
             questionLabel = itemView.findViewById(R.id.one_test_standard_label_bank);
             editQuestion = itemView.findViewById(R.id.one_test_edit);
+            editQuestion.setOnClickListener(this);
         }
 
         @Override
@@ -86,12 +88,18 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
 
             int position = getAdapterPosition();
             Question question = questionList.get(position);
-            Log.d("view??", "onClick: " + view.getId());
 
-            if (view.getId() == R.id.one_test_edit) {
+            if (view.getId() == view.findViewById(R.id.one_test_edit).getId()) {
                 // go to edit question activity
+                Intent intent = new Intent(context, EditQuestionActivity.class);
+                intent.putExtra("question_text", question.getQuestionText());
+                intent.putExtra("standard_label", question.getStandardLabel());
+
+                context.startActivity(intent);
+
+
             } else if (view.getId() == view.findViewById(R.id.delete_question_bank).getId()) {
-                Log.d("REGISTER BUTTON", "onClick: ");
+//                Log.d("REGISTER BUTTON", "onClick: ");
 
                 database.collection("Questions").whereEqualTo("Question Text", question.getQuestionText()).get() //TODO: find more sound way of querying documentID
                         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
