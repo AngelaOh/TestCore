@@ -2,6 +2,7 @@ package com.example.testcore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,13 +15,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.testcore.adapter.RecyclerViewAdapterQuestion;
+import com.example.testcore.adapter.RecyclerViewAdapterStandardCoverage;
+import com.example.testcore.adapter.RecyclerViewAdapterTestQuestions;
 import com.example.testcore.data.EachStandardAsyncResponse;
 import com.example.testcore.data.EachTestAsyncResponse;
+import com.example.testcore.data.FirestoreAsyncResponse;
 import com.example.testcore.data.StandardCoverageAsyncResponse;
 import com.example.testcore.data.eachStandardCoveredBank;
 import com.example.testcore.data.eachTestCoveredBank;
 import com.example.testcore.data.standardCoverageBank;
 import com.example.testcore.data.standardFirestoreBank;
+import com.example.testcore.models.Question;
 import com.example.testcore.models.Standard;
 import com.example.testcore.models.Test;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,7 +55,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
     private TextView totalStandardPercent;
     private ProgressBar totalStandardProgressBar;
     private RecyclerView recyclerView;
-//    private RecyclerViewAdapterStandardCoverage recyclerViewAdapter;
+    private RecyclerViewAdapterStandardCoverage recyclerViewAdapter;
 
     private HashMap<String, Object> standardsCoverageHash = new HashMap<>();
     private String standardSetId;
@@ -76,6 +81,8 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
         totalStandardPercent = findViewById(R.id.standard_coverage_percent);
         totalStandardProgressBar = findViewById(R.id.standard_coverage_progressbar);
         recyclerView = findViewById(R.id.standard_coverage_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // total number of standards for this teacher
         new standardCoverageBank(userContent, userGrade, currentUser.getUid()).getAllStandards(new StandardCoverageAsyncResponse() {
@@ -97,25 +104,30 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                     public void processFinished(ArrayList<String> eachStandardsList) {
 
                         double percent = eachStandardsList.size()/((double)standardsTotalNum);
-                        Log.d("standards used size", "processFinished: " + eachStandardsList.size());
-                        Log.d("standards total size", "processFinished: " + standardsTotalNum);
-                        Log.d("coverage percentage", "processFinished: " + percent);
-
                         String percentDisplay = Math.round(percent*100) + "%";
                         totalStandardPercent.setText(percentDisplay);
-                        //(int)percent*100
-                        Log.d("lalalala", "processFinished: " + Math.round(percent*100));
                         totalStandardProgressBar.setProgress((int)Math.round(percent*100));
-                        totalStandardProgressBar.setBackgroundColor();
-                        Log.d("string percentage", "processFinished: " + percentDisplay);
                     }
                 });
 
             }
         });
 
-        // number of questions per standard in recycler view
 
+
+        // number of questions per standard in recycler view
+        new standardFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoreStandards(new FirestoreAsyncResponse() {
+            @Override
+            public void processFinished(ArrayList<Standard> firestoreArrayList) {
+                implementRecyclerView(firestoreArrayList, "3");
+            }
+        });
+    }
+
+    public void implementRecyclerView(ArrayList<Standard> standardsArray, String questionCount) {
+        recyclerViewAdapter = new RecyclerViewAdapterStandardCoverage(StandardCoverageActivity.this, standardsArray, questionCount);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override
