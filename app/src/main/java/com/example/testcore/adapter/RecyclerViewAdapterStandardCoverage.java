@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<RecyclerViewAdapterStandardCoverage.ViewHolder> {
     // Connection to Firestore
@@ -30,9 +31,9 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
 
     private final Context context;
     private final ArrayList<Standard> standardList;
-    private final String questionCount;
+    private final HashMap<String, Integer> questionCount;
 
-    public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, String questionCount) {
+    public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, HashMap<String, Integer> questionCount) {
         this.context = context;
         this.standardList = standardList;
         this.questionCount = questionCount;
@@ -51,8 +52,9 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
     public void onBindViewHolder(@NonNull RecyclerViewAdapterStandardCoverage.ViewHolder holder, int position) {
 
         Standard standard = standardList.get(position);
-        String questionCountString = "Count: " + questionCount;
 
+
+        String questionCountString = "Count: " + (questionCount.get(standard.getLabel()) == null ? 0 : questionCount.get(standard.getLabel()) );
         holder.standardLabel.setText(standard.getLabel());
         holder.standardDescription.setText(standard.getDescription());
         holder.standardQuestionCount.setText(questionCountString); // put in a question count

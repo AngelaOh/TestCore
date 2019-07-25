@@ -39,6 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -99,14 +100,38 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
             public void processFinished(ArrayList<String> eachTestList) {
                 Log.d("each test list", "processFinished: " + eachTestList);
 
+
+
                 new eachStandardCoveredBank(userContent, userGrade, currentUser.getUid(), eachTestList).getIndividualStandards(new EachStandardAsyncResponse() {
                     @Override
                     public void processFinished(ArrayList<String> eachStandardsList) {
+                        Log.d("List of Stands", "processFinished: " + eachStandardsList);
 
-                        double percent = eachStandardsList.size()/((double)standardsTotalNum);
+                        ArrayList<String> uniqueStandardsList = new ArrayList<>();
+                        Set<String> set = new LinkedHashSet<>();
+                        set.addAll(eachStandardsList);
+                        uniqueStandardsList.addAll(set);
+
+                        double percent = uniqueStandardsList.size()/((double)standardsTotalNum);
                         String percentDisplay = Math.round(percent*100) + "%";
                         totalStandardPercent.setText(percentDisplay);
                         totalStandardProgressBar.setProgress((int)Math.round(percent*100));
+
+                        final HashMap<String, Integer> countQuestionStandard = new HashMap<>();
+                        for (int i = 0; i < eachStandardsList.size(); i ++) {
+//                            Log.d("hashmap", "processFinished: " + countQuestionStandard);
+                            Integer count = countQuestionStandard.get(eachStandardsList.get(i));
+//                            Log.d("count", "processFinished: " + count);
+                            countQuestionStandard.put(eachStandardsList.get(i), (count == null ) ? 1 : count + 1);
+                        }
+
+                        new standardFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoreStandards(new FirestoreAsyncResponse() {
+                            @Override
+                            public void processFinished(ArrayList<Standard> firestoreArrayList) {
+                                implementRecyclerView(firestoreArrayList, countQuestionStandard);
+                            }
+                        });
+
                     }
                 });
 
@@ -116,15 +141,10 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
 
 
         // number of questions per standard in recycler view
-        new standardFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoreStandards(new FirestoreAsyncResponse() {
-            @Override
-            public void processFinished(ArrayList<Standard> firestoreArrayList) {
-                implementRecyclerView(firestoreArrayList, "3");
-            }
-        });
+
     }
 
-    public void implementRecyclerView(ArrayList<Standard> standardsArray, String questionCount) {
+    public void implementRecyclerView(ArrayList<Standard> standardsArray, HashMap<String, Integer> questionCount) {
         recyclerViewAdapter = new RecyclerViewAdapterStandardCoverage(StandardCoverageActivity.this, standardsArray, questionCount);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();

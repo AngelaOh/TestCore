@@ -1,64 +1,64 @@
-package com.example.testcore.data;
-
-import androidx.annotation.NonNull;
-
-import com.example.testcore.models.Question;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class questionsByStandardFirestore {
-    ArrayList<Question> firestoreArrayList = new ArrayList<>();
-    private String standardLabel;
-
-    public questionsByStandardFirestore(String standardLabel) {
-        this.standardLabel = standardLabel;
-    }
-
-    // Connection to Firestore
-    private FirebaseFirestore database = FirebaseFirestore.getInstance();
-
-    public List<Question> getFirestorequestions(final QuestionFirestoreAsyncResponse callBack) {
-        CollectionReference questionPath = database.collection("Questions");
-
-        questionPath.whereEqualTo("Standard Label", standardLabel).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                      for (int i = 0; i < queryDocumentSnapshots.size(); i ++) {
-                          String questionText = queryDocumentSnapshots.getDocuments().get(i).getString("Question Text");
-                          String choiceA = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice A");
-                          String choiceB = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice B");
-                          String choiceC = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice C");
-                          String choiceD = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice D");
-
-
-                          Question question = new Question();
-                          question.setStandardLabel(standardLabel);
-                          question.setQuestionText(questionText);
-                          question.setAnswerChoiceA(choiceA);
-                          question.setAnswerChoiceB(choiceB);
-                          question.setAnswerChoiceC(choiceB);
-                          question.setAnswerChoiceD(choiceB);
-
-                          firestoreArrayList.add(question);
-
-                      }
-                      if (null != callBack) callBack.processFinished(firestoreArrayList);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
-        return firestoreArrayList;
-    }
-}
+//package com.example.testcore.data;
+//
+//import android.util.Log;
+//
+//import androidx.annotation.NonNull;
+//
+//import com.example.testcore.models.Question;
+//import com.google.android.gms.tasks.OnFailureListener;
+//import com.google.android.gms.tasks.OnSuccessListener;
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.firestore.CollectionReference;
+//import com.google.firebase.firestore.FirebaseFirestore;
+//import com.google.firebase.firestore.QuerySnapshot;
+//
+//import java.lang.reflect.Array;
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+//public class questionsByStandardFirestore {
+//    Map<String, String> standardQuestionHash = new HashMap<>();
+//    private ArrayList<String> testIdArray;
+//
+//    // Connection to Firestore
+//    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+//
+//    // Firebase Auth
+//    private FirebaseAuth firebaseAuth;
+//    private FirebaseAuth.AuthStateListener authStateListener;
+//    private FirebaseUser currentUser;
+//
+//    public questionsByStandardFirestore(ArrayList<String> testIdArray) {
+//        this.testIdArray = testIdArray;
+//    }
+//
+//    public HashMap<String,String> getQuestionsByStandard(final QuestionByStandardAsyncResponse callBack) {
+//
+//        for (int i = 0; i < testIdArray.size(); i ++) {
+//            database.collection("Questions").whereEqualTo("Test Id", testIdArray.get(i)).get()
+//                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//
+//                            for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j++) {
+//                                standardQuestionHash.put(queryDocumentSnapshots.getDocuments().get(j).getString("Standard Label"), queryDocumentSnapshots.getDocuments().get(j).getString("Standard Label"));
+////                                Log.d("check standard label", "onSuccess: " + eachStandardList);
+//                            }
+////                            if (null != callBack) callBack.processFinished(standardQuestionHash);
+//
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//
+//                        }
+//                    });
+//        }
+//
+//        return standardQuestionHash;
+//    }
+//}
