@@ -229,6 +229,9 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                     }
                 });
 
+        // add question to tests question section
+        database.collection("Tests").document(testId).update("Questions", FieldValue.arrayUnion(questionforFirestore));
+
         Map<String, String> storeQuestionInfo = new HashMap<>();
         storeQuestionInfo.put(questionforFirestore.get("Question Text"), questionforFirestore.get("Question Text"));
         database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid())

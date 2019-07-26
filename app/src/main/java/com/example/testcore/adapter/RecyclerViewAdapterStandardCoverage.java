@@ -62,7 +62,6 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
     private final ArrayList<String> testList;
     private final String userContent;
     private final String userGrade;
-    private String testText;
 
     public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, HashMap<String, Integer> questionCount, ArrayList<String> testList, String userContent, String userGrade) {
         this.context = context;
@@ -110,13 +109,61 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
         PieChartData pieCharData = new PieChartData(questionCountData);
         holder.pieChart.setPieChartData(pieCharData);
 
+        /////// get questions form test id and pull out one qusetion object by standard
+        database.collection("Tests").document(testList.get(0)).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Log.d("LOOK AT THIS", "onSuccess: " + documentSnapshot.toObject(Question.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
         /////// find tests associated with user --> test id
         Log.d("TEST LIST", "onBindViewHolder: " + testList);
-
+        ///// this gets the questionText by standard and sets textview to question text and test title
         new questionsforStandardSetBank(standard.getLabel(), userContent, userGrade).getQuestionText(new QuestionforStandardAsyncResponse() {
             @Override
-            public void processFinished(String questionText) {
-                holder.questionsSpecific.setText(questionText);
+            public void processFinished(final String questionText) {
+
+                    database.collection("Questions").whereEqualTo("Question Text", questionText).get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (queryDocumentSnapshots.getDocuments().size() > 0) {
+                                        String testID = queryDocumentSnapshots.getDocuments().get(0).getString("Test Id");
+
+                                        database.collection("Tests").document(testID).get()
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        String testTitle = documentSnapshot.getString("Test Title");
+                                                        String setQuestionSpecificText = "Question: [" + questionText + "] from Test: [" + testTitle + "]";
+                                                        holder.questionsSpecific.setText(setQuestionSpecificText);
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+
+                                                    }
+                                                });
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
             }
         });
 
