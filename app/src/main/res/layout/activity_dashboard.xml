@@ -4,65 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_one"
     tools:context=".DashboardActivity">
-
-
-    <Button
-        android:id="@+id/view_create_tests"
-        android:layout_width="477dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/capsule_button"
-        android:padding="5dp"
-        android:text="View Your Tests"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_standards_coverage_button"
-        app:layout_constraintVertical_bias="0.058" />
-
 
     <Button
         android:id="@+id/view_standards_coverage_button"
         android:layout_width="528dp"
         android:layout_height="74dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="184dp"
         android:layout_marginEnd="176dp"
-        android:background="@drawable/capsule_button"
+        android:background="@drawable/capsule_button_solid"
         android:text="View Standard Coverage"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.946"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="222dp"
-        android:layout_height="180dp"
+    <Button
+        android:id="@+id/view_create_tests"
+        android:layout_width="477dp"
+        android:layout_height="66dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="96dp"
-        android:src="@drawable/owl_teaching"
+        android:layout_marginBottom="560dp"
+        android:background="@drawable/capsule_button_solid"
+        android:padding="5dp"
+        android:text="View Your Tests"
+        android:textColor="@android:color/white"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.924"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_standards_coverage_button" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="526dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="184dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="68dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="11dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,13 +64,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/amaranth"
+                android:padding="10dp"
                 android:text="Welcome, "
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
-                android:textSize="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+                android:textSize="40dp" />
 
             <TextView
                 android:id="@+id/show_state_text"
@@ -93,7 +78,9 @@
                 android:layout_below="@id/welcome_message"
                 android:layout_margin="5dp"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="30dp"
                 android:text=""
+
                 android:textSize="25sp" />
 
             <TextView
@@ -102,7 +89,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/show_state_text"
                 android:layout_margin="5dp"
+                android:paddingLeft="30dp"
                 android:text=""
+
                 android:textSize="25sp" />
 
             <TextView
@@ -111,9 +100,36 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/show_grade_text"
                 android:layout_margin="5dp"
+                android:layout_marginBottom="30dp"
+                android:paddingLeft="30dp"
+
                 android:text=""
                 android:textSize="25sp" />
-
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="943dp"
+        android:layout_height="794dp"
+        android:background="@drawable/wideclassroom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!--<ImageView-->
+        <!--android:layout_width="916dp"-->
+        <!--android:layout_height="304dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="112dp"-->
+        <!--android:src="@drawable/wideclassroom"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.501"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
