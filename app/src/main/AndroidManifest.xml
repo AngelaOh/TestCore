@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".EditQuestionActivity"></activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".EditQuestionActivity" />
         <activity android:name=".StandardCoverageActivity" />
         <activity android:name=".EditExistingTestActivity" />
         <activity android:name=".CreateTestActivity" />

@@ -19,13 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcore.EditExistingTestActivity;
 import com.example.testcore.R;
+import com.example.testcore.data.QuestionforStandardAsyncResponse;
+import com.example.testcore.data.eachTestCoveredBank;
+import com.example.testcore.data.questionsforStandardSetBank;
 import com.example.testcore.models.Question;
 import com.example.testcore.models.Standard;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,14 +51,27 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
+    // Firebase Auth
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
+
     private final Context context;
     private final ArrayList<Standard> standardList;
     private final HashMap<String, Integer> questionCount;
+    private final ArrayList<String> testList;
+    private final String userContent;
+    private final String userGrade;
+    private String testText;
 
-    public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, HashMap<String, Integer> questionCount) {
+    public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, HashMap<String, Integer> questionCount, ArrayList<String> testList, String userContent, String userGrade) {
         this.context = context;
         this.standardList = standardList;
         this.questionCount = questionCount;
+        this.testList = testList;
+        this.userContent = userContent;
+        this.userGrade = userGrade;
+
     }
 
     @NonNull
@@ -60,9 +84,9 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapterStandardCoverage.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerViewAdapterStandardCoverage.ViewHolder holder, int position) {
 
-        Standard standard = standardList.get(position);
+        final Standard standard = standardList.get(position);
 
         Integer questionCountWithZero;
         if (questionCount.get(standard.getLabel()) == null) {
@@ -77,7 +101,7 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
         holder.standardQuestionCount.setText(questionCountString); // put in a question count
 
 
-        //pie chart
+        ///////////pie chart
         List<SliceValue> questionCountData = new ArrayList<>();
         questionCountData.add(new SliceValue( Math.round(((double)questionCountWithZero/5) * 100), Color.CYAN ));
         questionCountData.add(new SliceValue( (100 - (Math.round(((double)questionCountWithZero/5) * 100))), Color.LTGRAY) );
@@ -85,8 +109,18 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
 
         PieChartData pieCharData = new PieChartData(questionCountData);
         holder.pieChart.setPieChartData(pieCharData);
-    }
 
+        /////// find tests associated with user --> test id
+        Log.d("TEST LIST", "onBindViewHolder: " + testList);
+
+        new questionsforStandardSetBank(standard.getLabel(), userContent, userGrade).getQuestionText(new QuestionforStandardAsyncResponse() {
+            @Override
+            public void processFinished(String questionText) {
+                holder.questionsSpecific.setText(questionText);
+            }
+        });
+
+    }
     @Override
     public int getItemCount() {
         return standardList.size();
@@ -98,6 +132,7 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
         public TextView standardQuestionCount;
         public CardView standardCard;
         public PieChartView pieChart;
+        public TextView questionsSpecific;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,6 +144,7 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
             standardQuestionCount = itemView.findViewById(R.id.standard_coverage_question_num);
             standardCard = itemView.findViewById(R.id.one_standard_coverage);
             pieChart = itemView.findViewById(R.id.chart);
+            questionsSpecific = itemView.findViewById(R.id.standard_coverage_questions_text);
         }
 
         @Override

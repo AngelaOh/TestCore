@@ -96,9 +96,33 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
         // number of standards covered (needed to loop through tests and questions per test)
         new eachTestCoveredBank(userContent, userGrade, currentUser.getUid()).getIndividualTests(new EachTestAsyncResponse() {
             @Override
-            public void processFinished(ArrayList<String> eachTestList) {
+            public void processFinished(final ArrayList<String> eachTestList) {
                 Log.d("each test list", "processFinished: " + eachTestList);
 
+//                for (int i = 0; i < eachTestList.size(); i ++ ) {
+
+                    // find questions from test ids
+//                    database.collection("Questions").whereEqualTo("Test Id", eachTestList.get(i)).get()
+//                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                                @Override
+//                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//
+//                                    ArrayList<Question> questionArray = new ArrayList<>();
+//                                    HashMap<String, ArrayList<Question>> testToQuestions = new HashMap<>();
+//                                    for (int j = 0; j < queryDocumentSnapshots.getDocuments().size(); j ++ ) {
+//                                        if (queryDocumentSnapshots.getDocuments().get(j).getString("Standard Label") == )
+//                                    }
+//
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//
+//                                }
+//                            });
+//
+//                }
 
 
                 new eachStandardCoveredBank(userContent, userGrade, currentUser.getUid(), eachTestList).getIndividualStandards(new EachStandardAsyncResponse() {
@@ -106,6 +130,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                     public void processFinished(ArrayList<String> eachStandardsList) {
                         Log.d("List of Stands", "processFinished: " + eachStandardsList);
 
+                        //standard total coverage percentage
                         ArrayList<String> uniqueStandardsList = new ArrayList<>();
                         Set<String> set = new LinkedHashSet<>();
                         set.addAll(eachStandardsList);
@@ -116,6 +141,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                         totalStandardPercent.setText(percentDisplay);
                         totalStandardProgressBar.setProgress((int)Math.round(percent*100));
 
+                        // user test ids to find num of questions per standard
                         final HashMap<String, Integer> countQuestionStandard = new HashMap<>();
                         for (int i = 0; i < eachStandardsList.size(); i ++) {
                             Integer count = countQuestionStandard.get(eachStandardsList.get(i));
@@ -125,20 +151,18 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                         new standardFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoreStandards(new FirestoreAsyncResponse() {
                             @Override
                             public void processFinished(ArrayList<Standard> firestoreArrayList) {
-                                implementRecyclerView(firestoreArrayList, countQuestionStandard);
+                                implementRecyclerView(firestoreArrayList, countQuestionStandard, eachTestList, userContent, userGrade);
                             }
                         });
-
                     }
                 });
-
             }
         });
 
     }
 
-    public void implementRecyclerView(ArrayList<Standard> standardsArray, HashMap<String, Integer> questionCount) {
-        recyclerViewAdapter = new RecyclerViewAdapterStandardCoverage(StandardCoverageActivity.this, standardsArray, questionCount);
+    public void implementRecyclerView(ArrayList<Standard> standardsArray, HashMap<String, Integer> questionCount, ArrayList<String> eachTestList, String userContent, String userGrade) {
+        recyclerViewAdapter = new RecyclerViewAdapterStandardCoverage(StandardCoverageActivity.this, standardsArray, questionCount, eachTestList, userContent, userGrade);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
     }

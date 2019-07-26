@@ -29,8 +29,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
     private String userContent;
     private String userGrade;
     private String testTitle;
+    private ArrayList<String> questionTextFirestore = new ArrayList<>();
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -88,6 +91,21 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         recyclerView = findViewById(R.id.question_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        database.collection("Users").whereEqualTo("userId", currentUser.getUid()).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        userContent = queryDocumentSnapshots.getDocuments().get(0).getString("content");
+                        userGrade = queryDocumentSnapshots.getDocuments().get(0).getString("grade");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
 
         new questionFirestoreBank(standardLabel).getFirestorequestions(new QuestionFirestoreAsyncResponse() {
             @Override
@@ -211,6 +229,12 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                     }
                 });
 
+        Map<String, String> storeQuestionInfo = new HashMap<>();
+        storeQuestionInfo.put(questionforFirestore.get("Question Text"), questionforFirestore.get("Question Text"));
+        database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid())
+                .collection(questionforFirestore.get("Standard Label")).document(questionforFirestore.get("Question Text")).set(storeQuestionInfo);
+//        database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid())
+//                .collection(questionforFirestore.get("Standard Label")).document("Questions").set(storeQuestionInfo, SetOptions.merge());
 
     }
 }

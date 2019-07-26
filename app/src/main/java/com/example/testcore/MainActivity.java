@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        signinHeader = findViewById(R.id.signin_header);
+        signinHeader.setOnClickListener(this);
+
         emailAddress = findViewById(R.id.signin_email);
         password = findViewById(R.id.signin_password);
         createAccountButton = findViewById(R.id.start_create_account);
@@ -75,8 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
             startActivity(intent);
         } else if (view.getId() == R.id.signin_button) {
-            loginEmailPasswordUser(emailAddress.getText().toString().trim(),
-                    password.getText().toString().trim());
+            loginEmailPasswordUser(emailAddress.getText().toString().trim(), password.getText().toString().trim());
+        } else if (view.getId() == R.id.signin_header) {
+            startActivity(new Intent(MainActivity.this, ScrollingActivity.class));
         }
 
     }

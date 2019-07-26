@@ -61,6 +61,16 @@
                 />
 
             <TextView
+                android:id="@+id/standard_coverage_questions_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/standard_coverage_description"
+                android:layout_toRightOf="@+id/standard_coverage_label"
+                android:text=""
+                android:textStyle="italic"
+                android:textSize="10sp"/>
+
+            <TextView
                 android:id="@+id/standard_coverage_question_num"
                 android:layout_toRightOf="@+id/standard_coverage_description"
                 android:layout_width="wrap_content"
