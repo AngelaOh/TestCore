@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button  backButton, viewCoursesButton, viewStandardCoverageButton;
+    private Button  viewCoursesButton, viewStandardCoverageButton;
     private TextView welcomeMessage;
     private TextView stateCard;
     private TextView gradeCard;
@@ -130,7 +130,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
 //        Log.d("jurisdicition id", "onCreate: " + jurisdictionID);
 
-        backButton = findViewById(R.id.back_button);
         viewCoursesButton = findViewById(R.id.view_create_tests);
         viewStandardCoverageButton = findViewById(R.id.view_standards_coverage_button);
         welcomeMessage = findViewById(R.id.welcome_message);
@@ -138,7 +137,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         gradeCard = findViewById(R.id.show_grade_text);
         contentCard = findViewById(R.id.show_content_text);
 
-        backButton.setOnClickListener(this);
         viewCoursesButton.setOnClickListener(this);
         viewStandardCoverageButton.setOnClickListener(this);
 
@@ -185,9 +183,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.back_button) {
-            backButtonMethod();
-        } else if (view.getId() == R.id.view_standards_coverage_button) {
+        if (view.getId() == R.id.view_standards_coverage_button) {
 
             database.collection("Users").whereEqualTo("userId", currentUser.getUid()).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e8f4f8"
     tools:context=".MainActivity">
 
     <TextView
@@ -11,148 +12,129 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="@font/amaranth"
         android:text="TestCore | "
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="60dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/header_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="144dp"
         android:fontFamily="@font/amaranth"
         android:text="Test making made easy"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
 
+        android:textColor="@android:color/black"
         android:textSize="50dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/header_one"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/welcome_message"
-        android:layout_width="620dp"
-        android:layout_height="188dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="8dp"
-        android:text="Make test-making easy with TestCore! Organize your test questions by standards with just a few clicks!"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.556"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_button" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="820dp"
+        android:layout_height="419dp"
 
-    <ImageView
-        android:id="@+id/banner_image"
-        android:layout_width="291dp"
-        android:layout_height="287dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="536dp"
-        android:src="@drawable/owl_teaching"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/signin_email"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/signin_header"
-        android:layout_width="356dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="772dp"
-        android:text="Sign In"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <EditText
-        android:id="@+id/signin_email"
-        android:layout_width="362dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Enter Email"
-        android:inputType="textEmailAddress"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/colorSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.869"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_header" />
-
-    <EditText
-        android:id="@+id/signin_password"
-        android:layout_width="372dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
         android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_email"
-        app:layout_constraintVertical_bias="0.042" />
-
-    <Button
-        android:id="@+id/signin_button"
-        android:layout_width="372dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="212dp"
-        android:background="@drawable/capsule_button"
-        android:text="Sign In"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signin_password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.42">
 
 
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="784dp"
+            android:layout_height="399dp">
+
+            <ImageView
+                android:id="@+id/banner_image"
+                android:layout_width="291dp"
+                android:layout_height="287dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="536dp"
+                android:src="@drawable/owl_teaching"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/signin_email"
+                app:layout_constraintHorizontal_bias="0.638"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/signin_header"
+                android:layout_width="381dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="50dp"
+                android:text="Sign In"
+
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="30dp" />
+
+
+            <EditText
+                android:id="@+id/signin_email"
+                android:layout_width="389dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/signin_header"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="50dp"
+
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorSecondary" />
+
+            <EditText
+                android:id="@+id/signin_password"
+                android:layout_width="389dp"
+                android:layout_height="68dp"
+                android:layout_below="@id/signin_email"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="50dp"
+
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorSecondary" />
+
+            <Button
+                android:id="@+id/signin_button"
+                android:layout_width="372dp"
+                android:layout_height="57dp"
+                android:layout_below="@id/signin_password"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="60dp"
+
+                android:background="@drawable/capsule_button"
+                android:text="Sign In"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="108dp"
         android:layout_height="40dp"
@@ -171,17 +153,32 @@
         android:id="@+id/start_create_account"
         android:layout_width="207dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="324dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/capsule_button"
+        android:layout_marginEnd="272dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/capsule_button_solid"
         android:text="Create Account"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/welcome_message"
+        android:layout_width="575dp"
+        android:layout_height="187dp"
+        android:layout_marginBottom="88dp"
+        android:background="@drawable/background_capsule"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:padding="30dp"
+
+        android:text="Make test-making easy with TestCore! Organize your test questions by standards with just a few clicks!"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/start_create_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
