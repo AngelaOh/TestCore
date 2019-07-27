@@ -32,10 +32,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,25 +162,22 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
         switch (item.getItemId()) {
             case R.id.new_test:
-                // go to new test
-                CollectionReference testCollection = database.collection("Tests");
-                Map<String, Object> testObj = new HashMap<>();
-                testObj.put("Questions", new ArrayList<>());
-                testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
-//                testObj.put("Test Title", "Some Test Title");
-                testCollection.add(testObj)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                // go to Create Test Activity
-                                Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
-                                intent.putExtra("user_content", userContent);
-                                intent.putExtra("user_grade", userGrade);
-                                intent.putExtra("test_id", documentReference.getId());
+                // variable to accessing testId
 
-                                startActivity(intent);
-                            }
-                        });
+                // go to new test
+//                CollectionReference testCollection = database.collection("Tests");
+//                Map<String, Object> testObj = new HashMap<>();
+//                testObj.put("Questions", new ArrayList<>());
+//                testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+//                testObj.put("Test Title", "Some Test Title");
+
+//                CreateTestHandler handler = new CreateTestHandler();
+//                testCollection.add(testObj).addOnSuccessListener(handler);
+
+                // add on fail handler later
+
+
+                createTest();
                 break;
             case R.id.return_to_dashboard:
                 startActivity(new Intent(ViewEditTestsActivity.this, DashboardActivity.class));
@@ -215,6 +215,39 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
+                    final String testId = documentReference.getId();
+
+                    database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid()).get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    ArrayList<String> existingTests;
+                                    existingTests = (ArrayList<String>)documentSnapshot.get("Test Ids");
+                                    Log.d("existing tests", "onSuccess: " + existingTests);
+
+                                    Log.d("ADDING TEST TO SET", "onSuccess: ");
+                                    if (existingTests == null) {
+
+                                        ArrayList<String> testIdArray = new ArrayList<>();
+                                        testIdArray.add(testId);
+                                        Map<String, ArrayList<String>> testIdObj = new HashMap<>();
+                                        testIdObj.put("Test Ids", testIdArray);
+                                        database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid())
+                                                .set(testIdObj, SetOptions.merge());
+
+//                                        Log.d("ADDING TEST TO SET", "onSuccess: ");
+
+                                    } else {
+                                        Log.d("HIIIIIII", "onSuccess: ");
+                                        database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid())
+                                                .update("Test Ids", FieldValue.arrayUnion(testId));
+
+                                    }
+                                }
+                            });
+
+
+                    Log.d("made it to intent", "onSuccess: ");
                     // go to Create Test Activity
                     Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
                     intent.putExtra("user_content", userContent);
@@ -227,6 +260,59 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
 
 
     }
+
+//    public class CreateTestHandler implements OnSuccessListener<DocumentReference> {
+//        @Override
+//        public void onSuccess(final DocumentReference documentReference) {
+//            final String testId = documentReference.getId();
+//
+//            database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid()).get()
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            ArrayList<String> existingTests;
+//                            existingTests = (ArrayList<String>)documentSnapshot.get("Test Ids");
+//
+//                            if (existingTests == null) {
+//
+//                                ArrayList<String> testIdArray = new ArrayList<>();
+//                                testIdArray.add(testId);
+//                                Map<String, ArrayList<String>> testIdObj = new HashMap<>();
+//                                testIdObj.put("Test Ids", testIdArray);
+//                                database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid())
+//                                        .set(testIdObj);
+//
+//                                Log.d("ADDING TEST TO SET", "onSuccess: ");
+//
+//                            } else {
+//
+//                                database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid())
+//                                        .update("Test Ids", FieldValue.arrayUnion(existingTests));
+//                            }
+//                        }
+//                    });
+
+//            existingTests = database.getOrWhatever(StandardSets.testIds);
+
+//            if (existingTests == null) { create it}
+
+            // add test to standard set
+//            existingTests.add(testId);
+
+//            database.collection("Standard Sets").document(userContent + ": " + userGrade + ": " + currentUser.getUid())
+//                    .update("Test Ids", existingTests);
+
+
+
+//            // go to Create Test Activity
+//            Intent intent = new Intent(ViewEditTestsActivity.this, CreateTestActivity.class);
+//            intent.putExtra("user_content", userContent);
+//            intent.putExtra("user_grade", userGrade);
+//            intent.putExtra("test_id", documentReference.getId());
+//
+//            startActivity(intent);
+//        }
+//    }
 
 
     public void implementRecyclerView(ArrayList<Test> tests_array, String userGrade, String userContent, String standardSetId) {

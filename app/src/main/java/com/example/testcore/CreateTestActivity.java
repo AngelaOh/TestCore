@@ -161,7 +161,7 @@ public class CreateTestActivity extends AppCompatActivity implements View.OnClic
         if (view.getId() == R.id.title_submit_button) {
             final String titleForFirebase = testTitle.getText().toString().trim();
 //            final String titleFROMTFirebae;
-            String currentUserId = firebaseAuth.getCurrentUser().getUid();
+//            String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
             database.collection("Tests").document(testId).update("Test Title", titleForFirebase)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -41,15 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button createAccountButton, signinButton;
     private EditText emailAddress, password;
 
-    private final int REQUEST_CODE = 123;
+//    private final int REQUEST_CODE = 123;
 
     // Connection to Firestore
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     // Firebase Auth
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
-    private FirebaseUser currentUser;
+//    private FirebaseAuth.AuthStateListener authStateListener;
+//    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loginEmailPasswordUser(String email, String pwd) {
 
         // progress bar visible
-        Log.d("Check email login", "onCreate: " + email);
-        Log.d("Check password login", "onCreate: " + pwd);
+//        Log.d("Check email login", "onCreate: " + email);
+//        Log.d("Check password login", "onCreate: " + pwd);
 
 
 
