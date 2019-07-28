@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
@@ -62,6 +63,7 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
     private final ArrayList<String> testList;
     private final String userContent;
     private final String userGrade;
+    private ArrayList<String> questionArrayList = new ArrayList<>();
 
     public RecyclerViewAdapterStandardCoverage(Context context, ArrayList<Standard> standardList, HashMap<String, Integer> questionCount, ArrayList<String> testList, String userContent, String userGrade) {
         this.context = context;
@@ -110,23 +112,46 @@ public class RecyclerViewAdapterStandardCoverage extends RecyclerView.Adapter<Re
         holder.pieChart.setPieChartData(pieCharData);
 
         /////// get questions form test id and pull out one qusetion object by standard
-        database.collection("Tests").document(testList.get(0)).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Log.d("LOOK AT THIS", "onSuccess: " + documentSnapshot.toObject(Question.class));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+//        database.collection("Tests").document(testList.get(0)).get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        Log.d("LOOK AT THIS", "onSuccess: " + documentSnapshot.get("Question"));
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
 
-                    }
-                });
+
+
+        //////// for each test ID, look through all questions. If question has standard label and test id, add question into array. Display array for set text.
+        for (final String oneTestId : testList) {
+            database.collection("Questions").whereEqualTo( "Standard Label", standard.getLabel()).whereEqualTo("Test Id", oneTestId).get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot oneQuestion : queryDocumentSnapshots) {
+                                questionArrayList.add(oneQuestion.getString("Question Text"));
+                                Log.d("Test Sleep", "onBindViewHolder: " + questionArrayList);
+
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        }
+//        Log.d("Test Sleep", "onBindViewHolder: " + questionArrayList);
+//        holder.questionsSpecific.setText(questionArrayList.toString());
 
 
         /////// find tests associated with user --> test id
-        Log.d("TEST LIST", "onBindViewHolder: " + testList);
         ///// this gets the questionText by standard and sets textview to question text and test title
         new questionsforStandardSetBank(standard.getLabel(), userContent, userGrade).getQuestionText(new QuestionforStandardAsyncResponse() {
             @Override
