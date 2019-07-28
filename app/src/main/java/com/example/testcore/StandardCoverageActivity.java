@@ -55,6 +55,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
 
     private TextView totalStandardPercent;
     private ProgressBar totalStandardProgressBar;
+    private ProgressBar getStandardsProgressBar;
     private RecyclerView recyclerView;
     private RecyclerViewAdapterStandardCoverage recyclerViewAdapter;
 
@@ -68,6 +69,8 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standard_coverage);
+
+        getStandardsProgressBar = findViewById(R.id.progressBar_getStandardsCoverage);
 
         Intent incomingInfo = getIntent();
         Bundle bundle = incomingInfo.getExtras();
@@ -151,6 +154,7 @@ public class StandardCoverageActivity extends AppCompatActivity implements View.
                         new standardFirestoreBank(userContent, userGrade, currentUser.getUid()).getFirestoreStandards(new FirestoreAsyncResponse() {
                             @Override
                             public void processFinished(ArrayList<Standard> firestoreArrayList) {
+                                getStandardsProgressBar.setVisibility(View.INVISIBLE);
                                 implementRecyclerView(firestoreArrayList, countQuestionStandard, eachTestList, userContent, userGrade);
                             }
                         });

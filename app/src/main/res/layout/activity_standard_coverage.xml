@@ -62,6 +62,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/standard_coverage_progressbar" />
 
+    <ProgressBar
+        android:id="@+id/progressBar_getStandardsCoverage"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="234dp"
+        android:layout_height="216dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="492dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/standard_coverage_recyclerView"
+        app:layout_constraintVertical_bias="0.789" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
