@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private TextView stateCard;
     private TextView gradeCard;
     private TextView contentCard;
+    private ProgressBar progressBarUserInfo;
     private String standardsApiKey = BuildConfig.StandardsApiKey;
     private String jurisdictionID;
     private String standardSetID;
@@ -69,6 +71,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        progressBarUserInfo = findViewById(R.id.progressBar_userInfo);
+//        progressBarUserInfo.setVisibility(View.INVISIBLE);
 
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -99,6 +104,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                    progressBarUserInfo.setVisibility(View.INVISIBLE);
                     userName = queryDocumentSnapshots.getDocuments().get(0).getString("username");
                     String welcomeText = "Welcome, " + userName;
                     welcomeMessage.setText(welcomeText);
