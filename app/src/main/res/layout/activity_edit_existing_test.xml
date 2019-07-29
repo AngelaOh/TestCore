@@ -8,63 +8,80 @@
     tools:context=".EditExistingTestActivity">
 
 
-    <TextView
-        android:id="@+id/existing_test_title"
-        android:layout_width="363dp"
-        android:layout_height="60dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="792dp"
+        android:layout_height="946dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="8dp"
-        android:text="Test Title Goes Here"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:fontFamily="@font/unica_one"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/one_test_add_question_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="21dp"
-        android:text="Add Question"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/existing_test_questions"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/existing_test_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/existing_test_questions"
-        android:layout_width="794dp"
-        android:layout_height="332dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/existing_test_title" />
-
-    <TextView
-        android:id="@+id/question_count_text"
-        android:layout_width="191dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Question Count"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/existing_test_questions"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/existing_test_title"
+                android:layout_width="363dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="84dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/unica_one"
+                android:text="Test Title Goes Here"
+                android:textAlignment="center"
+                android:textSize="25dp"
+
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/one_test_add_question_button"
+                android:layout_width="122dp"
+                android:layout_height="27dp"
+                android:layout_above="@+id/existing_test_questions"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/capsule_button"
+                android:text="Add Question"
+
+                android:textColor="@color/colorPrimary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/existing_test_questions"
+                android:layout_width="801dp"
+                android:layout_height="630dp"
+                android:layout_below="@+id/existing_test_title"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:id="@+id/question_count_text"
+                android:layout_width="191dp"
+                android:layout_height="31dp"
+                android:layout_below="@+id/existing_test_questions"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="86dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="36dp"
+                android:text="Question Count" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

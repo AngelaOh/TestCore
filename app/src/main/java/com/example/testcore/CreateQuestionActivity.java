@@ -79,6 +79,20 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
         showStandard.setText(standardText);
         testId = bundle.getString("test_id");
 
+        database.collection("Tests").document(testId).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        testTitle = documentSnapshot.getString("Test Title");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
         addQuestion = findViewById(R.id.add_question_button);
         addQuestion.setOnClickListener(this);
 
@@ -218,6 +232,7 @@ public class CreateQuestionActivity extends AppCompatActivity implements View.On
                         Intent intent = new Intent(CreateQuestionActivity.this, EditExistingTestActivity.class);
                         intent.putExtra("test_id", testId);
                         intent.putExtra("title", testTitle);
+                        Log.d("test title!!!!!", "onSuccess: " + testTitle);
                         startActivity(intent);
                     }
                 })

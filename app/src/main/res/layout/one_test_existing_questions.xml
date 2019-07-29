@@ -14,9 +14,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
 
-        android:background="#FFFFF0"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="11dp"
+
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +48,6 @@
                 android:layout_toRightOf="@+id/one_test_question_bank"
                 android:background="@android:color/transparent"
                 android:padding="8dp"
-                android:layout_marginRight="10dp"
                 android:src="@drawable/circleminusicon" />
 
             <Button
@@ -59,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/delete_question_bank"
                 android:background="@android:color/transparent"
-                android:layout_marginLeft="10dp"
                 android:text="Edit" />
 
             <TextView

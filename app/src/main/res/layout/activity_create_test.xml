@@ -48,6 +48,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toRightOf="@+id/test_title"
                 android:text="Submit Title"
+                android:background="@drawable/capsule_button_solid"
+                android:textColor="#FAFFFD"
                 android:textSize="25sp" />
 
         </RelativeLayout>
