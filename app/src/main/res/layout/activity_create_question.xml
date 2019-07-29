@@ -12,9 +12,8 @@
         android:layout_width="719dp"
         android:layout_height="165dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="8dp"
-        android:background="#D3D3D3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,35 +46,20 @@
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/question_bank_heading"
-        android:layout_width="329dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="23dp"
-        android:text="Question Bank"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/question_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/question_recycler_view"
         android:layout_width="795dp"
         android:layout_height="525dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question_bank_heading"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.485" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
