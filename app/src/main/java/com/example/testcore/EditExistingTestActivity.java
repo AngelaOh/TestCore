@@ -90,11 +90,12 @@ public class EditExistingTestActivity extends AppCompatActivity implements View.
     public void implementRecyclerView(ArrayList<Question> questions_array, String testId, String testTitle) {
         recyclerViewAdapter = new RecyclerViewAdapterTestQuestions(EditExistingTestActivity.this, questions_array, testId, testTitle);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerViewAdapter.notifyDataSetChanged();
+
         int itemCountNumber = recyclerViewAdapter.getItemCount();
         String itemCountPhrase = "Question Count: " + itemCountNumber;
 
         questionCount.setText(itemCountPhrase);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override

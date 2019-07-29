@@ -73,14 +73,15 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
 
-            deleteQuestion = itemView.findViewById(R.id.delete_question_bank);
-            deleteQuestion.setOnClickListener(this);
             questionText = itemView.findViewById(R.id.one_test_question_bank);
             questionLabel = itemView.findViewById(R.id.one_test_standard_label_bank);
+
             editQuestion = itemView.findViewById(R.id.one_test_edit);
             editQuestion.setOnClickListener(this);
+            deleteQuestion = itemView.findViewById(R.id.delete_question_bank);
+            deleteQuestion.setOnClickListener(this);
         }
 
         @Override
@@ -89,16 +90,10 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
             int position = getAdapterPosition();
             Question question = questionList.get(position);
 
-            if (view.getId() == view.findViewById(R.id.one_test_edit).getId()) {
-                // go to edit question activity
-                Intent intent = new Intent(context, EditQuestionActivity.class);
-                intent.putExtra("question_text", question.getQuestionText());
-                intent.putExtra("standard_label", question.getStandardLabel());
+//            Log.d("check view", "onClick: " + view.getId());
+//            Log.d("check view", "onClick: " + view.findViewById(R.id.one_test_edit).getId());
 
-                context.startActivity(intent);
-
-
-            } else if (view.getId() == view.findViewById(R.id.delete_question_bank).getId()) {
+            if (view.getId() == view.findViewById(R.id.delete_question_bank).getId()) {
 //                Log.d("REGISTER BUTTON", "onClick: ");
 
                 database.collection("Questions").whereEqualTo("Question Text", question.getQuestionText()).get() //TODO: find more sound way of querying documentID
@@ -111,6 +106,10 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("DELETED QUESTION", "onSuccess: ");
+                                                Intent refresh = new Intent(context, EditExistingTestActivity.class);
+                                                refresh.putExtra("title", testTitle);
+                                                refresh.putExtra("test_id", testId);
+                                                context.startActivity(refresh);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -128,12 +127,17 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
                             }
                         });
 
-                notifyDataSetChanged();
-
-                Intent refresh = new Intent(context, EditExistingTestActivity.class);
-                refresh.putExtra("title", testTitle);
-                refresh.putExtra("test_id", testId);
-                context.startActivity(refresh);
+//                if (view != null) {
+//                    Log.d("what is view?", "onClick: " + view);
+//                    if (view.getId() == view.findViewById(R.id.one_test_edit).getId()) {
+//                        // go to edit question activity
+//                        Intent intent = new Intent(context, EditQuestionActivity.class);
+//                        intent.putExtra("question_text", question.getQuestionText());
+//                        intent.putExtra("standard_label", question.getStandardLabel());
+//
+//                        context.startActivity(intent);
+//                    }
+//                }
             }
         }
     }
