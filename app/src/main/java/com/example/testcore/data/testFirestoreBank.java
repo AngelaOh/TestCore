@@ -1,5 +1,6 @@
 package com.example.testcore.data;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,13 +9,16 @@ import com.example.testcore.models.Standard;
 import com.example.testcore.models.Test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,10 +53,15 @@ public class testFirestoreBank {
                             String testTitle = queryDocumentSnapshots.getDocuments().get(i).getString("Test Title");
                             Object numOfQuestions = queryDocumentSnapshots.getDocuments().get(i).get("Questions"); // Eventually want to be able to also display number of questions
                             String testId = queryDocumentSnapshots.getDocuments().get(i).getId();
+                            Date dateCreated = queryDocumentSnapshots.getDocuments().get(i).getTimestamp("Timestamp").toDate();
+
+                            SimpleDateFormat dt1 = new SimpleDateFormat("EEE, MMM d, ''yy");
+                            dt1.format(dateCreated);
 
                             Test firestoreTest = new Test();
                             firestoreTest.setTitle(testTitle);
                             firestoreTest.setTestId(testId);
+                            firestoreTest.setTimestamp(dt1.format(dateCreated));
                             Log.d("View One Test", "onSuccess: " + firestoreTest.getTitle());
 
                             firestoreArrayList.add(firestoreTest);

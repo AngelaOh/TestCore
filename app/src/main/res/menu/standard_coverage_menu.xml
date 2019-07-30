@@ -5,15 +5,15 @@
     <item
         android:id="@+id/view_all_tests"
         android:title="View Tests"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/return_to_dashboard"
         android:title="Dashboard"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/sign_out"
         android:title="Log Out"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 </menu>

@@ -57,6 +57,11 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
 
         holder.questionText.setText(question.getQuestionText());
         holder.questionLabel.setText(question.getStandardLabel());
+
+        holder.answerChoiceA.setText("A. " + question.getAnswerChoiceA());
+        holder.answerChoiceB.setText("B. " + question.getAnswerChoiceB());
+        holder.answerChoiceC.setText("C. " + question.getAnswerChoiceC());
+        holder.answerChoiceD.setText("D. " + question.getAnswerChoiceD());
     }
 
     @Override
@@ -67,8 +72,15 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView questionText;
         public TextView questionLabel;
+        public TextView answerChoiceA;
+        public TextView answerChoiceB;
+        public TextView answerChoiceC;
+        public TextView answerChoiceD;
+
+
         public Button editQuestion;
         public ImageButton deleteQuestion;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +89,11 @@ public class RecyclerViewAdapterTestQuestions extends RecyclerView.Adapter<Recyc
 
             questionText = itemView.findViewById(R.id.one_test_question_bank);
             questionLabel = itemView.findViewById(R.id.one_test_standard_label_bank);
+            answerChoiceA = itemView.findViewById(R.id.display_answer_a);
+            answerChoiceB = itemView.findViewById(R.id.display_answer_b);
+            answerChoiceC = itemView.findViewById(R.id.display_answer_c);
+            answerChoiceD = itemView.findViewById(R.id.display_answer_d);
+
 
             editQuestion = itemView.findViewById(R.id.one_test_edit);
             editQuestion.setOnClickListener(this);

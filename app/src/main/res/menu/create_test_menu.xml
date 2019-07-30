@@ -5,10 +5,10 @@
     <item
         android:id="@+id/return_to_dashboard"
         android:title="Dashboard"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/sign_out"
         android:title="Log Out"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 </menu>

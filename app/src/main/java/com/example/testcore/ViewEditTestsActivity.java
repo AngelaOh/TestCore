@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.example.testcore.models.Standard;
 import com.example.testcore.models.Test;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,9 +38,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.model.value.ServerTimestampValue;
+import com.google.firestore.v1.DocumentTransform;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +53,8 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
     private Button displayStandardsButton;
     private ImageButton createTestButton;
     private TextView contentInfo;
+    private TextView loadingMessage;
+    private ProgressBar allTestsProgressBar;
     private String userContent;
     private String userGrade;
     private String standardSetID;
@@ -68,6 +76,8 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_view_edit_tests);
 
         // Instantiate view widgets
+        loadingMessage = findViewById(R.id.loading_message);
+        allTestsProgressBar = findViewById(R.id.all_tests_progressBar);
         createTestButton = findViewById(R.id.create_test_button);
         createTestButton.setOnClickListener(this);
 
@@ -125,6 +135,8 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
              @Override
              public void processFinished(ArrayList<Test> firestoreArrayList) {
                  Log.d("Tests in Activity", "processFinished: " + firestoreArrayList);
+                 loadingMessage.setVisibility(View.INVISIBLE);
+                 allTestsProgressBar.setVisibility(View.INVISIBLE);
                  implementRecyclerView(firestoreArrayList, userGrade, userContent, standardSetID);
              }
          });
@@ -196,6 +208,7 @@ public class ViewEditTestsActivity extends AppCompatActivity implements View.OnC
         Map<String, Object> testObj = new HashMap<>();
         testObj.put("Questions", new ArrayList<>());
         testObj.put("Course Id", userContent + ": " + userGrade + ": " + firebaseAuth.getCurrentUser().getUid());
+        testObj.put("Timestamp", FieldValue.serverTimestamp());
 //        testObj.put("Test Title", "");
         testCollection.add(testObj)
             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

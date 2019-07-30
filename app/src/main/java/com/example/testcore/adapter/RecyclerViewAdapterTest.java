@@ -62,6 +62,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
         Test test = testList.get(position);
 
         holder.title.setText(test.getTitle());
+        holder.dateCreated.setText("Created On: " + test.getTimestamp());
     }
 
     @Override
@@ -72,6 +73,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title;
         public ImageButton deleteTest;
+        public TextView dateCreated;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +82,7 @@ public class RecyclerViewAdapterTest extends RecyclerView.Adapter<RecyclerViewAd
 
             title = itemView.findViewById(R.id.test_title);
             deleteTest = itemView.findViewById(R.id.delete_test_button);
+            dateCreated = itemView.findViewById(R.id.test_creation_date);
             deleteTest.setOnClickListener(this);
 
         }

@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/one_test_question_bank"
-                android:layout_width="514dp"
+                android:layout_width="490dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
@@ -66,6 +66,42 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Label" />
+
+            <TextView
+            android:id="@+id/display_answer_a"
+            android:layout_width="514dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_below="@+id/one_test_question_bank"
+            android:paddingLeft="15dp"
+            android:text="answer choice a"/>
+
+            <TextView
+                android:id="@+id/display_answer_b"
+                android:layout_width="514dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/display_answer_a"
+                android:paddingLeft="15dp"
+                android:text="answer choice b"/>
+
+            <TextView
+                android:id="@+id/display_answer_c"
+                android:layout_width="514dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/display_answer_b"
+                android:paddingLeft="15dp"
+                android:text="answer choice c"/>
+
+            <TextView
+                android:id="@+id/display_answer_d"
+                android:layout_width="514dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/display_answer_c"
+                android:paddingLeft="15dp"
+                android:text="answer choice d"/>
 
         </RelativeLayout>
 

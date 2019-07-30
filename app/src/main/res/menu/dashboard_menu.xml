@@ -4,12 +4,11 @@
 
     <item
         android:id="@+id/new_test"
-        android:icon="@drawable/plus_icon"
         android:title="New Test"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/sign_out"
         android:title="Log Out"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="never"/>
 </menu>

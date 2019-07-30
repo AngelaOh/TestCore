@@ -18,9 +18,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="TestCore | "
-        android:textColor="#FAFFFD"
         android:textAlignment="center"
-        android:textSize="50dp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/amaranth"
+
+        android:textSize="60dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,10 +42,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Test making made easy"
-        android:textColor="#FAFFFD"
+        android:textColor="@android:color/black"
         android:textAlignment="center"
-        android:textSize="40dp"
+        android:textSize="50dp"
         android:textStyle="bold"
+        android:fontFamily="@font/amaranth"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.062"
@@ -51,187 +54,176 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.086" />
 
-    <View
-        android:id="@+id/horizontal_line"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
         android:layout_width="wrap_content"
-        android:layout_height="10dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <TextView
-        android:id="@+id/create_account_header"
-        android:layout_width="373dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="272dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Create New Account"
-        android:textColor="#FAFFFD"
-        android:textAlignment="center"
-        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_one" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/create_account_name"
-        android:layout_width="364dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="Enter Name"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_header" />
 
-    <EditText
-        android:id="@+id/create_account_email"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:hint="Enter Email"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/create_account_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_name"
-        app:layout_constraintVertical_bias="0.14" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
-    <EditText
-        android:id="@+id/create_account_password"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="552dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@android:color/black"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_name"
-        app:layout_constraintVertical_bias="0.494" />
 
-    <EditText
-        android:id="@+id/create_account_state"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="248dp"
-        android:hint="Enter State"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_password"
-        app:layout_constraintVertical_bias="0.057" />
+            <TextView
+                android:id="@+id/create_account_header"
+                android:layout_width="373dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Create Your Account"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30dp" />
 
-    <EditText
-        android:id="@+id/create_account_grade"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="336dp"
-        android:hint="Enter Grade Level"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_state"
-        app:layout_constraintVertical_bias="0.032" />
+            <EditText
+                android:id="@+id/create_account_name"
+                android:layout_width="364dp"
+                android:layout_height="71dp"
+                android:layout_below="@+id/create_account_header"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:hint="Enter Name"
+                android:textColor="@android:color/black"
 
-    <EditText
-        android:id="@+id/create_account_content"
-        android:layout_width="364dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="260dp"
-        android:hint="Enter Content"
-        android:textColorHint="@color/colorAccent"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_grade"
-        app:layout_constraintVertical_bias="0.043" />
+                android:textColorHint="@color/colorSecondary" />
 
-    <Button
-        android:id="@+id/create_account_button"
-        android:layout_width="364dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="152dp"
-        android:text="Create Account"
-        android:textSize="30dp"
-        android:textColor="#FAFFFD"
-        android:background="#3C91E6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_account_content"
-        app:layout_constraintVertical_bias="0.201" />
+            <EditText
+                android:id="@+id/create_account_email"
+                android:layout_width="364dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/create_account_name"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="Enter Email"
+                android:textColor="@android:color/black"
+
+                android:textColorHint="@color/colorSecondary" />
+
+            <EditText
+                android:id="@+id/create_account_password"
+                android:layout_width="364dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/create_account_email"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ems="10"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+
+                android:textColorHint="@color/colorSecondary" />
+
+            <EditText
+                android:id="@+id/create_account_state"
+                android:layout_width="364dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/create_account_password"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Enter State"
+                android:textColor="@android:color/black"
+
+                android:textColorHint="@color/colorSecondary" />
+
+            <EditText
+                android:id="@+id/create_account_grade"
+                android:layout_width="364dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/create_account_state"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:hint="Enter Grade Level"
+                android:textColor="@android:color/black"
+
+                android:textColorHint="@color/colorSecondary" />
+
+            <EditText
+                android:id="@+id/create_account_content"
+                android:layout_width="364dp"
+                android:layout_height="72dp"
+                android:layout_below="@+id/create_account_grade"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:hint="Enter Content"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/colorSecondary" />
+
+            <Button
+                android:id="@+id/create_account_button"
+                android:layout_width="300dp"
+                android:layout_height="42dp"
+                android:layout_below="@+id/create_account_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp"
+                android:background="@drawable/capsule_button"
+                android:text="Create Account"
+                android:textColor="@color/colorPrimary"
+
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="282dp"
         android:layout_height="271dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="536dp"
+        android:src="@drawable/owl_teaching"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView3" />
+
+    <TextView
+        android:id="@+id/create_account_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/background_capsule"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:padding="30dp"
+        android:text="Welcome to the team!"
+        android:textAlignment="center"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toEndOf="@+id/create_account_password"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_line"
-        app:layout_constraintVertical_bias="0.0"
-        android:src="@drawable/owl_teaching" />
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toEndOf="@+id/cardView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.214" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

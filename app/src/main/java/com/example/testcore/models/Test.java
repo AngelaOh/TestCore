@@ -6,12 +6,21 @@ public class Test {
     private String title;
     private ArrayList<Question> questions;
     private String testId;
+    private String timestamp;
 
     public Test() { }
 
     public Test(String title, ArrayList<Question> questions) {
         this.title = title;
         this.questions = questions;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getTestId() {

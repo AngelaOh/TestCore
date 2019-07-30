@@ -38,11 +38,19 @@ public class questionFirestoreExistingTest {
                         for (int i = 0; i < queryDocumentSnapshots.size(); i ++) {
                             String questionText = queryDocumentSnapshots.getDocuments().get(i).getString("Question Text");
                             String standardLabel = queryDocumentSnapshots.getDocuments().get(i).getString("Standard Label");
+                            String answerA = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice A");
+                            String answerB = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice B");
+                            String answerC = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice C");
+                            String answerD = queryDocumentSnapshots.getDocuments().get(i).getString("Answer Choice D");
 
 
                             Question question = new Question();
                             question.setStandardLabel(standardLabel);
                             question.setQuestionText(questionText);
+                            question.setAnswerChoiceA(answerA);
+                            question.setAnswerChoiceB(answerB);
+                            question.setAnswerChoiceC(answerC);
+                            question.setAnswerChoiceD(answerD);
 
                             Log.d("get questions text", "onSuccess: " + question.getQuestionText());
 
