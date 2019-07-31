@@ -20,7 +20,7 @@ Testing holds such importance in schools. Not only are assessments a primary met
 
 ## Authors
 
-* **Angela Ohn** - *Initial work* - [AngelaOh](https://github.com/AngelaOh)
+* **Angela Oh** - *Initial work* - [AngelaOh](https://github.com/AngelaOh)
 
 ## License
 
